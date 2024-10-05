@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quizzes</title>
+    <style>
+        body {
+            background: black;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url("https://cdn.pixabay.com/photo/2016/07/20/10/57/nebula-10-1530144_1280.png");
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .container {
+            width: 300px;
+            height: 500px;
+            color: white;
+            transition: 0.5s;
+            border-radius: 20px;
+            cursor: pointer;
+            padding: 15px;
+            box-sizing: border-box;
+            text-align: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .container:hover {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            transition: 0.5s;
+        }
+
+        .image-container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            width: 300px;
+            border-radius: 20px;
+            transition: 0.5s;
+        }
+
+        .container:hover .image-container {
+            width: 270px;
+            top: 15px;
+            transition: 0.5s;
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        .text-container {
+            width: 300px;
+            padding: 15px;
+            position: absolute;
+            left: 50%;
+            top: 210px;
+            transform: translateX(-50%) scale(1);
+            text-align: left;
+            transition: transform 0.5s;
+        }
+
+        .headline {
+            padding: 10px 0;
+            transition: 0.5s;
+            font-family: sans-serif;
+            font-size: 24px;
+        }
+
+        .text {
+            padding: 0;
+            transition: 0.5s;
+            text-align: justify;
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+
+        .container:hover .text-container {
+            transform: translateX(-50%) scale(0.9);
+            transition: transform 0.5s;
+        }
+
+        .main-header {
+            text-align: center;
+            color: white;
+            font-family: sans-serif;
+            margin-bottom: 50px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .main-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .main-header p {
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        @media only screen and (max-width: 720px) {
+            .cards {
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+            }
+
+            .container {
+                scroll-snap-align: start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <h1>Quizzes</h1>
+        <p>Test your knowledge </p>
+    </header>
+    <section class="cards">
+        <a href="/Guess" class="container">
+            <div class="image-container">
+                <img src="../static/images/qu.png" />
+            </div>
+            <div class="text-container">
+                <div class="headline">Guess the exoplanet</div>
+            </div>
+        </a>
+
+        <a href="/facts" class="container">
+            <div class="image-container">
+                <img src="../static/images/qu.png" />
+            </div>
+            <div class="text-container">
+                <div class="headline"> Match Facts</div>
+            </div>
+        </a>
+
+        <a href="/Quizee" class="container">
+            <div class="image-container">
+                <img src="../static/images/qu.png" />
+            </div>
+            <div class="text-container">
+                <div class="headline">Take a quize</div>
+            </div>
+        </a>
+
+    </section>
+</body>
+</html>

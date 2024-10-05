@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exoplanet Explorer: Classification Adventure</title>
+    <link href='https://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet'>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            margin: 20px 0;
+            color: #FFD700;
+        }
+
+        .game-container {
+            display: flex;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .planet-display {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .planet {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .classification-options {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .planet-type {
+            padding: 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .planet-type:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .info-panel {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+
+        .score-display {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 20px;
+            color: #FFD700;
+            margin: 20px 0;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .feedback.correct {
+            background: rgba(0, 255, 0, 0.2);
+            color: #90EE90;
+        }
+
+        .feedback.incorrect {
+            background: rgba(255, 0, 0, 0.2);
+            color: #FFB6C1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .stars {
+            position: fixed;
+            width: 1px;
+            height: 1px;
+            background: transparent;
+            box-shadow: 1744px 122px #fff,134px 1321px #fff,1934px 866px #fff;
+            animation: animStar 50s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes animStar {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-2000px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <h1>Exoplanet Explorer</h1>
+    <div class="score-display">Score: <span id="score">0</span></div>
+    
+    <div class="game-container">
+        <div class="planet-display">
+            <h2>Classify This Planet!</h2>
+            <div id="planet" class="planet"></div>
+            <div id="planet-facts" class="info-panel"></div>
+        </div>
+        
+        <div class="classification-options">
+            <button class="planet-type" data-type="super-earth">Super-Earth</button>
+            <button class="planet-type" data-type="hot-jupiter">Hot Jupiter</button>
+            <button class="planet-type" data-type="mini-neptune">Mini-Neptune</button>
+            <button class="planet-type" data-type="water-world">Water World</button>
+        </div>
+    </div>
+    
+    <div id="feedback" class="feedback"></div>
+
+    <script>
+        const planets = [
+            {
+                type: 'super-earth',
+                size: '1.6x Earth size',
+                facts: 'Rocky planet larger than Earth but smaller than Neptune. Might be habitable!',
+                color: '#8B4513',
+                radius: '150px'
+            },
+            {
+                type: 'hot-jupiter',
+                size: '11x Earth size',
+                facts: 'Giant gas planet that orbits very close to its star. Super hot!',
+                color: '#FFA500',
+                radius: '200px'
+            },
+            {
+                type: 'mini-neptune',
+                size: '4x Earth size',
+                facts: 'Smaller than Neptune but bigger than Earth, with a thick gaseous atmosphere.',
+                color: '#4169E1',
+                radius: '175px'
+            },
+            {
+                type: 'water-world',
+                size: '2x Earth size',
+                facts: 'Planet covered entirely in deep oceans! Could have exotic forms of ice.',
+                color: '#1E90FF',
+                radius: '160px'
+            }
+        ];
+
+        let score = 0;
+        let currentPlanet = null;
+
+        function generatePlanet() {
+            currentPlanet = planets[Math.floor(Math.random() * planets.length)];
+            const planet = document.getElementById('planet');
+            planet.style.backgroundColor = currentPlanet.color;
+            planet.style.width = currentPlanet.radius;
+            planet.style.height = currentPlanet.radius;
+            planet.style.boxShadow = `inset -${parseInt(currentPlanet.radius)/4}px -${parseInt(currentPlanet.radius)/4}px ${parseInt(currentPlanet.radius)/3}px rgba(0,0,0,0.5)`;
+            
+            document.getElementById('planet-facts').innerHTML = `
+                <p><strong>Size:</strong> ${currentPlanet.size}</p>
+                <p><strong>Hint:</strong> ${currentPlanet.facts}</p>
+            `;
+        }
+
+        function checkAnswer(selectedType) {
+            const feedback = document.getElementById('feedback');
+            if (selectedType === currentPlanet.type) {
+                score += 10;
+                feedback.textContent = "Correct! You're becoming a great exoplanet scientist!";
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = `Not quite! This was a ${currentPlanet.type}. Keep exploring!`;
+                feedback.className = 'feedback incorrect';
+            }
+            document.getElementById('score').textContent = score;
+            
+            setTimeout(() => {
+                feedback.textContent = '';
+                feedback.className = 'feedback';
+                generatePlanet();
+            }, 2000);
+        }
+
+        document.querySelectorAll('.planet-type').forEach(button => {
+            button.addEventListener('click', (e) => {
+                checkAnswer(e.target.dataset.type);
+            });
+        });
+
+        // Start the game
+        generatePlanet();
+    </script>
+</body>
+</html>

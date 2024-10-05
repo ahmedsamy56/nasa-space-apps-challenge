@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Exoplanet Coloring Game</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('/api/placeholder/1920/1080') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            transition: background 0.5s ease;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .color {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            cursor: pointer;
+            border: 2px solid #000;
+            border-radius: 50%;
+        }
+        .canvas {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 20px;
+        }
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            width: 48%;
+            padding: 10px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #saveButton {
+            background-color: #4CAF50;
+        }
+        #saveButton:hover {
+            background-color: #45a049;
+        }
+        #nextButton {
+            background-color: #3498db;
+        }
+        #nextButton:hover {
+            background-color: #2980b9;
+        }
+        .info-box {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .info-box h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Exoplanet Coloring Game</h2>
+        <div class="color-palette">
+            <div class="color" style="background-color: #FF6B6B;" data-color="#FF6B6B"></div>
+            <div class="color" style="background-color: #4ECDC4;" data-color="#4ECDC4"></div>
+            <div class="color" style="background-color: #45B7D1;" data-color="#45B7D1"></div>
+            <div class="color" style="background-color: #F7FFF7;" data-color="#F7FFF7"></div>
+            <div class="color" style="background-color: #FFE66D;" data-color="#FFE66D"></div>
+            <div class="color" style="background-color: #6B5B95;" data-color="#6B5B95"></div>
+            <div class="color" style="background-color: #FF9FF3;" data-color="#FF9FF3"></div>
+            <div class="color" style="background-color: #A3DE83;" data-color="#A3DE83"></div>
+            <div class="color" style="background-color: #F08A5D;" data-color="#F08A5D"></div>
+            <div class="color" style="background-color: #B83B5E;" data-color="#B83B5E"></div>
+            <div class="color" style="background-color: #6A2C70;" data-color="#6A2C70"></div>
+            <div class="color" style="background-color: #08D9D6;" data-color="#08D9D6"></div>
+        </div>
+        <div class="canvas">
+            <svg id="drawing" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+                <!-- SVG content will be generated dynamically -->
+            </svg>
+        </div>
+        <div class="buttons">
+            <button id="saveButton">Save</button>
+            <button id="nextButton">Next Exoplanet</button>
+        </div>
+        <div class="info-box">
+            <h3 id="exoplanet-name">Exoplanet Name</h3>
+            <p id="exoplanet-info">Exoplanet information will be displayed here.</p>
+        </div>
+    </div>
+    <script>
+        let selectedColor = '#FF6B6B';
+        
+        const exoplanets = [
+            {
+                name: "Kepler-16b",
+                info: "Kepler-16b is a gas giant planet that orbits two stars, much like Tatooine from Star Wars. It's about the size of Saturn and is located about 200 light-years from Earth.",
+                features: ["binary_star", "gas_giant", "rings"]
+            },
+            {
+                name: "TRAPPIST-1e",
+                info: "TRAPPIST-1e is a rocky, Earth-sized planet that orbits a red dwarf star. It's considered one of the most promising candidates for hosting life outside our solar system.",
+                features: ["rocky", "habitable_zone", "tidally_locked"]
+            },
+            {
+                name: "HD 189733 b",
+                info: "HD 189733 b is a 'hot Jupiter' - a gas giant that orbits very close to its star. It's known for its deep blue color, possibly caused by silicate particles in its atmosphere that scatter blue light.",
+                features: ["hot_jupiter", "blue_color", "close_orbit"]
+            },
+            {
+                name: "Kepler-452b",
+                info: "Often called 'Earth's cousin', Kepler-452b is a super-Earth exoplanet. It orbits a sun-like star in the habitable zone, where liquid water could exist on its surface.",
+                features: ["super_earth", "habitable_zone", "sun_like_star"]
+            },
+            {
+                name: "55 Cancri e",
+                info: "55 Cancri e is a 'super-Earth' exoplanet that's thought to be covered in oceans of lava. Some scientists believe it could be made largely of diamond.",
+                features: ["super_earth", "lava_ocean", "diamond_core"]
+            }
+        ];
+        
+        function initializeColorPalette() {
+            document.querySelectorAll('.color').forEach(colorDiv => {
+                colorDiv.addEventListener('click', () => {
+                    selectedColor = colorDiv.getAttribute('data-color');
+                });
+            });
+        }
+        
+        function initializeColorableElements() {
+            document.querySelectorAll('#drawing .colorable').forEach(element => {
+                element.addEventListener('click', () => {
+                    if (element.tagName === 'path' || element.tagName === 'circle' || element.tagName === 'ellipse') {
+                        element.setAttribute('fill', selectedColor);
+                    } else {
+                        element.setAttribute('stroke', selectedColor);
+                    }
+                });
+            });
+        }
+        
+        function generateRandomExoplanet() {
+            const svg = document.getElementById('drawing');
+            svg.innerHTML = '';
+            
+            const exoplanet = exoplanets[Math.floor(Math.random() * exoplanets.length)];
+            document.getElementById('exoplanet-name').textContent = exoplanet.name;
+            document.getElementById('exoplanet-info').textContent = exoplanet.info;
+            
+            // Base planet
+            const baseColor = getRandomColor();
+            svg.innerHTML += `<circle cx="150" cy="150" r="140" fill="${baseColor}" stroke="#000" stroke-width="2" class="colorable"/>`;
+            
+            // Add features based on exoplanet characteristics
+            if (exoplanet.features.includes('gas_giant')) {
+                addGasGiantFeatures(svg);
+            }
+            if (exoplanet.features.includes('rocky')) {
+                addRockyFeatures(svg);
+            }
+            if (exoplanet.features.includes('habitable_zone')) {
+                addHabitableZoneFeatures(svg);
+            }
+            if (exoplanet.features.includes('hot_jupiter')) {
+                addHotJupiterFeatures(svg);
+            }
+            if (exoplanet.features.includes('lava_ocean')) {
+                addLavaOceanFeatures(svg);
+            }
+            
+            initializeColorableElements();
+        }
+        
+        function addGasGiantFeatures(svg) {
+            for (let i = 0; i < 5; i++) {
+                const path = generateRandomPath();
+                svg.innerHTML += `<path d="${path}" fill="none" stroke="#FFF" stroke-width="3" opacity="0.5" class="colorable"/>`;
+            }
+        }
+        
+        function addRockyFeatures(svg) {
+            for (let i = 0; i < 10; i++) {
+                const [cx, cy, r] = [getRandom(50, 250), getRandom(50, 250), getRandom(5, 15)];
+                svg.innerHTML += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="#555" stroke="#000" stroke-width="1" class="colorable"/>`;
+            }
+        }
+        
+        function addHabitableZoneFeatures(svg) {
+            svg.innerHTML += `<circle cx="150" cy="150" r="145" fill="none" stroke="#4ECDC4" stroke-width="5" opacity="0.5" class="colorable"/>`;
+            for (let i = 0; i < 3; i++) {
+                const [cx, cy, rx, ry] = [getRandom(50, 250), getRandom(50, 250), getRandom(20, 40), getRandom(10, 20)];
+                svg.innerHTML += `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#FFF" opacity="0.3" class="colorable"/>`;
+            }
+        }
+        
+        function addHotJupiterFeatures(svg) {
+            svg.innerHTML += `<circle cx="150" cy="150" r="145" fill="none" stroke="#FF6B6B" stroke-width="8" opacity="0.7" class="colorable"/>`;
+            for (let i = 0; i < 7; i++) {
+                const path = generateRandomPath();
+                svg.innerHTML += `<path d="${path}" fill="none" stroke="#FFE66D" stroke-width="3" opacity="0.6" class="colorable"/>`;
+            }
+        }
+        
+        function addLavaOceanFeatures(svg) {
+            for (let i = 0; i < 5; i++) {
+                const path = generateRandomPath();
+                svg.innerHTML += `<path d="${path}" fill="#FF4136" stroke="#FF851B" stroke-width="3" opacity="0.7" class="colorable"/>`;
+            }
+        }
+        
+        function getRandomColor() {
+            return '#' + Math.floor(Math.random()*16777215).toString(16);
+        }
+        
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        
+        function generateRandomPath() {
+            const start = `M${getRandom(50, 250)},${getRandom(50, 250)}`;
+            const control1 = `${getRandom(50, 250)},${getRandom(50, 250)}`;
+            const control2 = `${getRandom(50, 250)},${getRandom(50, 250)}`;
+            const end = `${getRandom(50, 250)},${getRandom(50, 250)}`;
+            return `${start} C${control1} ${control2} ${end}`;
+        }
+        
+        document.getElementById('saveButton').addEventListener('click', () => {
+            const svgData = document.getElementById('drawing').outerHTML;
+            const svgBlob = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+            const url = URL.createObjectURL(svgBlob);
+            document.body.style.backgroundImage = `url(${url})`;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+            document.body.style.backgroundRepeat = 'no-repeat';
+        });
+        
+        document.getElementById('nextButton').addEventListener('click', generateRandomExoplanet);
+        
+        initializeColorPalette();
+        generateRandomExoplanet();
+    </script>
+</body>
+</html>

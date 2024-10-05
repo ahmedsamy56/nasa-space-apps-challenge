@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Image Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+        }
+        #search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        #search-input {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #search-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .image-card {
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .image-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .image-card h3 {
+            margin: 10px;
+            font-size: 14px;
+        }
+        .image-card p {
+            margin: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+    
+        .logo {
+            width: 150px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" title="Back to Home">
+        <img src="static/images/logo.png" alt="STELLARIS Logo" class="logo">
+    </a>
+    <h1>NASA Image Search</h1>
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="Enter search term...">
+        <button id="search-button">Search</button>
+    </div>
+    <div id="results"></div>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const resultsContainer = document.getElementById('results');
+
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        function performSearch() {
+            const query = searchInput.value;
+            if (!query) return;
+
+            resultsContainer.innerHTML = 'Loading...';
+
+            fetch(`/search?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    displayResults(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching NASA images:', error);
+                    resultsContainer.innerHTML = 'An error occurred while fetching images.';
+                });
+        }
+
+        function displayResults(items) {
+            resultsContainer.innerHTML = '';
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'image-card';
+
+                const link = document.createElement('a');
+                link.href = `/detail/${item.data[0].nasa_id}`;
+
+                const img = document.createElement('img');
+                img.src = item.links[0].href;
+                img.alt = item.data[0].title;
+
+                const title = document.createElement('h3');
+                title.textContent = item.data[0].title;
+
+                const date = document.createElement('p');
+                date.textContent = new Date(item.data[0].date_created).toLocaleDateString();
+
+                link.appendChild(img);
+                card.appendChild(link);
+                card.appendChild(title);
+                card.appendChild(date);
+
+                resultsContainer.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>

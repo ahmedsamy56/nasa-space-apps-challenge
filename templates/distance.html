@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exoplanet Explorer</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000 url('../static/images/full-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #FFD700;
+        }
+        .solar-system {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .planet:hover {
+            transform: scale(1.1);
+        }
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .info-box {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        #planetInfo {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Exoplanet Explorer</h1>
+        <div class="solar-system" id="solarSystem"></div>
+        <div class="controls">
+            <button id="addPlanet">Add Planet</button>
+            <button id="removePlanet">Remove Planet</button>
+            <button id="shufflePlanets">Shuffle Planets</button>
+        </div>
+        <div class="info-box">
+            <h2>Planet Information</h2>
+            <p id="planetInfo">Click on a planet to learn more about it!</p>
+        </div>
+    </div>
+
+    <script>
+        const planets = [
+            { name: "Earth", color: "#4169E1", size: 15, info: "Earth is the only planet known to harbor life and is the third planet from the Sun." },
+            { name: "Proxima Centauri b", color: "#FF6347", size: 12, info: "Proxima Centauri b orbits the closest star to our Sun and might have conditions suitable for life." },
+            { name: "TRAPPIST-1e", color: "#6A5ACD", size: 10, info: "TRAPPIST-1e is one of the seven Earth-sized planets in the TRAPPIST-1 system, located 39 light-years away." },
+            { name: "LHS 1140 b", color: "#4682B4", size: 14, info: "LHS 1140 b is a rocky super-Earth in the habitable zone of its star, offering promising conditions for life." },
+            { name: "K2-18b", color: "#2E8B57", size: 18, info: "K2-18b is a super-Earth exoplanet that could potentially have a water-rich atmosphere." },
+            { name: "Kepler-186f", color: "#B22222", size: 12, info: "Kepler-186f is an Earth-size exoplanet located in the habitable zone of its star, 500 light-years away." },
+            { name: "WASP-121b", color: "#FFD700", size: 22, info: "WASP-121b is a hot Jupiter, known for its extremely high temperatures and large size." },
+            { name: "GJ 3470 b", color: "#48D1CC", size: 20, info: "GJ 3470 b is a Neptune-sized exoplanet orbiting a nearby red dwarf star." }
+        ];
+
+        let currentPlanets = [];
+
+        function createPlanet(planet, index) {
+            const planetEl = document.createElement('div');
+            planetEl.classList.add('planet');
+            planetEl.style.backgroundColor = planet.color;
+            planetEl.style.width = `${planet.size}px`;
+            planetEl.style.height = `${planet.size}px`;
+            planetEl.style.left = `${50 + index * 80}px`;
+            planetEl.style.top = `${150 - planet.size / 2}px`;
+            planetEl.addEventListener('click', () => showPlanetInfo(planet));
+            return planetEl;
+        }
+
+        function showPlanetInfo(planet) {
+            document.getElementById('planetInfo').textContent = `${planet.name}: ${planet.info}`;
+        }
+
+        function updateSolarSystem() {
+            const solarSystem = document.getElementById('solarSystem');
+            solarSystem.innerHTML = '';
+            currentPlanets.forEach((planet, index) => {
+                solarSystem.appendChild(createPlanet(planet, index));
+            });
+        }
+
+        function addPlanet() {
+            if (currentPlanets.length < planets.length) {
+                const newPlanet = planets[currentPlanets.length];
+                currentPlanets.push(newPlanet);
+                updateSolarSystem();
+            }
+        }
+
+        function removePlanet() {
+            if (currentPlanets.length > 0) {
+                currentPlanets.pop();
+                updateSolarSystem();
+            }
+        }
+
+        function shufflePlanets() {
+            for (let i = currentPlanets.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentPlanets[i], currentPlanets[j]] = [currentPlanets[j], currentPlanets[i]];
+            }
+            updateSolarSystem();
+        }
+
+        document.getElementById('addPlanet').addEventListener('click', addPlanet);
+        document.getElementById('removePlanet').addEventListener('click', removePlanet);
+        document.getElementById('shufflePlanets').addEventListener('click', shufflePlanets);
+
+        // Initialize with Earth
+        currentPlanets.push(planets[0]);
+        updateSolarSystem();
+    </script>
+</body>
+</html>

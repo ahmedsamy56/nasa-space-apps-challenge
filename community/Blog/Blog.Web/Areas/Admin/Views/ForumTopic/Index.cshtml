@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Blog.Entities.Models.ForumTopic>
+@{
+    ViewBag.PageTitle = "Discuss Management";
+    ViewBag.CardTitle = "All discuss";
+    Layout = "_dashboard";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Post Title</th>
+            <th>User</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var question in Model)
+        {
+            <tr>
+                <td>@question.Title</td>
+                <td>@question.ApplicationUser.Name</td>
+                <td>@question.CreatedAt.ToString("MMM dd, yyyy - hh:mm tt")</td>
+                <td>
+                    <form asp-action="Delete" asp-route-id="@question.Id" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this Discuss?');">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                    <a class="btn btn-primary" href="/Forum/Home/GetForum/@question.Id">view</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

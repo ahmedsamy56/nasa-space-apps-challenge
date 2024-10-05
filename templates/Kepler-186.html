@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kepler-186 System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #info-bubble {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        #info-bubble h3 { margin-top: 0; color: #FFA500; }
+        #info-bubble p { margin: 5px 0; }
+        #info-bubble .label { font-weight: bold; color: #ADD8E6; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="info-bubble"></div>
+    <script>
+        // Set up the scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Add ambient light
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        // Add point light (star)
+        const pointLight = new THREE.PointLight(0xFFCC00, 1, 1000);
+        scene.add(pointLight);
+
+        // Create fewer stars
+        const starsGeometry = new THREE.BufferGeometry();
+        const starsMaterial = new THREE.PointsMaterial({color: 0xffffff, size: 0.1});
+
+        const starsVertices = [];
+        for (let i = 0; i < 1000; i++) {
+            const x = THREE.MathUtils.randFloatSpread(5000);
+            const y = THREE.MathUtils.randFloatSpread(5000);
+            const z = THREE.MathUtils.randFloatSpread(5000);
+            starsVertices.push(x, y, z);
+        }
+
+        starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
+        const starField = new THREE.Points(starsGeometry, starsMaterial);
+        scene.add(starField);
+
+        // Create celestial bodies
+        const bodies = [
+            { 
+                name: "Kepler-186", 
+                type: "Star",
+                radius: 15, 
+                color: 0xFFA500, 
+                orbitRadius: 0, 
+                orbitSpeed: 0,
+                mass: "0.544 solar masses",
+                temperature: "3755 K",
+                age: "4 billion years",
+                constellation: "Cygnus",
+                notableFeatures: "Red dwarf star with five known exoplanets"
+            },
+            { 
+                name: "Kepler-186b", 
+                type: "Exoplanet",
+                radius: 2.75, 
+                color: 0xA52A2A, 
+                orbitRadius: 40, 
+                orbitSpeed: 0.1,
+                mass: "1.73 Earth masses",
+                orbitalPeriod: "3.887 days",
+                distanceFromStar: "0.0343 AU",
+                yearDiscovered: "2014",
+                estimatedTemperature: "460 K",
+                notableFeatures: "Closest planet to the star, likely too hot for liquid water"
+            },
+            { 
+                name: "Kepler-186c", 
+                type: "Exoplanet",
+                radius: 2.8, 
+                color: 0xDEB887, 
+                orbitRadius: 55, 
+                orbitSpeed: 0.08,
+                mass: "2.02 Earth masses",
+                orbitalPeriod: "7.267 days",
+                distanceFromStar: "0.0443 AU",
+                yearDiscovered: "2014",
+                estimatedTemperature: "405 K",
+                notableFeatures: "Second closest planet, likely too hot for habitability"
+            },
+            { 
+                name: "Kepler-186d", 
+                type: "Exoplanet",
+                radius: 2.975, 
+                color: 0xCD853F, 
+                orbitRadius: 70, 
+                orbitSpeed: 0.06,
+                mass: "2.59 Earth masses",
+                orbitalPeriod: "13.34 days",
+                distanceFromStar: "0.0592 AU",
+                yearDiscovered: "2014",
+                estimatedTemperature: "350 K",
+                notableFeatures: "Third planet from the star, potentially rocky"
+            },
+            { 
+                name: "Kepler-186e", 
+                type: "Exoplanet",
+                radius: 2.825, 
+                color: 0x8B4513, 
+                orbitRadius: 85, 
+                orbitSpeed: 0.05,
+                mass: "2.11 Earth masses",
+                orbitalPeriod: "22.41 days",
+                distanceFromStar: "0.110 AU",
+                yearDiscovered: "2014",
+                estimatedTemperature: "295 K",
+                notableFeatures: "Fourth planet, on the inner edge of the habitable zone"
+            },
+            { 
+                name: "Kepler-186f", 
+                type: "Exoplanet",
+                radius: 2.925, 
+                color: 0xD2691E, 
+                orbitRadius: 100, 
+                orbitSpeed: 0.04,
+                mass: "2.37 Earth masses",
+                orbitalPeriod: "129.9 days",
+                distanceFromStar: "0.432 AU",
+                yearDiscovered: "2014",
+                estimatedTemperature: "188 K",
+                notableFeatures: "Potentially habitable, Earth-sized planet in the habitable zone"
+            }
+        ];
+
+        const bodyMeshes = [];
+
+        bodies.forEach(body => {
+            // Create the celestial body
+            const geometry = new THREE.SphereGeometry(body.radius, 32, 32);
+            const material = new THREE.MeshPhongMaterial({
+                color: body.color,
+                emissive: body.type === "Star" ? body.color : 0x000000,
+                emissiveIntensity: body.type === "Star" ? 0.5 : 0,
+                shininess: 10
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.userData = { ...body };
+            
+            scene.add(mesh);
+            bodyMeshes.push(mesh);
+
+            // Create orbit circle
+            if (body.orbitRadius > 0) {
+                const orbitGeometry = new THREE.BufferGeometry();
+                const orbitMaterial = new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 0.5, transparent: true });
+                const orbitPoints = [];
+                const segments = 64;
+                for (let i = 0; i <= segments; i++) {
+                    const theta = (i / segments) * Math.PI * 2;
+                    orbitPoints.push(
+                        new THREE.Vector3(Math.cos(theta) * body.orbitRadius, 0, Math.sin(theta) * body.orbitRadius)
+                    );
+                }
+                orbitGeometry.setFromPoints(orbitPoints);
+                const orbitLine = new THREE.Line(orbitGeometry, orbitMaterial);
+                scene.add(orbitLine);
+            }
+        });
+
+        // Set up camera position
+        camera.position.set(0, 150, 150);
+        camera.lookAt(scene.position);
+
+        // Raycaster for object selection
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        // Event listener for mouse clicks
+        window.addEventListener('click', onMouseClick, false);
+
+        function onMouseClick(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(bodyMeshes);
+
+            if (intersects.length > 0) {
+                const selectedBody = intersects[0].object;
+                showInfo(selectedBody.userData);
+            } else {
+                hideInfo();
+            }
+        }
+
+        function showInfo(bodyData) {
+            const infoBubble = document.getElementById('info-bubble');
+            let infoHTML = `<h3>${bodyData.name}</h3>`;
+            
+            for (const [key, value] of Object.entries(bodyData)) {
+                if (!['name', 'radius', 'color', 'orbitRadius', 'orbitSpeed'].includes(key)) {
+                    infoHTML += `<p><span class="label">${key.charAt(0).toUpperCase() + key.slice(1)}:</span> ${value}</p>`;
+                }
+            }
+            
+            infoBubble.innerHTML = infoHTML;
+            infoBubble.style.display = 'block';
+        }
+
+        function hideInfo() {
+            const infoBubble = document.getElementById('info-bubble');
+            infoBubble.style.display = 'none';
+        }
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Update positions of celestial bodies
+            bodyMeshes.forEach((mesh, index) => {
+                if (mesh.userData.orbitRadius > 0) {
+                    const angle = Date.now() * 0.001 * mesh.userData.orbitSpeed;
+                    mesh.position.x = Math.cos(angle) * mesh.userData.orbitRadius;
+                    mesh.position.z = Math.sin(angle) * mesh.userData.orbitRadius;
+                }
+                mesh.rotation.y += 0.005;
+            });
+
+            // Rotate camera around the scene
+            const time = Date.now() * 0.0001;
+            camera.position.x = Math.cos(time * 0.1) * 200;
+            camera.position.z = Math.sin(time * 0.1) * 200;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle window resizing
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+    </script>
+</body>
+</html>

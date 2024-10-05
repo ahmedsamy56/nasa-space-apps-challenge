@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exoplanetary Systems</title>
+    <style>
+        body {
+            background: black;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url("https://cdn.pixabay.com/photo/2016/07/20/10/57/nebula-10-1530144_1280.png");
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .container {
+            width: 300px;
+            height: 500px;
+            color: white;
+            transition: 0.5s;
+            border-radius: 20px;
+            cursor: pointer;
+            padding: 15px;
+            box-sizing: border-box;
+            text-align: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .container:hover {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            transition: 0.5s;
+        }
+
+        .image-container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            width: 300px;
+            border-radius: 20px;
+            transition: 0.5s;
+        }
+
+        .container:hover .image-container {
+            width: 270px;
+            top: 15px;
+            transition: 0.5s;
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        .text-container {
+            width: 300px;
+            padding: 15px;
+            position: absolute;
+            left: 50%;
+            top: 210px;
+            transform: translateX(-50%) scale(1);
+            text-align: left;
+            transition: transform 0.5s;
+        }
+
+        .headline {
+            padding: 10px 0;
+            transition: 0.5s;
+            font-family: sans-serif;
+            font-size: 24px;
+        }
+
+        .text {
+            padding: 0;
+            transition: 0.5s;
+            text-align: justify;
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+
+        .container:hover .text-container {
+            transform: translateX(-50%) scale(0.9);
+            transition: transform 0.5s;
+        }
+
+        .main-header {
+            text-align: center;
+            color: white;
+            font-family: sans-serif;
+            margin-bottom: 50px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .main-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .main-header p {
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        @media only screen and (max-width: 720px) {
+            .cards {
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+            }
+
+            .container {
+                scroll-snap-align: start;
+            }
+        }
+    </style>
+
+    <script>
+        function navigateToArticle(systemName) {
+            const encodedName = encodeURIComponent(systemName);
+            window.location.href = `article.html?system=${encodedName}`;
+        }
+    </script>
+</head>
+<body>
+    <header class="main-header">
+        <h1>Explore the Star Systems</h1>
+        <p>
+            Discover the wonders of space, from the planets in our Solar System to
+            the vastness of the Milky Way galaxy.
+        </p>
+    </header>
+    <section class="cards">
+        <div class="container">
+            <div class="image-container">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/TRAPPIST-1d_artist_impression_2018.png/290px-TRAPPIST-1d_artist_impression_2018.png"
+                />
+            </div>
+            <div class="text-container">
+                <div class="headline">TRAPPIST-1 System</div>
+                <div class="text">
+                    A fascinating system with seven Earth-sized planets, three of which
+                    reside in the habitable zone, offering unique research opportunities
+                    for scientists studying potential life-supporting conditions.
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="image-container">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Kepler186f-ArtistConcept-20140417.jpg/290px-Kepler186f-ArtistConcept-20140417.jpg"
+                />
+            </div>
+            <div class="text-container">
+                <div class="headline">Kepler-186 System</div>
+                <div class="text">
+                    This system contains the first confirmed Earth-sized exoplanet in the
+                    habitable zone of another star, marking a pivotal moment in the
+                    quest for Earth-like worlds beyond our solar system.
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="image-container">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/This_artist%27s_concept_depicts_Kepler-62e%2C_a_super-Earth-size_planet_in_the_habitable_zone.jpg/290px-This_artist%27s_concept_depicts_Kepler-62e%2C_a_super-Earth-size_planet_in_the_habitable_zone.jpg"
+                />
+            </div>
+            <div class="text-container">
+                <div class="headline">Kepler-62 System</div>
+                <div class="text">
+                    Known for its two planets located within the habitable zone, this
+                    system is a prime candidate for studying the characteristics of
+                    potentially habitable worlds.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cards">
+        <div class="container">
+            <div class="image-container">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Alpha%2C_Beta_and_Proxima_Centauri_%281%29.jpg/300px-Alpha%2C_Beta_and_Proxima_Centauri_%281%29.jpg"
+                    alt="Alpha Centauri System"
+                />
+            </div>
+            <div class="text-container">
+                <div class="headline">Alpha Centauri System</div>
+                <div class="text">
+                    The closest star system to Earth, Proxima Centauri hosts a planet in
+                    the habitable zone, making it an exciting target for future
+                    astronomical research on the potential for life beyond our solar
+                    system.
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="image-container">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Kepler-452b_artist_concept.jpg/290px-Kepler-452b_artist_concept.jpg"
+                    alt="Kepler-452 System"
+                />
+            </div>
+            <div class="text-container">
+                <div class="headline">Kepler-452 System</div>
+                <div class="text">
+                    Often referred to as "Earth's cousin," this system includes a
+                    super-Earth in the habitable zone, stirring interest in its
+                    geological and atmospheric properties.
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="image-container">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Exoplanet_Comparison_GJ_1214_b.png/290px-Exoplanet_Comparison_GJ_1214_b.png"
+                    alt="GJ 1214 System"
+                />
+            </div>
+            <div class="text-container">
+                <div class="headline">GJ 1214 System</div>
+                <div class="text">
+                    GJ 1214 b is noted for its potentially watery atmosphere, making the
+                    entire system a focal point for studies of exoplanetary atmospheres
+                    and habitability.
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="cards">
+        <div class="container">
+            <div class="image-container">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Exoplanet_Comparison_GJ_3470_b.png/290px-Exoplanet_Comparison_GJ_3470_b.png"
+                    alt="GJ 3470 System"
+                />
+            </div>
+            <div class="text-container">
+                <div class="headline">GJ 3470 System</div>
+                <div class="text">
+                    With a close-in super-Earth, this system provides a unique setting to
+                    understand the effects of stellar radiation on planetary
+                    atmospheres.
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="image-container">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/LHS_1140_b_illustration.png/290px-LHS_1140_b_illustration.png"
+                    alt="LHS 1140 System"
+                />
+            </div>
+            <div class="text-container">
+                <div class="headline">LHS 1140 System</div>
+                <div class="text">
+                    This system features LHS 1140 b, which is of particular interest due to
+                    its size and potential for detailed atmospheric study.
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="image-container">
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/HAT-P-7b.png/290px-HAT-P-7b.png"
+                    alt="HAT-P-7 System"
+                />
+            </div>
+            <div class="text-container">
+                <div class="headline">HAT-P-7 System</div>
+                <div class="text">
+                    Known for its hot Jupiter exoplanet, this system presents an exciting
+                    opportunity to study atmospheric phenomena in extreme environments.
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

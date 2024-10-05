@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exoplanet List</title>
+    <style>
+        body {
+            background: black;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url('https://cdn.pixabay.com/photo/2016/07/20/10/57/nebula-10-1530144_1280.png');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .main-header {
+            text-align: center;
+            color: white;
+            font-family: sans-serif;
+            margin-bottom: 50px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .main-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .main-header p {
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .card {
+            width: calc(25% - 15px);
+            min-width: 250px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .image-container {
+            width: 100%;
+            padding-top: 75%; /* 4:3 Aspect Ratio */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .text-container {
+            padding: 15px;
+        }
+
+        .headline {
+            color: white;
+            font-family: sans-serif;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .text {
+            color: #ccc;
+            font-family: sans-serif;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .play-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #9b0f0f;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: sans-serif;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .play-button:hover {
+            background-color: #c61c1c;
+        }
+
+        @media only screen and (max-width: 1200px) {
+            .card {
+                width: calc(33.33% - 13.33px);
+            }
+        }
+
+        @media only screen and (max-width: 900px) {
+            .card {
+                width: calc(50% - 10px);
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .card {
+                width: 100%;
+            }
+        }
+      </style>
+
+</head>
+<body>
+    <header class="main-header">
+        <h1>Explore Exoplanets</h1>
+        <p>Discover the most important and famous exoplanets confirmed by NASA.</p>
+    </header>
+    <div class="cards-container"></div>
+    <script>
+      const exoplanets = [
+        {
+            name: "Kepler-186f",
+            description: "Kepler-186f is the first Earth-sized planet discovered in the habitable zone of another star.",
+            image: "../static/images/1.png",
+            id: "kepler-186f"
+        },
+        {
+            name: "Proxima Centauri b",
+            description: "Proxima Centauri b is the closest known exoplanet to the Solar System and is in the habitable zone of its star.",
+            image: "../static/images/2.png",
+            id: "proxima-centauri-b"
+        },
+        {
+            name: "TRAPPIST-1e",
+            description: "TRAPPIST-1e is one of seven Earth-sized planets in the TRAPPIST-1 system and is considered potentially habitable.",
+            image: "../static/images/3.png",
+            id: "trappist-1e"
+        },
+        {
+            name: "LHS 1140 b",
+            description: "LHS 1140 b is a super-Earth exoplanet that orbits in the habitable zone of a red dwarf star.",
+            image: "../static/images/4.png",
+            id: "lhs-1140-b"
+        },
+        {
+            name: "55 Cancri e",
+            description: "55 Cancri e is a super-Earth exoplanet that orbits very close to its star and is likely covered in lava.",
+            image: "../static/images/5.png",
+            id: "55-cancri-e"
+        },
+        {
+            name: "K2-18b",
+            description: "K2-18b is a super-Earth exoplanet in the habitable zone with potential water vapor in its atmosphere.",
+            image: "../static/images/6.png",
+            id: "k2-18b"
+        },
+        {
+            name: "WASP-121b",
+            description: "WASP-121b is a hot Jupiter exoplanet with an atmosphere so hot that metals vaporize and escape into space.",
+            image: "../static/images/7.png",
+            id: "wasp-121b"
+        },
+        {
+            name: "HD 209458 b",
+            description: "HD 209458 b, nicknamed Osiris, was the first exoplanet detected via its transits across its star and the first with a confirmed atmosphere.",
+            image: "../static/images/8.png",
+            id: "hd-209458-b"
+        },
+        {
+            name: "KELT-9b",
+            description: "KELT-9b is one of the hottest known exoplanets, with a dayside temperature hotter than most stars.",
+            image: "../static/images/9.png",
+            id: "kelt-9b"
+        },
+        {
+            name: "GJ 3470 b",
+            description: "GJ 3470 b is a Neptune-sized exoplanet with a substantial atmosphere that's rapidly evaporating due to stellar radiation.",
+            image: "../static/images/10.png",
+            id: "gj-3470-b"
+        },
+        {
+            name: "WASP-76b",
+            description: "WASP-76b is an ultra-hot Jupiter where it rains iron on the night side due to extreme temperature differences.",
+            image: "../static/images/11.png",
+            id: "wasp-76b"
+        },
+        {
+            name: "TRAPPIST-1d",
+            description: "TRAPPIST-1d is another potentially habitable planet in the TRAPPIST-1 system, with a mass similar to Earth.",
+            image: "../static/images/12.png",
+            id: "trappist-1d"
+        },
+        {
+            name: "HD 189733b",
+            description: "HD 189733b is a hot Jupiter known for its deep blue color, likely caused by silicate particles in its atmosphere.",
+            image: "../static/images/13.png",
+            id: "hd-189733b"
+        },
+        {
+            name: "XO-3b",
+            description: "XO-3b is a massive hot Jupiter with an unusual, highly eccentric orbit around its parent star.",
+            image: "../static/images/14.png",
+            id: "xo-3b"
+        },
+        {
+            name: "K2-106b",
+            description: "K2-106b is an ultra-short period super-Earth that orbits its star in less than a day and likely has a surface of molten rock.",
+            image: "../static/images/15.png",
+            id: "k2-106b"
+        },
+        {
+            name: "LHS 6343 b",
+            description: "LHS 6343 b is a brown dwarf orbiting one star of a binary system, initially mistaken for a massive exoplanet.",
+            image: "../static/images/16.png",
+            id: "lhs-6343-b"
+        }
+      ];
+const cardsContainer = document.querySelector('.cards-container');
+
+exoplanets.forEach(exoplanet => {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const imageContainer = document.createElement('div');
+    imageContainer.className = 'image-container';
+    const img = document.createElement('img');
+    img.src = exoplanet.image;
+    img.alt = exoplanet.name;
+    imageContainer.appendChild(img);
+
+    const textContainer = document.createElement('div');
+    textContainer.className = 'text-container';
+
+    const headline = document.createElement('h2');
+    headline.className = 'headline';
+    headline.textContent = exoplanet.name;
+
+    const text = document.createElement('p');
+    text.className = 'text';
+    text.textContent = exoplanet.description;
+
+    const playButton = document.createElement('a');
+    playButton.className = 'play-button';
+    playButton.textContent = 'Explore';
+    playButton.href = `/exoplanet-details?id=${exoplanet.id}`; // Updated this line
+
+    textContainer.appendChild(headline);
+    textContainer.appendChild(text);
+    textContainer.appendChild(playButton);
+
+    card.appendChild(imageContainer);
+    card.appendChild(textContainer);
+
+    cardsContainer.appendChild(card);
+});
+</script>
+</body>
+</html>

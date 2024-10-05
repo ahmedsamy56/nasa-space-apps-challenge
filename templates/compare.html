@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exoplanet Data Science Explorer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        #planetComparison {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        select {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exoplanet Data Science Explorer</h1>
+    
+    <p>Welcome to our interactive exploration of exoplanets! Here you can learn about planets outside our solar system and analyze their data.</p>
+    
+    <h2>Exoplanet Comparison</h2>
+    <div id="planetComparison">
+        <div>
+            <select id="planet1">
+                <option value="">Select Planet 1</option>
+            </select>
+        </div>
+        <div>
+            <select id="planet2">
+                <option value="">Select Planet 2</option>
+            </select>
+        </div>
+    </div>
+    
+    <canvas id="comparisonChart"></canvas>
+    
+    <h2>Exoplanet Mass Distribution</h2>
+    <canvas id="massDistributionChart"></canvas>
+    
+    <script>
+
+         const exoplanets = [
+            { name: "Kepler-186f", mass: 1.7, radius: 1.2, distance: 582, temperature: 188 },
+            { name: "HD 219134 b", mass: 4.7, radius: 1.6, distance: 21, temperature: 700 },
+            { name: "Proxima Centauri b", mass: 1.3, radius: 1.1, distance: 4.2, temperature: 234 },
+            { name: "TRAPPIST-1e", mass: 0.77, radius: 0.92, distance: 39, temperature: 251 },
+            { name: "K2-18b", mass: 8.6, radius: 2.6, distance: 124, temperature: 265 },
+            { name: "Kepler-452b", mass: 5, radius: 1.6, distance: 1400, temperature: 265 },
+            { name: "LHS 1140b", mass: 6.6, radius: 1.4, distance: 40, temperature: 230 },
+            { name: "Gliese 581d", mass: 5.6, radius: 2.2, distance: 20.3, temperature: 250 },
+            { name: "55 Cancri e", mass: 8.0, radius: 2.0, distance: 40.9, temperature: 1800 },
+            { name: "WASP-12b", mass: 1.4, radius: 1.9, distance: 600, temperature: 2500 },
+            { name: "GJ 1214b", mass: 6.5, radius: 2.7, distance: 47, temperature: 393 },
+            { name: "Kepler-22b", mass: 2.4, radius: 2.4, distance: 620, temperature: 295 },
+            { name: "HD 209458 b", mass: 0.69, radius: 1.36, distance: 159, temperature: 1450 },
+            { name: "GJ 667 Cc", mass: 4.5, radius: 1.5, distance: 23.6, temperature: 277 },
+            { name: "Kepler-62f", mass: 2.8, radius: 1.4, distance: 1200, temperature: 202 },
+            { name: "CoRoT-7b", mass: 5.7, radius: 1.58, distance: 489, temperature: 1800 },
+            { name: "Kepler-438b", mass: 1.27, radius: 1.12, distance: 470, temperature: 276 },
+            { name: "Kepler-69c", mass: 2.1, radius: 1.7, distance: 2700, temperature: 299 },
+            { name: "HD 189733 b", mass: 1.15, radius: 1.14, distance: 63, temperature: 1200 },
+            { name: "Kepler-10b", mass: 3.72, radius: 1.47, distance: 564, temperature: 1833 },
+            { name: "Kepler-62e", mass: 2.3, radius: 1.61, distance: 1200, temperature: 270 },
+            { name: "Gliese 876d", mass: 7.5, radius: 2.27, distance: 15.3, temperature: 605 },
+            { name: "Kepler-1649c", mass: 1.06, radius: 1.02, distance: 301, temperature: 234 },
+            { name: "KELT-9b", mass: 2.88, radius: 1.89, distance: 670, temperature: 4050 },
+            { name: "HR 5183 b", mass: 3.23, radius: 1.98, distance: 102, temperature: 280 },
+            { name: "Kepler-442b", mass: 2.36, radius: 1.34, distance: 1206, temperature: 233 },
+            { name: "TOI-700 d", mass: 1.72, radius: 1.19, distance: 101.4, temperature: 268 },
+            { name: "Ross 128 b", mass: 1.4, radius: 1.1, distance: 11, temperature: 294 },
+            { name: "Kepler-16b", mass: 0.33, radius: 0.75, distance: 200, temperature: 178 },
+            { name: "GJ 3323 b", mass: 2.02, radius: 1.33, distance: 17.5, temperature: 315 },
+            { name: "Kepler-283c", mass: 1.8, radius: 1.25, distance: 1700, temperature: 200 },
+            { name: "TRAPPIST-1d", mass: 0.41, radius: 0.77, distance: 39.5, temperature: 288 },
+            { name: "LTT 1445Ab", mass: 2.2, radius: 1.3, distance: 22.4, temperature: 433 },
+            { name: "Kepler-296e", mass: 2.26, radius: 1.28, distance: 1075, temperature: 227 },
+            { name: "Kepler-442b", mass: 2.34, radius: 1.34, distance: 1194, temperature: 233 },
+            { name: "HD 85512 b", mass: 3.6, radius: 1.7, distance: 36, temperature: 298 },
+        ];
+
+
+        // Populate dropdown menus
+        const planet1Select = document.getElementById('planet1');
+        const planet2Select = document.getElementById('planet2');
+        
+        exoplanets.forEach(planet => {
+            const option1 = document.createElement('option');
+            option1.value = planet.name;
+            option1.textContent = planet.name;
+            planet1Select.appendChild(option1);
+            
+            const option2 = option1.cloneNode(true);
+            planet2Select.appendChild(option2);
+        });
+
+        // Comparison chart
+        const ctx = document.getElementById('comparisonChart').getContext('2d');
+        let comparisonChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Mass', 'Radius', 'Distance', 'Temperature'],
+                datasets: []
+            },
+            options: {
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: false
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                }
+            }
+        });
+
+        function updateComparisonChart() {
+            const planet1 = exoplanets.find(p => p.name === planet1Select.value);
+            const planet2 = exoplanets.find(p => p.name === planet2Select.value);
+            
+            comparisonChart.data.datasets = [];
+            
+            if (planet1) {
+                comparisonChart.data.datasets.push({
+                    label: planet1.name,
+                    data: [planet1.mass, planet1.radius, planet1.distance / 100, planet1.temperature / 100],
+                    fill: true,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    pointBackgroundColor: 'rgb(255, 99, 132)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(255, 99, 132)'
+                });
+            }
+            
+            if (planet2) {
+                comparisonChart.data.datasets.push({
+                    label: planet2.name,
+                    data: [planet2.mass, planet2.radius, planet2.distance / 100, planet2.temperature / 100],
+                    fill: true,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    pointBackgroundColor: 'rgb(54, 162, 235)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgb(54, 162, 235)'
+                });
+            }
+            
+            comparisonChart.update();
+        }
+
+        planet1Select.addEventListener('change', updateComparisonChart);
+        planet2Select.addEventListener('change', updateComparisonChart);
+
+        // Mass distribution chart
+        const massCtx = document.getElementById('massDistributionChart').getContext('2d');
+        new Chart(massCtx, {
+            type: 'bar',
+            data: {
+                labels: exoplanets.map(p => p.name),
+                datasets: [{
+                    label: 'Planet Mass (Earth masses)',
+                    data: exoplanets.map(p => p.mass),
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Mass (Earth masses)'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

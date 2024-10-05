@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Games</title>
+    <style>
+        body {
+            background: black;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url("https://cdn.pixabay.com/photo/2016/07/20/10/57/nebula-10-1530144_1280.png");
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 20px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .container {
+            width: 250px;
+            height: 400px;
+            color: white;
+            transition: 0.5s;
+            border-radius: 20px;
+            cursor: pointer;
+            padding: 15px;
+            box-sizing: border-box;
+            text-align: center;
+            position: relative;
+            flex-shrink: 0;
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+
+        .container:hover {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            transform: translateY(-5px);
+        }
+
+        .image-container {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .text-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .headline {
+            font-family: sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .text {
+            font-family: sans-serif;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .main-header {
+            text-align: center;
+            color: white;
+            font-family: sans-serif;
+            margin-bottom: 50px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .main-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .main-header p {
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .cards {
+                justify-content: center;
+            }
+
+            .container {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <h1>Games</h1>
+        <p>Have fun and learn</p>
+    </header>
+    <div class="cards-container">
+        <section class="cards">
+            <a href="/detict" class="container">
+                <div class="image-container">
+                    <img src="../static/images/gamkid.png" alt="Exoplanet Transit Detective" />
+                </div>
+                <div class="text-container">
+                    <div class="headline">Exoplanet Transit Detective</div>
+                    <div class="text">Detect exoplanets by observing transits and light curves.</div>
+                </div>
+            </a>
+
+            <a href="/find life" class="container">
+                <div class="image-container">
+                    <img src="../static/images/gamkid.png" alt="Goldilocks Zone Explorer" />
+                </div>
+                <div class="text-container">
+                    <div class="headline">Goldilocks Zone Explorer</div>
+                    <div class="text">Find the perfect spot for life in the Goldilocks zone.</div>
+                </div>
+            </a>
+
+            <a href="/cards" class="container">
+                <div class="image-container">
+                    <img src="../static/images/gamkid.png" alt="NASA Exoplanet Match" />
+                </div>
+                <div class="text-container">
+                    <div class="headline">NASA Exoplanet Match</div>
+                    <div class="text">Match exoplanets and learn interesting facts.</div>
+                </div>
+            </a>
+
+            <a href="/puzzle" class="container">
+                <div class="image-container">
+                    <img src="../static/images/gamkid.png" alt="Exoplanet Puzzle" />
+                </div>
+                <div class="text-container">
+                    <div class="headline">Exoplanet Puzzle</div>
+                    <div class="text">Solve the puzzle and learn facts from the Exobot.</div>
+                </div>
+            </a>
+        </section>
+
+        <section class="cards">
+            <a href="/build" class="container">
+                <div class="image-container">
+                    <img src="../static/images/gamkid.png" alt="Exoplanets Builder" />
+                </div>
+                <div class="text-container">
+                    <div class="headline">Exoplanets Builder</div>
+                    <div class="text">Build your own exoplanet and compare it to actual exoplanets.</div>
+                </div>
+            </a>
+
+            <a href="/color" class="container">
+                <div class="image-container">
+                    <img src="../static/images/gamkid.png" alt="Color Your Exoplanet" />
+                </div>
+                <div class="text-container">
+                    <div class="headline">Color Your Exoplanet</div>
+                    <div class="text">Color your exoplanet and compare it to actual exoplanets.</div>
+                </div>
+            </a>
+
+            <a href="/sim" class="container">
+                <div class="image-container">
+                    <img src="../static/images/gamkid.png" alt="Planetary Evolution Simulator" />
+                </div>
+                <div class="text-container">
+                    <div class="headline">Planetary Evolution Simulator</div>
+                    <div class="text">Welcome to your new exoplanet, shape its evolution.</div>
+                </div>
+            </a>
+
+            <a href="/distance" class="container">
+                <div class="image-container">
+                    <img src="../static/images/gamkid.png" alt="Exoplanet Order Explorer" />
+                </div>
+                <div class="text-container">
+                    <div class="headline">Exoplanet Order Explorer</div>
+                    <div class="text">What is after our solar system.</div>
+                </div>
+            </a>
+        </section>
+
+        <section class="cards">
+            <a href="/protect the earth" class="container">
+                <div class="image-container">
+                    <img src="../static/images/gamkid.png" alt="Rocks Everywhere" />
+                </div>
+                <div class="text-container">
+                    <div class="headline">Rocks Everywhere</div>
+                    <div class="text">Protect your planet from rocks.</div>
+                </div>
+            </a>
+
+            <a href="/Cosmic Voyage" class="container">
+                <div class="image-container">
+                    <img src="../static/images/gamkid.png" alt="Cosmic Voyage" />
+                </div>
+                <div class="text-container">
+                    <div class="headline">Cosmic Voyage</div>
+                    <div class="text">Ride your ship and live in the stars.</div>
+                </div>
+            </a>
+        </section>
+    </div>
+</body>
+</html>

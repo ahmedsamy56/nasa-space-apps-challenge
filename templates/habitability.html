@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space-themed Cards</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+    * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.header {
+    background-image: url('https://hips.hearstapps.com/hmg-prod/images/panorama-milky-way-galaxy-with-stars-and-space-dust-royalty-free-image-1623176828.jpg');
+    background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+.header-img {
+    width: 100%;
+    padding-top: 12em;
+    z-index: 2;
+}
+
+.title-text {
+    position: fixed; 
+    padding-top: 1em;
+    font-size: 5em;
+    z-index: 1;
+    color: white;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.main-text {
+    position: relative;
+    background-color: black;
+    color: white;
+    padding: 2em 5em;
+    font-size: 1.5em;
+    z-index: 3;
+}
+
+.c-header,
+.c-footer {
+  background: #EDD382;
+  text-align: center;
+  padding: 2em;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.4em;
+  font-weight: 300;
+  line-height: 1.6em;
+}
+
+.c-header h1, .c-header h2, .c-header p,
+.c-footer h1, .c-footer h2, .c-footer p {
+  max-width: 40em;
+  margin: 0 auto;
+}
+
+.c-header h1, .c-footer h1 {
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.c-header a, .c-footer a {
+  color: #000;
+}
+
+.c-posts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: top;
+  padding: 5%;
+  position: relative;
+    background-color: black;
+    color: white;
+    padding: 2em 5em;
+    z-index: 3;
+}
+
+.c-posts__item {
+  flex-grow: 1;
+  padding-bottom: 2em;
+  min-height: 400px; /* Make articles taller */
+}
+
+.c-posts__item:first-child {
+  flex-grow: 2;
+}
+
+@media all and (min-width:600px) {
+  .c-posts__item {
+    flex-basis: 50%;
+    padding-right: 5%;
+  }
+  .c-posts__item:first-child {
+    flex-basis: 100%;
+  }
+}
+
+@media all and (min-width:1000px) {
+  .c-posts__item {
+    flex-basis: 33%;
+  }
+  .c-posts__item:first-child {
+    flex-basis: 66%;
+  }
+}
+
+@media all and (min-width:1400px) {
+  .c-posts__item {
+    flex-basis: 25%;
+  }
+  .c-posts__item:first-child {
+    flex-basis: 50%;
+  }
+}
+
+.c-btn {
+  color: #000;
+  display: inline-block;
+  border-bottom: 4px solid #000;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 900;
+  letter-spacing: .1em;
+  padding: .3em 0;
+  position: relative;
+  transition: .2s all;
+}
+
+.c-btn:before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #FF521B;
+  height: 0%;
+  transition: .2s all;
+  left: 0;
+  z-index: -10;
+}
+
+.c-btn:hover {
+  padding-left: .75em;
+  padding-right: .75em;
+  color: #fff;
+  border-color: #FF521B;
+}
+
+.c-btn:hover:before {
+  height: 100%;
+}
+  </style>
+</head>
+<body>
+    <header class = 'header'>
+        <h1 class = 'title-text'>Explore Space</h1>
+        <img src = https://www.seekpng.com/png/full/46-462151_mountain-silhouette-transparent-at-getdrawings-black-mountains-transparent.png class = 'header-img'>
+    </header>
+    <section class="c-posts">
+      <article class="c-posts__item">
+        <h2>What Makes a Planet Habitable?</h2>
+        <p>The concept of habitability encompasses various factors that contribute to a planet's potential to support life. Key conditions include the presence of liquid water, a suitable atmosphere, and a stable climate. To be classified as habitable, a planet typically needs to reside within its star's habitable zone, also known as the "Goldilocks zone," where temperatures allow for liquid water to exist on its surface. However, habitability is not solely determined by location; the planet's size, geological activity, and magnetic field are crucial factors that influence its capacity to support life.</p>
+        <p>Geological activity can help maintain a stable atmosphere by recycling nutrients and generating heat. A magnetic field protects a planet from harmful cosmic radiation, which is essential for the development and maintenance of life. Understanding these factors is vital as scientists search for Earth-like exoplanets capable of supporting life.</p>
+        <p>To learn more about what makes a planet habitable, visit <a href="https://exoplanets.nasa.gov/what-is-an-exoplanet/overview/" target="_blank">NASA's Exoplanet Exploration website</a>.</p>
+        <p>Data Source: NASA Exoplanet Exploration</p>
+      </article>
+      
+      <article class="c-posts__item">
+        <h2>Atmospheric Conditions for Life</h2>
+        <p>Atmospheric conditions play a vital role in a planet's habitability. A stable atmosphere is necessary to regulate temperature, protect against harmful radiation, and support the presence of liquid water. Key gases like oxygen, methane, and carbon dioxide are indicators of potential life, as they suggest biological processes. The right balance of gases is crucial; for example, an atmosphere rich in carbon dioxide can trap heat, while a lack of oxygen may indicate a lifeless world.</p>
+        <p>Scientists analyze the composition and dynamics of exoplanet atmospheres to evaluate their potential for hosting life. The detection of biosignatures—chemical indicators that suggest the presence of life—within a planet's atmosphere can provide crucial evidence in the search for extraterrestrial life. Recent advancements in atmospheric modeling allow researchers to simulate various scenarios and predict how different conditions might affect habitability.</p>
+        <p>For more insights into atmospheric conditions, check out <a href="https://exoplanets.nasa.gov/exoplanet-catalog/overview/" target="_blank">NASA's Exoplanet Catalog</a>.</p>
+        <p>Data Source: NASA Exoplanet Exploration</p>
+      </article>
+      
+      <article class="c-posts__item">
+        <h2>Role of Spectroscopy</h2>
+        <p>Spectroscopy is a powerful tool used by scientists to analyze the atmospheres of distant exoplanets. By examining the light that passes through a planet's atmosphere during a transit, scientists can identify the chemical composition and detect key gases that may indicate habitability. This technique has already led to the detection of water vapor and carbon dioxide in the atmospheres of several exoplanets, such as WASP-121b and HAT-P-11b.</p>
+        <p>Ongoing advancements in spectroscopy techniques enhance our ability to characterize exoplanetary atmospheres and identify potential biosignatures. Future missions, including the James Webb Space Telescope (JWST), aim to provide even more detailed spectra of exoplanet atmospheres, allowing researchers to identify signs of life more effectively.</p>
+        <p>To understand more about spectroscopy in exoplanet research, visit <a href="https://exoplanets.nasa.gov/alien-worlds/overview/" target="_blank">NASA's Alien Worlds overview</a>.</p>
+        <p>Data Source: NASA Exoplanet Exploration</p>
+      </article>
+      
+      <article class="c-posts__item">
+        <h2>Space Missions: Hubble and James Webb</h2>
+        <p>NASA's Hubble Space Telescope and the James Webb Space Telescope (JWST) are at the forefront of the search for life-sustaining conditions on exoplanets. Hubble has contributed valuable data about exoplanet atmospheres and their compositions, significantly advancing our understanding of distant worlds.</p>
+        <p>JWST, with its advanced infrared capabilities, aims to provide unprecedented observations of distant worlds. It can detect chemical signatures in exoplanet atmospheres that are essential for identifying habitable conditions. For instance, JWST will look for signs of water, carbon dioxide, and even complex organic molecules in the atmospheres of potentially habitable exoplanets, which could indicate biological activity.</p>
+        <p>These missions are crucial in identifying potentially habitable exoplanets and gathering insights into their atmospheric conditions. The collaboration of Hubble and JWST is expected to pave the way for groundbreaking discoveries in the field of exoplanet research.</p>
+        <p>For details about Hubble and JWST, check out <a href="https://exoplanets.nasa.gov/exploration/space-telescopes/" target="_blank">NASA's Space Telescopes page</a>.</p>
+        <p>Data Source: NASA Exoplanet Exploration</p>
+      </article>
+      
+      <article class="c-posts__item">
+        <h2>3D Simulations of Habitable Planets</h2>
+        <p>3D simulations offer a unique perspective in studying exoplanets located within the habitable zone. These models help scientists visualize and assess various factors that affect a planet's potential to support life, such as its climate, atmosphere, and geophysical characteristics. By simulating different scenarios, researchers can evaluate how changes in atmospheric composition or distance from the star impact habitability.</p>
+        <p>Advanced software tools allow scientists to create realistic 3D representations of exoplanets, taking into account factors like orbital dynamics, surface temperature, and atmospheric pressure. These simulations can also incorporate potential climate models, allowing researchers to understand how a planet might respond to changes in its environment over time. This knowledge is invaluable in the search for exoplanets that could harbor life.</p>
+        <p>To explore more about 3D simulations of exoplanets, visit <a href="https://exoplanets.nasa.gov/exploration/3d-simulations/" target="_blank">NASA's 3D Simulations page</a>.</p>
+        <p>Data Source: NASA Exoplanet Exploration</p>
+      </article>
+      
+      <article class="c-posts__item">
+        <h2>Exploring Exoplanets in the Habitable Zone</h2>
+        <p>Exoplanets within the habitable zone of their stars are prime candidates for hosting life. This zone is defined as the region where conditions are just right for liquid water to exist, which is considered essential for life as we know it. Planets like TRAPPIST-1d, located in the TRAPPIST-1 system, fall within this zone and exhibit Earth-like characteristics that make them intriguing targets for further investigation.</p>
+        <p>NASA scientists are focused on assessing these planets for their potential to sustain life. This includes studying their atmospheres, surfaces, and the availability of water. Missions aimed at gathering detailed data on these worlds are crucial in understanding the diversity of planetary systems and the potential for life beyond Earth.</p>
+        <p>For more information on exoplanets in the habitable zone, visit <a href="https://exoplanets.nasa.gov/exoplanets-in-the-habitable-zone/" target="_blank">NASA's page on Habitable Zone Exoplanets</a>.</p>
+        <p>Data Source: NASA Exoplanet Exploration</p>
+      </article>
+    
+      <article class="c-posts__item">
+        <h2>The Search for Biosignatures</h2>
+        <p>The search for biosignatures—indicators of life—has become a central focus of exoplanet research. Scientists look for specific chemical patterns in a planet's atmosphere that suggest biological activity. For instance, the simultaneous presence of oxygen and methane could indicate life, as these gases typically react with each other and would not coexist for long without replenishment through biological processes.</p>
+        <p>Future missions, including the JWST, are equipped with advanced instruments designed to detect these potential biosignatures. The ability to analyze the atmospheric composition of exoplanets will greatly enhance our understanding of their potential to support life and the types of environments where life might arise.</p>
+        <p>To stay updated on the search for biosignatures, check out <a href="https://exoplanets.nasa.gov/exploration/biosignatures/" target="_blank">NASA's Biosignatures page</a>.</p>
+        <p>Data Source: NASA Exoplanet Exploration</p>
+      </article>
+      
+      <article class="c-posts__item">
+        <h2>Conclusion</h2>
+        <p>The quest to understand what makes a planet habitable is a fundamental aspect of exoplanet research. By examining atmospheric conditions, employing spectroscopy, and leveraging advanced space missions like Hubble and JWST, scientists are making strides in the search for life beyond Earth. As technology continues to improve, our ability to identify and study potentially habitable exoplanets will only expand, bringing us closer to discovering whether we are alone in the universe.</p>
+        <p>For a comprehensive overview of exoplanets and habitability, visit <a href="https://exoplanets.nasa.gov/" target="_blank">NASA's Exoplanets website</a>.</p>
+      </article>
+    </section>
+    
+</body>
+</html>

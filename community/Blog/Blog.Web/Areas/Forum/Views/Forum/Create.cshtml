@@ -1,0 +1,84 @@
+﻿@model Blog.Entities.Models.ForumTopic
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+@section Style {
+    <link href="~/visitor/css/editor.css" rel="stylesheet" type="text/css">
+    <link href="~/visitor/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/visitor/css/responsive.css" rel="stylesheet" type="text/css">
+}
+
+<!--===breadcrumb=====-->
+<section class="header-descriptin329" style="background-color: #1e1e1e; color: #ddd;">
+    <div class="container">
+        <h3>Discuss</h3>
+        <ol class="breadcrumb breadcrumb839" style="background-color: transparent; color: #ddd;">
+            <li><a href="/Forum/home/index" style="color: #ddd;">Home</a></li>
+            <li class="active">discuss</li>
+        </ol>
+    </div>
+</section>
+
+<!--====body content ===-->
+<section class="main-content920" style="margin-bottom:20px; background-color: #222629; color: #ddd;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="ask-question-input-part032" style="background-color: #2b2b2b; padding: 20px; border-radius: 5px;">
+                    <h4 style="color: #ff7361;">Ask Question</h4>
+                    <hr style="border-color: #444;">
+                    <form asp-action="Create" method="post" id="forumTopicForm">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Title" class="control-label" style="color: #ddd;"></label>
+                            <input asp-for="Title" class="form-control" style="background-color: #333; color: #ddd; border: 1px solid #444;" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="details2-239">
+                            <div class="col-md-12 nopadding">
+                                <textarea id="txtEditor" class="form-control" placeholder="Write Your Question Content" style="background-color: #333; color: #ddd; border: 1px solid #444;"></textarea>
+                            </div>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+
+                        <!-- Hidden field to store the content from the editor -->
+                        <input type="hidden" asp-for="Content" id="Content" />
+
+                        <div class="publish-button2389">
+                            <button type="submit" class="publis1291" style="background-color: #ff7361; color: #fff; border: none; padding: 10px 20px; border-radius: 4px;">Publish your Question</button>
+                        </div>
+                        <div style="margin-top:20px; font-size:20px;">
+                            <a href="/Forum/home/index" style="color: #ddd;">Back to Home</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/visitor/js/editor.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize the editor
+            $("#txtEditor").Editor();
+
+            // Handle form submission
+            $("#forumTopicForm").submit(function (event) {
+                // Get content from the editor
+                var content = $("#txtEditor").Editor("getText");
+
+                // Set the content to the hidden field
+                $("#Content").val(content);
+            });
+        });
+    </script>
+}

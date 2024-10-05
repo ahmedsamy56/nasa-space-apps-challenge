@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+    <style>
+         html {
+        background: #222;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        cursor: crosshair;
+        }
+        body {
+        inset: 0;
+        display: grid;
+        place-items: center;
+        overflow: hidden;  
+        }
+
+        .star {
+        width: 2px;
+        height: 2px;
+        background: white;
+        position: absolute;
+        z-index: -1;  
+        pointer-events: none;
+        }
+
+        .screen_shake {
+        --shake-amount: 5px;
+        animation: screen_shake .25s linear forwards;
+        }
+        @keyframes screen_shake {
+        20% { margin-left: var(--shake-amount); }
+        40% { margin-left: calc(-1*var(--shake-amount)); }
+        60% { margin-left: var(--shake-amount); }
+        80% { margin-left: calc(-1*var(--shake-amount)); }
+        100% { margin-left: var(--shake-amount); }
+        }
+
+        * {
+        user-select: none;
+        }
+
+        #ship {
+        width: 15vmax;
+        aspect-ratio: 1/1;
+        position: absolute;
+        transform-origin: 50% 50%;  
+        z-index: 9999;
+        border-radius: 50%;
+        }
+        #ship:before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: 
+            radial-gradient(circle at 0% 50%, MediumSeaGreen 25%, transparent 25%),
+            radial-gradient(circle at 80% 30%, MediumSeaGreen 25%, transparent 25%),
+            radial-gradient(circle at 110% 60%, MediumSeaGreen 25%, transparent 25%),
+            radial-gradient(circle at 50% 125%, white 25%, transparent 25%)
+            deepskyblue;  
+        border-radius: 50%;
+        transform-origin: 50% 50%;  
+        transform: var(--anti-spin);
+        z-index: -1;
+        }
+        #ship:after {
+        content: '';
+        position: absolute;
+        left: 2.5vmax;
+        top: -5vmax;
+        width: 10vmax;
+        height: 5vmax;
+        background: white;
+        clip-path: polygon(50% 0%, 100% 100%, 70% 70%, 30% 70%, 0% 100%);
+        }
+
+        #bullet_point {
+        position: absolute;
+        width: 1px;
+        aspect-ratio: 1/1;
+        left: 50%;
+        top: -4vmax;
+        }
+
+        #hits {
+        width: 100%;
+        text-align: center;
+        z-index: 100;
+        position: absolute;
+        left: 0;
+        top: 45%;
+        pointer-events: none;
+        }
+        #kills_counter {
+        position: absolute;
+        left: 0;
+        top: -3.5vmax;
+        z-index: 100;
+        width: 100%;
+        text-align: center;
+        pointer-events: none;
+        }
+
+        .bullet {
+        width: 16px;
+        height: 16px;
+        background-color: white;
+        position: absolute;
+        left: -8px;
+        border-radius: 50%;
+        transform-origin: 50% 8px;
+        transform: translate(-50%,-50%);
+        pointer-events: none; 
+        outline-offset: 5px;
+        outline: 1px solid red;
+        }
+
+        .asteroid {
+        width: 50px;
+        height: 50px;
+        box-sizing: border-box;
+        border: 2px solid white;
+        background: #222;
+        position: absolute;
+        top: 25%;
+        left: 25%;
+        animation: roll 3s linear infinite;
+        z-index: -1;
+        /*   pointer-events: none; */
+        }
+        @keyframes roll {
+        100% { transform: rotate(360deg); }
+        }
+
+        .explode {
+        animation-play-state: paused;
+        pointer-events:none;
+        border: 2px solid transparent;
+        background: 
+            radial-gradient(circle at 50% 50%, white 3px, transparent 3px),
+            radial-gradient(circle at 30% 53%, white 3px, transparent 3px),
+            radial-gradient(circle at 90% 60%, white 3px, transparent 3px),
+            radial-gradient(circle at 25% 28%, white 3px, transparent 3px),
+            radial-gradient(circle at 23% 75%, white 3px, transparent 3px),
+            radial-gradient(circle at 72% 25%, white 3px, transparent 3px),
+            radial-gradient(circle at 75% 77%, white 3px, transparent 3px);
+        animation: explode .25s linear forwards;
+        z-index: 999999;
+        }
+        @keyframes explode {
+        100% { transform: scale(2); opacity: 0; }
+        }
+
+
+    </style>
+<body>
+    <div id='ship' class='earth'>
+        <div id='bullet_point'></div>
+        <div id='hits'></div>
+        <div id='kills_counter'></div>
+      </div>
+    <script>
+setTimeout(function(){
+  var mousePos = {},
+      shipPos = { x: window.innerWidth * .5, y: window.innerHeight * .5},
+      vector = {},
+      angle,
+      b_speed = 10,
+      ast_speed = 1,
+      kills = 0,
+      impacts = 0,
+      planet_life = 100,
+      ast_attack_damage = 10
+
+  function screenShake() {
+    document.body.classList.add('screen_shake')
+    document.body.onanimationend = function() {
+      this.classList.remove('screen_shake')
+    }
+  }
+
+  function rotateShip(e) {
+    mousePos = { x: e.clientX, y: e.clientY }
+    vector = { x: mousePos.x - shipPos.x, y: mousePos.y - shipPos.y }
+    angle = Math.atan2(vector.y, vector.x) * (180 / Math.PI) + 90;
+    ship.style.transform = 'rotate('+angle+'deg)'
+    ship.style.setProperty('--anti-spin', 'rotate('+(-angle)+'deg)')
+  }
+
+  function fireBullet(e) {
+    var b_point = bullet_point.getBoundingClientRect()
+    var b = document.createElement('div')
+    b.className = 'bullet'
+    b.dataset.angle = angle
+    b.dataset.bx = b_point.x
+    b.dataset.by = b_point.y 
+    b.style.left = b_point.x + 'px'
+    b.style.top = b_point.y + 'px'
+    b.style.setProperty('--bullet-rot', 'rotate('+angle+'deg)')
+    document.body.prepend(b)  
+  }
+
+  function randomCorner() {
+    return Math.random() * 50 + '%'
+  }
+
+  function addAsteroid() {
+    var a = document.createElement('div')
+    a.className = 'asteroid'
+    a.style.borderRadius =  randomCorner()+' '+randomCorner() +' '+randomCorner() +' '+randomCorner()
+    a.style.left = Math.floor(Math.random() * window.innerWidth) + 'px'
+    a.style.top = Math.random() < .5 ? window.innerHeight + 'px' : '-100px'
+    document.body.appendChild(a)
+  }
+
+  function updateGame() {
+    // fireBullet()
+    // var t = new Date()
+    // if(t % 30 === 0 && document.querySelectorAll('.asteroid').length < 10) {
+    //   addAsteroid()
+    // }
+    
+    if(Math.random() < .02) {
+      addAsteroid()
+    }
+
+    if(document.querySelector('.bullet')) {
+      var bullets = document.querySelectorAll('.bullet')
+      bullets.forEach(function(elm) {      
+        var bx = Number(elm.dataset.bx),    
+            by = Number(elm.dataset.by),
+            b_loc = elm.getBoundingClientRect(),
+            point = document.elementFromPoint(b_loc.x + 8, b_loc.y + 8)
+
+        bx += b_speed * Math.sin(Math.PI/180 * Number(elm.dataset.angle))
+        by -= b_speed * Math.cos(Math.PI/180 * Number(elm.dataset.angle))
+
+        elm.dataset.bx = bx
+        elm.dataset.by = by
+        elm.style.left = elm.dataset.bx + 'px'
+        elm.style.top = elm.dataset.by + 'px'
+
+        if(!point) {
+          elm.remove()
+        }
+        if(point && point.classList.contains('asteroid')) {
+          kills++
+          // elm.remove()
+          point.classList.add('explode')
+          setTimeout(function(){
+            point.remove()
+          },250)
+        }
+      })
+    }
+
+    // update asteroids
+
+    if(document.querySelector('.asteroid')) {
+      var ass = document.querySelectorAll('.asteroid')
+      ass.forEach(function(elm){
+        var elm_loc = elm.getBoundingClientRect(),
+            elm_point = document.elementFromPoint(elm_loc.x + 25, elm_loc.y + 25),
+            new_x = 0,
+            new_y = 0
+
+        if(elm_point && elm_point.classList.contains('earth')) {        
+          elm.classList.add('explode')
+          elm.onanimationend = function(){
+            impacts++
+            planet_life -= ast_attack_damage            
+            elm.remove()
+          }
+          screenShake()
+
+        }
+
+        if(!elm.classList.contains('explode')) {
+          if(elm_loc.x < shipPos.x - 25) {
+            new_x = ast_speed
+          } else {
+            new_x = -ast_speed
+          }
+          if(elm_loc.y < shipPos.y - 25) {
+            new_y = ast_speed
+          } else {
+            new_y = -ast_speed
+          }
+
+          elm.style.left = parseInt(elm.style.left) + new_x + 'px'
+          elm.style.top = parseInt(elm.style.top) + new_y + 'px' 
+        }
+      })
+    }
+    if(planet_life < 100) {
+     planet_life += .1  
+    }    
+    ship.style.filter = 'saturate('+planet_life+'%)'
+    hits.innerText = Math.round(planet_life)
+    kills_counter.innerHTML = kills
+  }
+
+  setInterval(updateGame,1000/60)
+
+  window.addEventListener('mousemove', rotateShip)
+  window.addEventListener('click', fireBullet)  
+},2000)
+
+function stars() {
+    var s = document.createElement('div')
+    s.className = 'star'
+    s.style.pointerEvents = 'none'
+    s.style.left = (Math.random()*window.innerWidth) + 'px'
+    s.style.top = (Math.random()*window.innerHeight) + 'px'
+    document.body.appendChild(s)
+  }
+  for(var i=0;i<50;i++) {
+    stars()
+  }
+
+    </script>
+</body>
+</html>

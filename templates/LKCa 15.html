@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LkCa 15 System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #info-bubble {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        #info-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 20px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 0;
+            margin-bottom: -10px;
+        }
+        #info-bubble h3 { margin-top: 0; color: #FFA500; }
+        #info-bubble p { margin: 5px 0; }
+        #info-bubble .label { font-weight: bold; color: #ADD8E6; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="info-bubble"></div>
+    <script>
+        // Set up the scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Add ambient light
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        // Add point light (star)
+        const pointLight = new THREE.PointLight(0xFFFF00, 1, 100);
+        scene.add(pointLight);
+
+        // Create stars
+        const starsGeometry = new THREE.BufferGeometry();
+        const starsMaterial = new THREE.PointsMaterial({color: 0xffffff, size: 0.1});
+
+        const starsVertices = [];
+        for (let i = 0; i < 10000; i++) {
+            const x = THREE.MathUtils.randFloatSpread(2000);
+            const y = THREE.MathUtils.randFloatSpread(2000);
+            const z = THREE.MathUtils.randFloatSpread(2000);
+            starsVertices.push(x, y, z);
+        }
+
+        starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
+        const starField = new THREE.Points(starsGeometry, starsMaterial);
+        scene.add(starField);
+
+        // Create celestial bodies
+        const bodies = [
+            { 
+                name: "LkCa 15", 
+                type: "Star",
+                size: "1.7 times the radius of the Sun",
+                distance: "518 light-years",
+                mass: "1.01 times the mass of the Sun",
+                spectralType: "K5V",
+                temperature: "4,730 K",
+                age: "2 million years",
+                notableFeatures: "Young star with a protoplanetary disk",
+                radius: 2, 
+                color: 0xFFA500, 
+                orbitRadius: 0, 
+                orbitSpeed: 0
+            },
+            { 
+                name: "LkCa 15b", 
+                type: "Protoplanet",
+                size: "Estimated 6 times the radius of Jupiter",
+                mass: "Unknown, possibly several Jupiter masses",
+                orbitalPeriod: "Estimated 14.7 Earth years",
+                semiMajorAxis: "14.7 AU",
+                estimatedTemperature: "Unknown",
+                notableFeatures: "Possible forming gas giant planet",
+                radius: 0.6, 
+                color: 0xFF4500, 
+                orbitRadius: 5, 
+                orbitSpeed: 0.2
+            },
+            { 
+                name: "LkCa 15c", 
+                type: "Protoplanet",
+                size: "Unknown",
+                mass: "Unknown",
+                orbitalPeriod: "Unknown",
+                semiMajorAxis: "Estimated 18.6 AU",
+                estimatedTemperature: "Unknown",
+                notableFeatures: "Possible forming planet",
+                radius: 0.4, 
+                color: 0x4169E1, 
+                orbitRadius: 7, 
+                orbitSpeed: 0.15
+            },
+            { 
+                name: "LkCa 15d", 
+                type: "Protoplanet",
+                size: "Unknown",
+                mass: "Unknown",
+                orbitalPeriod: "Unknown",
+                semiMajorAxis: "Estimated 24 AU",
+                estimatedTemperature: "Unknown",
+                notableFeatures: "Possible forming planet",
+                radius: 0.3, 
+                color: 0x32CD32, 
+                orbitRadius: 9, 
+                orbitSpeed: 0.1
+            }
+        ];
+
+        const bodyMeshes = [];
+        const orbitLines = [];
+
+        bodies.forEach(body => {
+            // Create the celestial body
+            const geometry = new THREE.SphereGeometry(body.radius, 32, 32);
+            const material = new THREE.MeshPhongMaterial({color: body.color});
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.userData = { ...body };
+            
+            // Create orbit line
+            const orbitGeometry = new THREE.BufferGeometry();
+            const orbitMaterial = new THREE.LineBasicMaterial({color: 0xffffff, opacity: 0.5, transparent: true});
+            const orbitPoints = [];
+            for (let i = 0; i <= 64; i++) {
+                const angle = (i / 64) * Math.PI * 2;
+                orbitPoints.push(new THREE.Vector3(Math.cos(angle) * body.orbitRadius, 0, Math.sin(angle) * body.orbitRadius));
+            }
+            orbitGeometry.setFromPoints(orbitPoints);
+            const orbitLine = new THREE.Line(orbitGeometry, orbitMaterial);
+
+            scene.add(mesh);
+            scene.add(orbitLine);
+
+            bodyMeshes.push(mesh);
+            orbitLines.push(orbitLine);
+        });
+
+        // Set up camera position for top-down view
+        camera.position.y = 20;
+        camera.lookAt(scene.position);
+
+        // Raycaster for object selection
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        // Event listener for mouse clicks
+        window.addEventListener('click', onMouseClick, false);
+
+        function onMouseClick(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(bodyMeshes);
+
+            if (intersects.length > 0) {
+                const selectedBody = intersects[0].object;
+                showInfo(selectedBody.userData);
+            } else {
+                hideInfo();
+            }
+        }
+
+        function showInfo(bodyData) {
+            const infoBubble = document.getElementById('info-bubble');
+            let infoHTML = `<h3>${bodyData.name}</h3>`;
+            
+            for (const [key, value] of Object.entries(bodyData)) {
+                if (!['name', 'radius', 'color', 'orbitRadius', 'orbitSpeed'].includes(key)) {
+                    infoHTML += `<p><span class="label">${key.charAt(0).toUpperCase() + key.slice(1)}:</span> ${value}</p>`;
+                }
+            }
+            
+            infoBubble.innerHTML = infoHTML;
+            infoBubble.style.display = 'block';
+        }
+
+        function hideInfo() {
+            const infoBubble = document.getElementById('info-bubble');
+            infoBubble.style.display = 'none';
+        }
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Update positions of celestial bodies
+            bodyMeshes.forEach(mesh => {
+                if (mesh.userData.orbitRadius > 0) {
+                    const angle = Date.now() * 0.001 * mesh.userData.orbitSpeed;
+                    mesh.position.x = Math.cos(angle) * mesh.userData.orbitRadius;
+                    mesh.position.z = Math.sin(angle) * mesh.userData.orbitRadius;
+                }
+                mesh.rotation.y += 0.01;
+            });
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle window resizing
+        window.addEventListener('resize', onWindowResize, false);
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+    </script>
+</body>
+</html>

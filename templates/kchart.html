@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Exoplanet Data Visualizations</title>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        .bar {
+            fill: darkmagenta;
+        }
+        .bar:hover {
+            fill: steelblue;
+        }
+        .title {
+            font: bold 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        .axis {
+            font: 11px sans-serif;
+        }
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: black;
+        }
+        .x.axis path {
+            display: none;
+        }
+        .tick line {
+            opacity: 0.2;
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .chart-container {
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exoplanet Data Visualizations</h1>
+    
+    <div class="chart-container">
+        <h2>Exoplanets Discovered by Year</h2>
+        <div id="histogram"></div>
+    </div>
+    
+    <div class="chart-container">
+        <h2>Exoplanets in Comparison to Earth</h2>
+        <div id="bubble-chart" style="width: 1280px; height: 720px;"></div>
+    </div>
+
+    <script>
+        // Histogram data
+        var khistogram = [
+            {year: '1989', amount: 1},
+            {year: '1992', amount: 2},
+            {year: '1994', amount: 1},
+            {year: '1995', amount: 1},
+            {year: '1996', amount: 6},
+            {year: '1997', amount: 1},
+            {year: '1998', amount: 6},
+            {year: '1999', amount: 13},
+            { year: '2000', amount: 29 },
+        { year: '2001', amount: 27 },
+        { year: '2002', amount: 33 },
+        { year: '2003', amount: 25 },
+        { year: '2004', amount: 28 },
+        { year: '2005', amount: 31 },
+        { year: '2006', amount: 29 },
+        { year: '2007', amount: 47 },
+        { year: '2008', amount: 67 },
+        { year: '2009', amount: 81 },
+        { year: '2010', amount: 115 },
+        { year: '2011', amount: 189 },
+        { year: '2012', amount: 139 },
+        { year: '2013', amount: 151 },
+        { year: '2014', amount: 715 },
+        { year: '2015', amount: 128 },
+        { year: '2016', amount: 1505 },
+        { year: '2017', amount: 71 },
+        { year: '2018', amount: 285 },
+        { year: '2019', amount: 320 },
+        { year: '2020', amount: 268 },
+        { year: '2021', amount: 389 },
+        { year: '2022', amount: 329 },
+        { year: '2023', amount: 346 }  // Latest data
+];
+
+        // Bubble chart data
+        var kbchart = [
+            ['Planet Name', 'Distance', 'Mass', 'Temp.', 'Radius'],
+            ['K2-18 b', 34.0, null, 272, 2.24],
+            ['Kepler-22 b', 190.0, 36.0, 262, 2.38],
+            ['Kepler-62 f', 368.0, 35.0, 208, 1.41],
+            ['Kepler-69 c', null, null, 299, 1.71],
+            ['Kepler-1410 b', 367.0, 2.57, 274, 1.78],
+            ['TRAPPIST-1 d', 12.1, 0.41, 288, 0.772],
+            ['GJ 832 c', 4.94, 5.4, 253, 1.5],
+            ['Kepler-442 b', 342.0, 2.3, 233, 1.34],
+            ['Kepler-421 b', 320.0, null, 185, 4.16],
+            ['Kepler-61 b', null, null, 273, 2.15],
+            ['Kepler-62 e', 368.0, 36.0, 270, 1.61],
+            ['Kepler-438 b', 145.0, 1.3, 276, 1.12],
+            ['Kepler-452 b', 430.0, 5.0, 265, 1.63],
+            ['K2-3 d', 42.0, null, 282, 1.51],
+            ['Kepler-296 e', 226.0, 1.0, 267, 1.53],
+            ['TRAPPIST-1 e', 12.1, 0.62, 251, 0.918],
+            ['TRAPPIST-1 f', 12.1, 0.68, 219, 1.045],
+            ['TRAPPIST-1 g', 12.1, 1.34, 199, 1.127],
+            ['TRAPPIST-1 h', 12.1, null, 173, 0.752],
+            ['LHS 1140 b', 12.47, 6.65, 230, 1.43],
+            ['EARTH', 3.0, 1.0, 288, 1.0]
+        ];
+
+        // D3.js Histogram
+        function drawHistogram() {
+            var margin = {top: 80, right: 180, bottom: 80, left: 180},
+                width = 1366 - margin.left - margin.right,
+                height = 768 - margin.top - margin.bottom;
+
+            var x = d3.scale.ordinal()
+                .domain(khistogram.map(function(d) { return d.year; }))
+                .rangeRoundBands([0, width], .1, .3);
+
+            var y = d3.scale.linear()
+                .domain([0, d3.max(khistogram, function(d) { return d.amount; })])
+                .range([height, 0]);
+
+            var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+            var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left")
+                .innerTickSize(-width);
+
+            var svg = d3.select("#histogram").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis);
+
+            svg.selectAll(".bar")
+                .data(khistogram)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function(d) { return x(d.year); })
+                .attr("width", x.rangeBand())
+                .attr("y", function(d) { return y(d.amount); })
+                .attr("height", function(d) { return height - y(d.amount); });
+        }
+
+        // Google Charts Bubble Chart
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawBubbleChart);
+
+        function drawBubbleChart() {
+            var data = google.visualization.arrayToDataTable(kbchart);
+
+            var options = {
+                title: 'Exoplanets in comparison to Earth. (Color = planet temperature)',
+                hAxis: {title: 'Distance to the planetary system (parsecs)', logScale: true},
+                vAxis: {title: 'Planet Mass (Earth mass)', logScale: true},
+                bubble: {textStyle: {fontSize: 11, auraColor: 'none'}},
+                colorAxis: {colors: ['CornflowerBlue', 'LightGreen', 'Yellow', 'OrangeRed']}
+            };
+
+            var chart = new google.visualization.BubbleChart(document.getElementById('bubble-chart'));
+            chart.draw(data, options);
+        }
+
+        // Draw both charts
+        drawHistogram();
+    </script>
+</body>
+</html>

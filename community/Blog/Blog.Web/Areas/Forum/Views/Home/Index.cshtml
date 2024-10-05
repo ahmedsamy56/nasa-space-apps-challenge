@@ -1,0 +1,299 @@
+﻿@using Blog.Entities.Models
+@using System.Text.RegularExpressions;
+
+@model IEnumerable<ForumTopic>
+@using Blog.Utilities
+@using System.Security.Claims
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Web.Common;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+@section Style {
+   <style>
+        /* Welcome section */
+        .welcome-part-one {
+            background-color: #1a1a1a; /* Dark background */
+            color: #ddd; /* Light text color */
+        }
+
+        .welcome-demop102 h2 {
+            color: #ff7361; /* Highlight color for header */
+        }
+
+        .welcome-demop102 p {
+            color: #ccc; /* Lighter text color */
+        }
+
+        .join92 {
+            background-color: #ff7361;
+            color: #fff;
+        }
+
+            .join92:hover {
+                background-color: #333;
+                color: #fff;
+            }
+
+        /* Main content section */
+        .main-content920 {
+            background-color: #1e1e1e; /* Dark background for the main content */
+            color: #ddd; /* Light text color */
+        }
+
+        .question-type2033 {
+            background-color: #2b2b2b; /* Dark card background */
+            color: #ddd;
+            box-shadow: 0px 0px 13px -3px #111; /* Dark shadow */
+        }
+
+        .left-user12923 img {
+            border: 2px solid #444; /* Dark border around images */
+        }
+
+        .right-description893 {
+            color: #ddd;
+        }
+
+        .ques-details10018 p {
+            color: #ccc;
+        }
+
+        hr {
+            border: 1px solid #444; /* Darker separator lines */
+        }
+
+        .ques-icon-info3293 a {
+            color: #ddd;
+        }
+
+            .ques-icon-info3293 a:hover {
+                color: #ff7361; /* Hover effect */
+            }
+
+        .ques-icon-info3293 i {
+            color: #ff7361; /* Icon color */
+        }
+
+        .btn-danger {
+            background-color: #b33a3a;
+            color: #fff;
+        }
+
+            .btn-danger:hover {
+                background-color: #ff7361;
+            }
+
+        .page-item {
+            background-color: #444;
+            color: #ddd;
+        }
+
+            .page-item .page-link {
+                color: #ddd;
+                background-color: #333;
+            }
+
+                .page-item .page-link:hover {
+                    background-color: #ff7361;
+                    color: #fff;
+                }
+
+        /* Container and row background */
+        .container.px-4.px-lg-5.mt-5 {
+            background-color: #1e1e1e; /* Dark background for the container */
+            color: #ddd; /* Light text */
+        }
+
+        /* Pagination items */
+        .page-item {
+            background-color: #333; /* Dark background for pagination items */
+            border: 1px solid #444; /* Slight border for separation */
+        }
+
+            .page-item .page-link {
+                color: #ddd; /* Light text color */
+                background-color: #333; /* Dark background for page link */
+                border: none; /* Remove borders */
+            }
+
+                /* Hover effect for pagination links */
+                .page-item .page-link:hover {
+                    background-color: #ff7361; /* Accent color on hover */
+                    color: #fff; /* White text on hover */
+                }
+
+            /* Active page link styling */
+            .page-item.active .page-link {
+                background-color: #ff7361; /* Accent color for active page */
+                color: #fff; /* White text for active page */
+            }
+
+            /* Disabled page link styling */
+            .page-item.disabled .page-link {
+                background-color: #555; /* Slightly darker background for disabled links */
+                color: #888; /* Greyed out text */
+            }
+
+
+        .question-type2033 {
+            background-color: #2b2b2b; /* Dark background */
+            color: #ddd; /* Light text color */
+            padding: 20px;
+            box-shadow: 0px 0px 13px -3px #111; /* Optional shadow */
+        }
+
+            /* Specific styles for headers and paragraphs inside question-type2033 */
+            .question-type2033 h3,
+            .question-type2033 p,
+            .question-type2033 a {
+                color: #ddd; /* Light color for all text */
+            }
+
+                .question-type2033 a:hover {
+                    color: #ff7361; /* Optional hover effect for links */
+                }
+
+
+   </style>
+}
+<!--======= welcome section on top background=====-->
+<section class="welcome-part-one">
+    <div class="container">
+        <div class="welcome-demop102 text-center">
+            <h2>Welcome to our community</h2>
+            <p>
+                Join our community to explore space and discuss NASA's missions, discoveries, and advancements. From Mars rovers to the James Webb Space Telescope,
+                <br /> share your thoughts and engage in exciting conversations about the universe and its mysteries!
+            </p>
+            <div class="button0239-item">
+                <a href="/Forum/Forum/Create">
+                    <button type="button" class="join92">Let's discuss</button>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ======content section/body=====-->
+<section class="main-content920">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" id="questionContainer">
+                <div id="main">
+                    @foreach (var item in Model)
+                    {
+                        <section style="background-color: #1e1e1e; padding: 15px;">
+
+                            <div class="question-type2033">
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <div class="left-user12923 left-user12923-repeat">
+                                            <a ><img src="~/visitor/image/images.png" alt="image"> </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="right-description893">
+                                            <div id="que-hedder2983">
+                                                <h3 style="color: #ddd;"><a style="color: #ddd;"  href="/Forum/Home/GetForum/@item.Id">@item.Title</a></h3>
+                                            </div>
+                                            @{
+                                                // Strip HTML tags using Regex
+                                                var plainTextContent = HtmlHelpers.StripHtml(item.Content);
+                                            }
+                                            <div class="ques-details10018">
+                                                <p>@plainTextContent.Substring(0, Math.Min(100, item.Content.Length))...</p>
+                                            </div>
+                                            <hr>
+                                            <div class="ques-icon-info3293">
+                                                <a style="color: #ddd;">
+                                                    <i class="fa fa-star" aria-hidden="true"> 5 </i>
+                                                </a>
+                                                <a style="color: #ddd;">
+                                                    @item.CreatedAt
+                                                </a>
+                                                <a href="#" style="color: #ddd;">
+                                                    <i class="fa fa-user" aria-hidden="true"></i>@item.ApplicationUser.Name
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    @{
+                                        string userId = null;
+
+                                        if (User?.Identity is ClaimsIdentity claimsIdentity)
+                                        {
+                                            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                                            if (claim != null)
+                                            {
+                                                userId = claim.Value;
+                                            }
+                                        }
+                                    }
+
+                                    @if (item?.applicationUserId == userId)
+                                    {
+                                        <div class="col-md-2">
+                                            <div class="ques-type302">
+                                                <button class="btn btn-danger btn-sm delete-Question" data-question-id="@item?.Id">Delete</button>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </section>
+                    }
+
+                    <div class="container px-4 px-lg-5 mt-5 text-center">
+                        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                            @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
+                                     new PagedListRenderOptions
+                            {
+                                LiElementClasses = new string[] { "page-item" },
+                                PageClasses = new string[] { "page-link" }
+                            })
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postId = $('#postId').val();
+
+        $('#questionContainer').on('click', '.delete-Question', function () {
+            var questionId = $(this).data('question-id');
+
+            $.ajax({
+                url: '/Forum/Forum/DeleteForum',
+                type: 'POST',
+                data: {
+                    questionId: questionId 
+                },
+                success: function () {
+                     location.reload();
+                },
+                error: function (xhr, status, error) {
+                    alert("Error deleting Question : " + xhr.responseText + "\nStatus: " + status + "\nError: " + error);
+                }
+            });
+        });
+    });
+</script>
+
+}

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="https://websim.ai" />
+    <title>See The Stars</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS will be inserted here */
+    </style>
+</head>
+    <style>
+                
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+            background-color: #000;
+            color: #0f0;
+            overflow: hidden;
+            height: 100vh;
+        }
+        .section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        h2 {
+            font-size: 3em;
+            text-align: center;
+            text-shadow: 0 0 20px #0f0;
+            z-index: 1;
+            margin: 0;
+        }
+        .tagline {
+            font-size: 1.4em;
+            text-align: center;
+            text-shadow: 0 0 10px #0f0;
+            z-index: 1;
+            margin-top: 10px;
+        }
+        .description {
+            font-size: 1em;
+            text-align: center;
+            max-width: 600px;
+            margin-top: 20px;
+            color: #8fbc8f;
+            z-index: 1;
+        }
+        .star-field {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            perspective: 600px;
+        }
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: #fff;
+            animation: star-fall linear infinite;
+        }
+        @keyframes star-fall {
+            0% { transform: translateZ(0); opacity: 1; }
+            100% { transform: translateZ(600px); opacity: 0; }
+        }
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        .control-btn {
+            background-color: rgba(0, 255, 0, 0.2);
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            transition: all 0.3s ease;
+        }
+        .control-btn:hover {
+            background-color: rgba(0, 255, 0, 0.4);
+        }
+        #stats {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #0f0;
+            font-size: 0.8em;
+        }
+
+    </style>
+<body>
+
+        <section class="section">
+            <div class="star-field" id="starField"></div>
+            <h2>See The Stars</h2>
+            <p class="tagline"></p>
+            <p class="description">Play with the stars!</p>
+            <div id="stats"></div>
+        </section>
+        
+        <div class="controls">
+            <button class="control-btn" id="addStars">Add Stars</button>
+            <button class="control-btn" id="removeStars">Remove Stars</button>
+            <button class="control-btn" id="speedUp">Speed Up</button>
+            <button class="control-btn" id="slowDown">Slow Down</button>
+            <button class="control-btn" id="shootingStar">Trigger Shooting Star</button>
+        </div>
+
+
+
+    <script>
+let starCount = 200;
+let starSpeed = 1;
+const starField = document.getElementById('starField');
+const statsElement = document.getElementById('stats');
+
+function updateStats() {
+    statsElement.textContent = `Stars: ${starCount} | Speed: ${starSpeed.toFixed(1)}x`;
+}
+
+function createStar() {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = `${Math.random() * 100}%`;
+    star.style.top = `${Math.random() * 100}%`;
+    star.style.animationDuration = `${(Math.random() * 3 + 2) / starSpeed}s`;
+    star.style.animationDelay = `${Math.random() * 3}s`;
+    
+    const size = Math.random() * 2 + 1;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    
+    const r = Math.floor(Math.random() * 255);
+    const g = Math.floor(Math.random() * 255);
+    const b = Math.floor(Math.random() * 255);
+    star.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    
+    star.style.filter = `blur(${Math.random()}px)`;
+    
+    return star;
+}
+
+function initStarField() {
+    starField.innerHTML = '';
+    for (let i = 0; i < starCount; i++) {
+        starField.appendChild(createStar());
+    }
+    updateStats();
+}
+
+function addStars(num = 20) {
+    for (let i = 0; i < num; i++) {
+        starField.appendChild(createStar());
+    }
+    starCount += num;
+    updateStats();
+}
+
+function removeStars(num = 20) {
+    const stars = starField.getElementsByClassName('star');
+    for (let i = 0; i < Math.min(num, stars.length); i++) {
+        starField.removeChild(stars[stars.length - 1]);
+    }
+    starCount = Math.max(0, starCount - num);
+    updateStats();
+}
+
+function adjustSpeed(factor) {
+    starSpeed *= factor;
+    const stars = starField.getElementsByClassName('star');
+    for (let star of stars) {
+        const currentDuration = parseFloat(star.style.animationDuration);
+        star.style.animationDuration = `${currentDuration / factor}s`;
+    }
+    updateStats();
+}
+
+function createShootingStar() {
+    const shootingStar = createStar();
+    shootingStar.style.width = '3px';
+    shootingStar.style.height = '3px';
+    shootingStar.style.backgroundColor = '#fff';
+    shootingStar.style.boxShadow = '0 0 10px #fff, 0 0 20px #fff';
+    shootingStar.style.animation = `shooting-star 1s linear`;
+    
+    starField.appendChild(shootingStar);
+    
+    setTimeout(() => {
+        starField.removeChild(shootingStar);
+    }, 1000);
+}
+
+document.getElementById('addStars').addEventListener('click', () => addStars());
+document.getElementById('removeStars').addEventListener('click', () => removeStars());
+document.getElementById('speedUp').addEventListener('click', () => adjustSpeed(1.2));
+document.getElementById('slowDown').addEventListener('click', () => adjustSpeed(1/1.2));
+document.getElementById('shootingStar').addEventListener('click', createShootingStar);
+
+// Mouse parallax effect for stars
+document.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX / window.innerWidth - 0.5;
+    const mouseY = e.clientY / window.innerHeight - 0.5;
+    
+    starField.style.transform = `translate(${mouseX * 20}px, ${mouseY * 20}px)`;
+});
+
+// Add shooting star animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes shooting-star {
+        0% { transform: translateX(0) translateY(0); opacity: 1; }
+        100% { transform: translateX(1000px) translateY(1000px); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+
+initStarField();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+﻿@using System.Security.Claims
+@model Blog.Entities.Models.ForumTopic
+
+@{
+    ViewData["Title"] = "GetForum";
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+@{
+    int x = Model.Replies.Count;
+}
+
+
+
+
+<section class="header-descriptin329" style="background-color: #1e1e1e; color: #ddd;">
+    <div class="container">
+        <h3>Discuss Details</h3>
+        <ol class="breadcrumb breadcrumb839" style="background-color: transparent; color: #ddd;">
+            <li><a href="#" style="color: #ddd;">Home</a></li>
+            <li><a style="color: #ddd;">discuss</a></li>
+            <li class="active">@Model.Title</li>
+        </ol>
+    </div>
+</section>
+
+<section class="main-content920" style="background-color: #222629; color: #ddd;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="post-details" style="background-color: #2b2b2b; padding: 15px; border-radius: 5px;">
+                    <div class="details-header923">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="post-title-left129">
+                                    <h3 style="color: #ff7361;">@Model.Title</h3> <!-- Use a highlight color for the title -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-details-info1982">
+                        <p>@Html.Raw(Model.Content)</p>
+                        <hr style="border-color: #444;">
+                        <div class="post-footer29032">
+                            <div class="l-side2023">
+                                <a href="#" style="color: #ddd;"><i class="fa fa-commenting" aria-hidden="true"> @x answer</i></a>
+                                <i class="fa fa-user user2" aria-hidden="true" style="color: #ddd;">@Model.ApplicationUser.Name</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comment289-box" style="background-color: #2b2b2b; color: #ddd; padding: 15px; border-radius: 5px;">
+                    <h3>Leave A Reply</h3>
+                    <hr style="border-color: #444;">
+                    <form id="commentForm" class="mb-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="post9320-box">
+                                    <textarea type="text" id="commentText" class="form-control" rows="3" placeholder="Enter Your Comment" style="background-color: #333; color: #ddd; border: 1px solid #444;"></textarea>
+                                </div>
+                                <input type="hidden" id="postId" value="@Model.Id" />
+                                <button type="submit" class="pos393-submit" style="background-color: #ff7361; color: #fff; border: none; padding: 10px 20px; border-radius: 4px;">Post Your Answer</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="comment-list12993" style="margin-bottom:20px; background-color: #2b2b2b;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="comments-container" id="commentsContainer">
+                                <ul id="comments-list" class="comments-list" style="list-style-type: none; padding: 0;">
+                                    @if (Model.Replies != null && Model.Replies.Any())
+                                    {
+                                        @foreach (var Reply in Model.Replies)
+                                        {
+                                            <li>
+                                                <div class="comment-main-level" id="comment-@Reply.Id" style="margin-bottom: 15px;">
+                                                    <!-- Avatar -->
+                                                    <div class="comment-avatar">
+                                                        <img src="~/visitor/image/images.png" alt="" style="border-radius: 50%; width: 50px; height: 50px;">
+                                                    </div>
+                                                    <!-- Comment container -->
+                                                    <div class="comment-box" style="background-color: #333; padding: 10px; border-radius: 5px;">
+                                                        <div class="comment-head" style="background-color: #2b2b2b;">
+                                                            <h6 class="comment-name" style="color: #ff7361;">@Reply?.ApplicationUser.Name</h6>
+                                                            <span class="comment-date" style="color: #aaa;">@Reply.CreatedAt.ToString("MMM dd, yyyy - hh:mm tt")</span>
+                                                        </div>
+                                                        <div class="commskdent-content">
+                                                            <p style="color: #ddd;">@Reply?.Content</p>
+                                                            @{
+                                                                string userId = null;
+
+                                                                if (User?.Identity is ClaimsIdentity claimsIdentity)
+                                                                {
+                                                                    var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                                                                    if (claim != null)
+                                                                    {
+                                                                        userId = claim.Value;
+                                                                    }
+                                                                }
+                                                            }
+
+                                                            @if (Reply?.applicationUserId == userId)
+                                                            {
+                                                                <button class="btn btn-danger btn-sm delete-comment" data-comment-id="@Reply?.Id" style="margin-top: 5px;">Delete</button>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var postId = $('#postId').val();
+
+            $('#commentForm').submit(function (e) {
+                e.preventDefault();
+                var commentText = $('#commentText').val();
+                if (commentText.trim() === "") {
+                    alert("Comment cannot be empty!");
+                    return;
+                }
+
+                $.ajax({
+                    url: '/Forum/Forum/AddReply',
+                    type: 'POST',
+                    data: {
+                        postId: postId,
+                        text: commentText
+                    },
+                    success: function () {
+                        $('#commentText').val('');
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error adding comment: " + xhr.responseText + "\nStatus: " + status + "\nError: " + error);
+                    }
+                });
+            });
+
+            $('#commentsContainer').on('click', '.delete-comment', function () {
+                var commentId = $(this).data('comment-id');
+
+                $.ajax({
+                    url: '/Forum/Forum/DeleteReply',
+                    type: 'POST',
+                    data: {
+                        commentId: commentId
+                    },
+                    success: function () {
+                        $('#comment-' + commentId).remove();
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error deleting comment: " + xhr.responseText + "\nStatus: " + status + "\nError: " + error);
+                    }
+                });
+            });
+        });
+    </script>
+}

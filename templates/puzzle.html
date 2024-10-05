@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exoplanet Puzzle</title>
+    <style>
+        body {
+        min-height: 100vh;
+        background: url("https://media.istockphoto.com/id/1472233542/vector/cartoon-astronaut-planets-and-space-landscape.jpg?s=612x612&w=0&k=20&c=ngEj3mU7faIYbl5E6zrgY19uABKGqxKtakNySv4d7hE=");
+        background-position: center 33%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: rgb(203, 203, 203);
+        font-family: "Covered By Your Grace", cursive;
+        overflow-x: hidden;
+        }
+
+        #game-frame {
+            width: 800px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid #333;
+            background-color: #fff;
+            position: relative;
+            margin-bottom: 20px; /* Add margin to space out the game frame from the button */
+
+        }
+
+        #puzzle-container {
+            width: 700px;
+            height: 500px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            grid-template-rows: repeat(2, 1fr);   /* 2 rows */
+            gap: 2px;
+            position: relative;
+            border: 2px solid #333;
+            background-color: #eee;
+            margin-bottom: 10px;
+        }
+
+        .puzzle-piece {
+            position: absolute;
+            cursor: grab;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .puzzle-slot {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ccc;
+            background-color: #ccc;
+        }
+
+        .gif-container {
+            position: absolute;
+            top: 50%;
+            right: 50%;
+            width: 100px;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .gif-container img {
+            width: 450px;
+            height: auto;
+            display: none;
+        }
+
+        #fact-text {
+            font-size: 20px;
+            color: #000;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+
+        .gif-container {
+            position: absolute;
+            top: 50%;
+            right: 20%;
+            width: 100px;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .gif-container img {
+            width: 300px;
+            height: auto;
+            display: none;
+        }
+
+        #fact-text {
+            font-size: 20px;
+            color: #000;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .chat-bubble {
+            position: absolute;
+            top: 0;
+            right: 10%;
+            background-color: #fff;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 10px;
+            max-width: 200px;
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            display: none;
+            transform: translateY(-100%);
+        }
+
+        .chat-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 10px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: #fff;
+        }
+        #moreButton {
+            width: 200px;
+            height: 60px;
+            font-size: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #moreButton:hover {
+            background-color: hsl(242, 77%, 31%);
+        }
+        .back-arrow {
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        transform: translateY(-50%);
+        font-size: 2rem;
+        cursor: pointer;
+        z-index: 10;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        border-radius: 50%;
+        }
+
+        .logo {
+        width: 50px;
+        height: 50px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        color: #4b0082;
+        cursor: pointer;
+        z-index: 1;
+        } 
+        .header {
+        background-color: #4b0082;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        }
+
+        .stars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        }
+
+        .star {
+        position: absolute;
+        background-color: white;
+        border-radius: 50%;
+        animation: twinkle 1s infinite alternate;
+        }
+        #puzzle-container {
+        position: relative;
+        width: 700px;
+        height: 500px;
+        margin: 0 auto;
+    }
+
+    .puzzle-grid {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 1px;
+        background-color: #ccc;
+        z-index: 0;
+    }
+
+    .puzzle-grid::before,
+    .puzzle-grid::after {
+        content: "";
+        position: absolute;
+        background-color: #ccc;
+    }
+
+    .puzzle-grid::before {
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+    }
+
+    .puzzle-grid::after {
+        top: 0;
+        bottom: 0;
+        left: 25%;
+        width: 1px;
+        box-shadow: 175px 0 0 #ccc, 350px 0 0 #ccc;
+    }
+
+    .puzzle-piece {
+        position: absolute;
+        cursor: grab;
+        z-index: 1;
+    }
+
+    .puzzle-piece:active {
+        cursor: grabbing;
+    }
+
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="stars"></div>
+        <a href="/" class="logo" >Home</a>
+    </header>
+    <div class="gif-container">
+        <img id="botGif" src="../static/images/exobot.gif" alt="Exobot">
+        <div id="chatBubble" class="chat-bubble"></div>
+    </div>
+    
+    
+    <div id="game-frame">
+        <div id="puzzle-container"></div>
+        <div class="gif-container">
+            <img id="botGif" src="../static/images/exobot.gif" alt="Exobot">
+            <div id="chatBubble" class="chat-bubble"></div>
+        </div>
+        <div id="fact-text"></div>
+    </div>
+    <button id="moreButton">More</button>
+    <script>
+        document.querySelector('.back-arrow').addEventListener('click', function() {
+            document.querySelector('.projects-container').scrollBy({
+                left: -300,
+                behavior: 'smooth'
+            });
+        });
+
+        // Create stars
+        const starsContainer = document.querySelector('.stars');
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.width = `${Math.random() * 3}px`;
+            star.style.height = star.style.width;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            starsContainer.appendChild(star);
+        }
+    </script>
+
+
+    <script>
+        const planets = {
+    "lkca15b": "LKCa 15 b is a protoplanet that orbits its star within a dense disk of gas and dust.",
+    "wasp121b": "WASP-121b is a hot Jupiter that orbits its star so closely that its upper atmosphere is hot enough to boil iron.",
+    "55cancrie": "55 Cancri e is a Super-Earth exoplanet with a surface likely covered by lava.",
+    "kopler62c": "Kepler-62c is a Super-Earth exoplanet located in the habitable zone of its star.",
+    "trappist1e": "TRAPPIST-1e is one of seven Earth-like planets orbiting the ultra-cool dwarf star TRAPPIST-1."
+};
+
+const planetKeys = Object.keys(planets);
+const randomPlanetKey = planetKeys[Math.floor(Math.random() * planetKeys.length)];
+const randomPlanetImage = `../static/images/planets/${randomPlanetKey}.png`;
+const planetFact = planets[randomPlanetKey];
+
+console.log('Selected planet:', randomPlanetKey);
+console.log('Planet fact:', planetFact);
+
+
+const piecesData = [];
+const SNAP_THRESHOLD = 10;
+const puzzleWidth = 700;
+const puzzleHeight = 500;
+
+function createPuzzle(imageSrc) {
+    const puzzleContainer = document.getElementById('puzzle-container');
+    const rows = 2;
+    const cols = 4;
+
+    const img = new Image();
+    img.src = imageSrc;
+
+    img.onload = function () {
+        const pieceWidth = puzzleWidth / cols;
+        const pieceHeight = puzzleHeight / rows;
+
+        // Create puzzle pieces
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                const canvas = document.createElement('canvas');
+                canvas.width = pieceWidth;
+                canvas.height = pieceHeight;
+                const ctx = canvas.getContext('2d');
+
+                ctx.drawImage(
+                    img,
+                    col * img.width / cols,
+                    row * img.height / rows,
+                    img.width / cols,
+                    img.height / rows,
+                    0,
+                    0,
+                    pieceWidth,
+                    pieceHeight
+                );
+
+                const piece = {
+                    element: canvas,
+                    correctX: col * pieceWidth,
+                    correctY: row * pieceHeight,
+                    currentX: puzzleWidth + Math.random() * 100, // Random initial position
+                    currentY: Math.random() * (puzzleHeight - pieceHeight)
+                };
+
+                canvas.classList.add('puzzle-piece');
+                canvas.style.left = `${piece.currentX}px`;
+                canvas.style.top = `${piece.currentY}px`;
+
+                canvas.addEventListener('mousedown', dragStart);
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('mouseup', dragEnd);
+
+                puzzleContainer.appendChild(canvas);
+                piecesData.push(piece);
+            }
+        }
+    };
+}
+
+let draggedElement = null;
+let draggedPiece = null;
+let offsetX, offsetY;
+
+function dragStart(e) {
+    draggedElement = e.target;
+    draggedPiece = piecesData.find(piece => piece.element === draggedElement);
+    const rect = draggedElement.getBoundingClientRect();
+    offsetX = e.clientX - rect.left; // Adjust offset to be precise
+    offsetY = e.clientY - rect.top;  // Adjust offset to be precise
+    draggedElement.style.cursor = 'grabbing';
+    draggedElement.style.zIndex = 1000;
+}
+
+
+function drag(e) {
+    if (draggedElement) {
+        const x = e.clientX - offsetX;
+        const y = e.clientY - offsetY;
+        draggedElement.style.left = `${x}px`;
+        draggedElement.style.top = `${y}px`;
+    }
+}
+
+function dragEnd(e) {
+    if (draggedElement) {
+        const mouseX = e.clientX - offsetX;
+        const mouseY = e.clientY - offsetY;
+
+        const closestSlot = getClosestSlot(mouseX, mouseY);
+
+        if (closestSlot) {
+            draggedElement.style.left = `${closestSlot.left}px`;
+            draggedElement.style.top = `${closestSlot.top}px`;
+            draggedPiece.currentX = closestSlot.left;
+            draggedPiece.currentY = closestSlot.top;
+
+            if (Math.abs(draggedPiece.currentX - draggedPiece.correctX) < SNAP_THRESHOLD &&
+                Math.abs(draggedPiece.currentY - draggedPiece.correctY) < SNAP_THRESHOLD) {
+                 showExobotResponse('correct!');    // Correct placement
+                checkPuzzleSolved();
+            } else {
+                // Incorrect placement
+                showExobotResponse('Wrong');
+            }
+        } else {
+            draggedPiece.currentX = mouseX;
+            draggedPiece.currentY = mouseY;
+            showExobotResponse('Wrong!');
+        }
+
+        draggedElement.style.zIndex = 1;
+        draggedElement = null;
+        draggedPiece = null;
+    }
+
+}
+
+
+
+
+
+function showExobotResponse(message) {
+    const chatBubble = document.getElementById('chatBubble');
+    const exobotGif = document.getElementById('botGif');
+    chatBubble.innerText = message;
+    chatBubble.style.display = 'block'; // Show the bubble
+    exobotGif.src = 'exobot1.gif'; // Change the Exobot GIF
+    exobotGif.style.display = 'block'; // Show the Exobot
+    speakText(message);
+}
+
+function getClosestSlot(mouseX, mouseY) {
+    let closestSlot = null;
+    let closestDistance = Infinity;
+
+    piecesData.forEach(piece => {
+        const distance = Math.sqrt(Math.pow(piece.correctX - mouseX, 2) + Math.pow(piece.correctY - mouseY, 2));
+
+        if (distance < SNAP_THRESHOLD && distance < closestDistance) {
+            closestSlot = { left: piece.correctX, top: piece.correctY };
+            closestDistance = distance;
+        }
+    });
+
+    return closestSlot;
+}
+
+
+function checkPuzzleSolved() {
+    console.log('Checking if puzzle is solved...');
+    let correctPieces = 0;
+    const totalPieces = piecesData.length;
+
+    piecesData.forEach((piece, index) => {
+        const isCorrect = Math.abs(piece.currentX - piece.correctX) < 10 && 
+                          Math.abs(piece.currentY - piece.correctY) < 10;
+        if (isCorrect) correctPieces++;
+        console.log(`Piece ${index + 1}: correct position = ${isCorrect}`);
+    });
+
+    console.log(`Correct pieces: ${correctPieces}/${totalPieces}`);
+
+    if (correctPieces === totalPieces) {
+        console.log('Puzzle solved! Showing fact:', planetFact);
+        showFact(planetFact);
+    }
+}
+
+function showFact(fact) {
+    console.log('Showing fact:', fact);
+    const chatBubble = document.getElementById('chatBubble');
+    const exobotGif = document.getElementById('botGif');
+    
+    chatBubble.innerText = fact;
+    chatBubble.style.display = 'block';
+    exobotGif.style.display = 'block';
+    
+    console.log('Chat bubble text:', chatBubble.innerText);
+    console.log('Chat bubble display:', chatBubble.style.display);
+    console.log('Exobot GIF display:', exobotGif.style.display);
+    
+    // Ensure the chat bubble is visible
+    chatBubble.style.opacity = '1';
+    chatBubble.style.zIndex = '1000';
+    
+    speakText(fact);
+}
+
+function speakText(text) {
+    console.log('Speaking text:', text);
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.pitch = 1;
+    utterance.rate = 1;
+    synth.speak(utterance);
+
+    utterance.onend = function () {
+        console.log('Finished speaking');
+        // Keep the chat bubble and Exobot visible after speaking
+        // document.getElementById('botGif').style.display = 'none';
+        // document.getElementById('chatBubble').style.display = 'none';
+    };
+}
+
+
+
+
+document.getElementById('moreButton').addEventListener('click', function() {
+    const newPlanetKey = planetKeys[Math.floor(Math.random() * planetKeys.length)];
+    const newPlanetImage = `static/images/planets/${newPlanetKey}.png`;
+    const newPlanetFact = planets[newPlanetKey];
+    
+    // Clear existing puzzle pieces
+    document.getElementById('puzzle-container').innerHTML = '';
+    piecesData.length = 0; // Clear pieces data
+    
+    createPuzzle(newPlanetImage);
+    document.getElementById('fact-text').innerText = '';
+    document.getElementById('botGif').style.display = 'none';
+    document.getElementById('chatBubble').style.display = 'none';
+});
+
+
+createPuzzle(randomPlanetImage);
+
+    </script>
+</body>
+</html>

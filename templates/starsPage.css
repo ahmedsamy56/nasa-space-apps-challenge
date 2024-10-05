@@ -1,0 +1,458 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "poppins-bold", sans-serif;
+  background: #fff;
+  margin: 0;
+  min-height: 100vh;
+}
+
+nav {
+  /* background: linear-gradient(rgba(255,255,255,1),rbga(255,255,255,1)); */
+  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* box-shadow: 0 5px 5px rgba(0,0,0,0.24), 0 1px 2px rgba(0,0,0,0.24); */
+}
+
+nav img {
+  width: 100;
+  margin-left: 5vh;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav ul li {
+  list-style: none;
+  margin-left: 10px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #f0f0f0;
+  padding: 6px 15px;
+  margin-right: 2vh;
+  border-radius: 20px;
+}
+
+nav ul li a:hover {
+  background: turquoise;
+  color: #2b1055;
+}
+
+header {
+  width: 100%;
+  height: 100vh;
+}
+
+.list h1 {
+  color: whitesmoke;
+  font-family: "poppins-bold", sans-serif;
+}
+
+.list h2 {
+  color: whitesmoke;
+  font-family: "poppins-bold", sans-serif;
+}
+
+.list img {
+  margin: 2vh;
+  border-radius: 20px;
+  opacity: 0.5;
+  transition: 0.5s;
+}
+
+.list img:hover {
+  opacity: 1;
+}
+
+.background {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)),
+    url(starsBG.gif);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  width: 90%;
+  height: 70%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column {
+  margin: 10px;
+  width: 28%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  overflow: hidden;
+  opacity: 0.8;
+  transition: 0.2s ease;
+}
+
+.column:hover {
+  width: 30%;
+  height: 100%;
+}
+
+.column .upper {
+  width: 100%;
+  height: 60%;
+  background: #2c3e50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.column .upper img {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column .middle {
+  width: 100%;
+  height: 10%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #232323;
+}
+
+.column .lower {
+  width: 100%;
+  height: 30%;
+  background: #bdc3c7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  font-style: oblique;
+}
+
+.column .lower p {
+  width: 90%;
+  height: auto;
+  text-align: center;
+}
+
+footer {
+  background: #fff;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.background2 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url(background2.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content2 {
+  width: 60%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.content2 .upper {
+  height: 30%;
+  width: 100%;
+}
+
+.content2 .lower {
+  height: 100%;
+  width: 100%;
+}
+
+.content2 .upper h1 {
+  height: 50%;
+  width: 100%;
+  overflow: hidden;
+  color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "poppins-bold", sans-serif;
+}
+
+.content2 .lower ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content2 .lower h2 {
+  height: 70%;
+  width: 100%;
+  overflow: hidden;
+  color: #f0f0f0;
+  display: flex;
+  text-align: justify;
+  align-items: flex-start;
+  font-family: "poppins-bold", sans-serif;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  border-radius: 20px;
+}
+
+.center h1 {
+  text-align: center;
+  padding: 0 0 20px 0;
+  /* border-bottom: 1px solid silver; */
+  font-family: "poppins-bold", sans-serif;
+  color: yellowgreen;
+}
+
+.center form {
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+form .txt {
+  position: relative;
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0;
+}
+
+.txt input {
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.txt label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+textarea:focus,
+input:focus {
+  color: whitesmoke;
+}
+
+.txt span::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: turquoise;
+  transition: 0.5s;
+}
+
+.txt input:focus ~ label,
+.txt input:valid ~ label {
+  top: -5px;
+  color: turquoise;
+}
+
+.txt input:focus ~ span::before,
+.txt input:valid ~ span::before {
+  width: 100%;
+}
+
+.pw {
+  margin: -5px 0 20px 5px;
+  color: #a6a6a6;
+}
+
+.pw:hover {
+  text-decoration: underline;
+}
+
+input[type="submit"] {
+  width: 100%;
+  height: 50px;
+  background: #a6a6a6;
+  border: 4px solid;
+  border-color: turquoise;
+  border-radius: 25px;
+  font-size: 18px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+
+input[type="submit"]:hover {
+  border-color: #a6a6a6;
+  transition: 0.5s;
+}
+
+.bg1 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url(star/siriusBG.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg2 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url(img/jupiterbg.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg3 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url(img/saturnbg.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg4 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url(img/mercurybg.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg5 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url(img/marsbg.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg6 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url(img/venusbg.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg7 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url(img/uranusbg.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg8 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url(img/neptunebg.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="button"] {
+  width: 40%;
+  height: 50px;
+  background: #a6a6a6;
+  border: 4px solid;
+  border-color: turquoise;
+  border-radius: 25px;
+  font-size: 18px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  opacity: 0.5;
+}
+
+input[type="button"]:hover {
+  border-color: #a6a6a6;
+  transition: 0.5s;
+  opacity: 1;
+}

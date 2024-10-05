@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Blog.Entities.Models.ForumReply>
+@{
+    ViewBag.PageTitle = "replies  Management";
+    ViewBag.CardTitle = "All replies";
+    Layout = "_dashboard";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Post Title</th>
+            <th>User</th>
+            <th>Date</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Reply in Model)
+        {
+            <tr>
+                <td>@Reply.ForumTopic.Title</td>
+                <td>@Reply.ApplicationUser.Name</td>
+                <td>@Reply.CreatedAt.ToString("MMM dd, yyyy - hh:mm tt")</td>
+                <td>@Reply.Content</td>
+                <td>
+                    <form asp-action="Delete" asp-route-id="@Reply.Id" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this Reply?');">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                    <a class="btn btn-primary" href="/Forum/Home/GetForum/@Reply.ForumTopic.Id">view</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

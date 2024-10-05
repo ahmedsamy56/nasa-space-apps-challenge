@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Image Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+        }
+        .detail-container {
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .detail-container img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+        }
+        .detail-container h2 {
+            margin-top: 20px;
+        }
+        .detail-container p {
+            line-height: 1.6;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    
+        .logo {
+            width: 150px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" title="Back to Home"></a>
+        <img src="static/images/logow.png" alt="STELLARIS Logo" class="logo">
+    </a>
+
+    <h1>NASA Image Detail</h1>
+    <div class="detail-container">
+        <img src="{{ item['links'][0]['href'] }}" alt="{{ item['data'][0]['title'] }}">
+        <h2>{{ item['data'][0]['title'] }}</h2>
+        <p><strong>Date:</strong> {{ item['data'][0]['date_created'] }}</p>
+        <p><strong>Description:</strong> {{ item['data'][0]['description'] }}</p>
+        {% if item['data'][0].get('keywords') %}
+            <p><strong>Keywords:</strong> {{ ', '.join(item['data'][0]['keywords']) }}</p>
+        {% endif %}
+    </div>
+    <a href="/nasasearch" class="back-button">Back to Search</a>
+</body>
+</html>

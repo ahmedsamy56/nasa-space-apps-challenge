@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STELLARIS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;700&display=swap" rel="stylesheet">
+    <style>
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(-2deg); }
+            75% { transform: translateY(15px) rotate(2deg); }
+        }
+
+        @keyframes spacePulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 255, 255, 0.6); }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Comic Neue", sans-serif;
+            background: #e0f7fa;
+            margin: 0;
+            min-height: 100vh;
+            color: #33333347;
+        }
+        nav {
+  /* background: linear-gradient(rgba(255,255,255,1),rbga(255,255,255,1)); */
+  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* box-shadow: 0 5px 5px rgba(0,0,0,0.24), 0 1px 2px rgba(0,0,0,0.24); */
+}
+
+nav img {
+  width: 100;
+  margin-left: 5vh;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav ul li {
+  list-style: none;
+  margin-left: 10px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #f0f0f0;
+  padding: 6px 15px;
+  margin-right: 2vh;
+  border-radius: 20px;
+}
+
+nav ul li a:hover {
+  background: turquoise;
+  color: #2b1055;
+}
+
+
+        header {
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('../static/images/background.gif') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 60px; /* Account for fixed navbar */
+        }
+
+        .content2 {
+            text-align: center;
+            color: white;
+            max-width: 80%;
+            padding: 40px;
+            background-color: rgba(46, 24, 83, 0.7);
+            border-radius: 25px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            animation: float 10s ease-in-out infinite, spacePulse 4s infinite;
+        }
+
+        .content2 h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #00ffff;
+
+        }
+
+        .content2 h2 {
+            font-size: 24px;
+            line-height: 1.6;
+        }
+
+        section.content {
+          background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url('../static/images/background.gif') no-repeat center center/cover;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            padding: 20px;
+        }
+
+        .column {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            margin: 20px;
+            padding: 30px;
+            width: calc(33.333% - 40px);
+            transition: all 0.5s;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            animation: spacePulse 4s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .column:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .column .upper img {
+            width: 100%;
+            max-width: 250px;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .column:hover .upper img {
+            transform: rotate(-5deg) scale(1.1);
+        }
+
+        .column h2 {
+            font-size: 26px;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+        }
+
+        .column h3 {
+            font-size: 20px;
+            color: #ffffff;
+        }
+
+        footer {
+            background-color: #0277bd;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .back-to-top {
+            background-color: #ffcc80;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #4024a358;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-to-top:hover {
+            background-color: #ff8a65;
+        }
+
+        @media (max-width: 768px) {
+            .column {
+                width: calc(50% - 40px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .column {
+                width: calc(100% - 40px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pageup"></div>
+    <nav>
+        <a href="/mainelementry"
+          ><img src="../static/images/logow.png" alt="logo" width="190" height="120"
+        /></a>
+        <ul>
+          <li><a href="/mainelementry">Home</a></li>
+          <li><a href="/exostory">Stories</a></li>
+          <li><a href="/kidgame">Games</a></li>
+          <li><a href="/kidvid">Videos</a></li>
+          <li><a href="/3Dkids">Simulations</a></li>
+          <li><a href="/kidchat">Exotbot</a></li>
+        </ul>
+      </nav>
+    <header id="home">
+        <div class="content2">
+            <h1>Welcome, Young Explorer!</h1>
+            <h2>
+                Get ready for an exciting adventure through space! Discover amazing facts about planets, stars, and the wonders of the universe. Are you ready to explore the stars? 🚀✨
+            </h2>
+        </div>
+    </header>
+
+    <section class="content">
+        <!-- Exoplanet Stories -->
+        <div class="column">
+            <div class="upper">
+                <center><a href="/exostory"><img src="../static/images/gamkid.png" alt="Exoplanet Stories"></a></center>
+            </div>
+            <h2>EXOPLANET STORIES</h2>
+            <h3>Discover exciting stories about distant worlds beyond our solar system!</h3>
+        </div>
+
+        <!-- Games -->
+        <div class="column">
+            <div class="upper">
+                <center><a href="/game"><img src="../static/images/stor.png" alt="Space Games"></a></center>
+            </div>
+            <h2>GAMES</h2>
+            <h3>Play fun and educational space-themed games!</h3>
+        </div>
+
+        <!-- Videos -->
+        <div class="column">
+            <div class="upper">
+                <center><a href="/lessons"><img src="../static/images/watch.png" alt="Space Videos"></a></center>
+            </div>
+            <h2>Learn</h2>
+            <h3>Learn about exoplanets by watching amazing videos about space and beyond!</h3>
+        </div>
+
+        <!-- 3D Simulations -->
+        <div class="column">
+            <div class="upper">
+                <center><a href="/3Dkids"><img src="../static/images/simkid.png" alt="3D Simulations"></a></center>
+            </div>
+            <h2>3D SIMULATIONS</h2>
+            <h3>Experience space in 3D with interactive simulations!</h3>
+        </div>
+
+        <!-- Chatbot -->
+        <div class="column">
+            <div class="upper">
+                <center><a href="/exobot"><img src="../static/images/exobotkid.png" alt="Space Chatbot"></a></center>
+            </div>
+            <h2>CHATBOT</h2>
+            <h3>Talk to Exobot and learn about space!</h3>
+        </div>
+
+        <div class="column">
+            <div class="upper">
+                <center><a href="/vr"><img src="../static/images/3d.png" alt="Space Chatbot"></a></center>
+            </div>
+            <h2>VR Videos</h2>
+            <h3>Live in Exoplanets!</h3>
+        </div>
+    </section>
+
+    <footer>
+        <p>STELLARIS - Beyond Our Sky</p>
+        <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Back to Top</button>
+    </footer>
+</body>
+</html>

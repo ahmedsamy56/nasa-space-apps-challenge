@@ -1,0 +1,149 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ahmed\\Desktop\\Blog\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4A5AD83E-5D9B-4F04-9BAA-79AC5BA2173E}|Blog.Web\\Blog.Web.csproj|c:\\users\\ahmed\\desktop\\blog\\blog.web\\areas\\forum\\controllers\\forumcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A5AD83E-5D9B-4F04-9BAA-79AC5BA2173E}|Blog.Web\\Blog.Web.csproj|solutionrelative:blog.web\\areas\\forum\\controllers\\forumcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A5AD83E-5D9B-4F04-9BAA-79AC5BA2173E}|Blog.Web\\Blog.Web.csproj|c:\\users\\ahmed\\desktop\\blog\\blog.web\\areas\\admin\\controllers\\forumreplycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A5AD83E-5D9B-4F04-9BAA-79AC5BA2173E}|Blog.Web\\Blog.Web.csproj|solutionrelative:blog.web\\areas\\admin\\controllers\\forumreplycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A5AD83E-5D9B-4F04-9BAA-79AC5BA2173E}|Blog.Web\\Blog.Web.csproj|c:\\users\\ahmed\\desktop\\blog\\blog.web\\areas\\admin\\controllers\\forumtopiccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A5AD83E-5D9B-4F04-9BAA-79AC5BA2173E}|Blog.Web\\Blog.Web.csproj|solutionrelative:blog.web\\areas\\admin\\controllers\\forumtopiccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A5AD83E-5D9B-4F04-9BAA-79AC5BA2173E}|Blog.Web\\Blog.Web.csproj|c:\\users\\ahmed\\desktop\\blog\\blog.web\\areas\\admin\\views\\post\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A5AD83E-5D9B-4F04-9BAA-79AC5BA2173E}|Blog.Web\\Blog.Web.csproj|solutionrelative:blog.web\\areas\\admin\\views\\post\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{75881D59-924F-4C7D-9014-997ABB15A5FF}|Blog.Entities\\Blog.Entities.csproj|c:\\users\\ahmed\\desktop\\blog\\blog.entities\\viewmodel\\postcategories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75881D59-924F-4C7D-9014-997ABB15A5FF}|Blog.Entities\\Blog.Entities.csproj|solutionrelative:blog.entities\\viewmodel\\postcategories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{75881D59-924F-4C7D-9014-997ABB15A5FF}|Blog.Entities\\Blog.Entities.csproj|c:\\users\\ahmed\\desktop\\blog\\blog.entities\\blog.entities.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{75881D59-924F-4C7D-9014-997ABB15A5FF}|Blog.Entities\\Blog.Entities.csproj|solutionrelative:blog.entities\\blog.entities.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A5AD83E-5D9B-4F04-9BAA-79AC5BA2173E}|Blog.Web\\Blog.Web.csproj|c:\\users\\ahmed\\desktop\\blog\\blog.web\\areas\\admin\\views\\post\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4A5AD83E-5D9B-4F04-9BAA-79AC5BA2173E}|Blog.Web\\Blog.Web.csproj|solutionrelative:blog.web\\areas\\admin\\views\\post\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4A5AD83E-5D9B-4F04-9BAA-79AC5BA2173E}|Blog.Web\\Blog.Web.csproj|c:\\users\\ahmed\\desktop\\blog\\blog.web\\areas\\admin\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4A5AD83E-5D9B-4F04-9BAA-79AC5BA2173E}|Blog.Web\\Blog.Web.csproj|solutionrelative:blog.web\\areas\\admin\\controllers\\postcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ForumController.cs",
+              "DocumentMoniker": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Web\\Areas\\Forum\\Controllers\\ForumController.cs",
+              "RelativeDocumentMoniker": "Blog.Web\\Areas\\Forum\\Controllers\\ForumController.cs",
+              "ToolTip": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Web\\Areas\\Forum\\Controllers\\ForumController.cs",
+              "RelativeToolTip": "Blog.Web\\Areas\\Forum\\Controllers\\ForumController.cs",
+              "ViewState": "AgIAADsAAACALTMzM/MtwEoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-04T18:59:00.885Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ForumReplyController.cs",
+              "DocumentMoniker": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Web\\Areas\\Admin\\Controllers\\ForumReplyController.cs",
+              "RelativeDocumentMoniker": "Blog.Web\\Areas\\Admin\\Controllers\\ForumReplyController.cs",
+              "ToolTip": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Web\\Areas\\Admin\\Controllers\\ForumReplyController.cs",
+              "RelativeToolTip": "Blog.Web\\Areas\\Admin\\Controllers\\ForumReplyController.cs",
+              "ViewState": "AgIAABAAAABAmpmZmZkdwCUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-04T18:58:46.811Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ForumTopicController.cs",
+              "DocumentMoniker": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Web\\Areas\\Admin\\Controllers\\ForumTopicController.cs",
+              "RelativeDocumentMoniker": "Blog.Web\\Areas\\Admin\\Controllers\\ForumTopicController.cs",
+              "ToolTip": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Web\\Areas\\Admin\\Controllers\\ForumTopicController.cs",
+              "RelativeToolTip": "Blog.Web\\Areas\\Admin\\Controllers\\ForumTopicController.cs",
+              "ViewState": "AgIAAAMAAACQMDMzMzMbwBQAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-04T18:58:38.605Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PostCategories.cs",
+              "DocumentMoniker": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Entities\\ViewModel\\PostCategories.cs",
+              "RelativeDocumentMoniker": "Blog.Entities\\ViewModel\\PostCategories.cs",
+              "ToolTip": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Entities\\ViewModel\\PostCategories.cs",
+              "RelativeToolTip": "Blog.Entities\\ViewModel\\PostCategories.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-04T18:49:08.829Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Blog.Entities.csproj",
+              "DocumentMoniker": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Entities\\Blog.Entities.csproj",
+              "RelativeDocumentMoniker": "Blog.Entities\\Blog.Entities.csproj",
+              "ToolTip": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Entities\\Blog.Entities.csproj",
+              "RelativeToolTip": "Blog.Entities\\Blog.Entities.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-10-04T18:49:03.949Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Web\\Areas\\Admin\\Views\\Post\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Blog.Web\\Areas\\Admin\\Views\\Post\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Web\\Areas\\Admin\\Views\\Post\\Edit.cshtml",
+              "RelativeToolTip": "Blog.Web\\Areas\\Admin\\Views\\Post\\Edit.cshtml",
+              "ViewState": "AgIAAAIAAACAMjMzMzMrwAwAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-04T18:23:21.665Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Web\\Areas\\Admin\\Views\\Post\\Create.cshtml",
+              "RelativeDocumentMoniker": "Blog.Web\\Areas\\Admin\\Views\\Post\\Create.cshtml",
+              "ToolTip": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Web\\Areas\\Admin\\Views\\Post\\Create.cshtml",
+              "RelativeToolTip": "Blog.Web\\Areas\\Admin\\Views\\Post\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-04T14:44:09.792Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PostController.cs",
+              "DocumentMoniker": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Web\\Areas\\Admin\\Controllers\\PostController.cs",
+              "RelativeDocumentMoniker": "Blog.Web\\Areas\\Admin\\Controllers\\PostController.cs",
+              "ToolTip": "C:\\Users\\ahmed\\Desktop\\Blog\\Blog.Web\\Areas\\Admin\\Controllers\\PostController.cs",
+              "RelativeToolTip": "Blog.Web\\Areas\\Admin\\Controllers\\PostController.cs",
+              "ViewState": "AgIAAIEAAAAAAAAAAEAlwJIAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-04T14:11:38.392Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

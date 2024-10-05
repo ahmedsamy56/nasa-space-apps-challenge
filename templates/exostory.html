@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "poppins-bold", sans-serif;
+  background: #fff;
+  margin: 0;
+  min-height: 100vh;
+}
+
+nav {
+  /* background: linear-gradient(rgba(255,255,255,1),rbga(255,255,255,1)); */
+  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* box-shadow: 0 5px 5px rgba(0,0,0,0.24), 0 1px 2px rgba(0,0,0,0.24); */
+}
+
+nav img {
+  width: 100;
+  margin-left: 5vh;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav ul li {
+  list-style: none;
+  margin-left: 10px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #f0f0f0;
+  padding: 6px 15px;
+  margin-right: 2vh;
+  border-radius: 20px;
+}
+
+nav ul li a:hover {
+  background: turquoise;
+  color: #2b1055;
+}
+
+header {
+  width: 100%;
+  height: 100vh;
+}
+
+.list h1 {
+  color: whitesmoke;
+  font-family: "poppins-bold", sans-serif;
+}
+
+.list h2 {
+  color: whitesmoke;
+  font-family: "poppins-bold", sans-serif;
+}
+
+.list img {
+  margin: 2vh;
+  border-radius: 20px;
+  opacity: 0.5;
+  transition: 0.5s;
+}
+
+.list img:hover {
+  opacity: 1;
+}
+
+.background {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)),
+    url(../static/images/background.gif);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  width: 90%;
+  height: 70%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column {
+  margin: 10px;
+  width: 28%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  overflow: hidden;
+  opacity: 0.8;
+  transition: 0.2s ease;
+}
+
+.column:hover {
+  width: 30%;
+  height: 100%;
+}
+
+.column .upper {
+  width: 100%;
+  height: 60%;
+  background: #2c3e50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.column .upper img {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column .middle {
+  width: 100%;
+  height: 10%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #232323;
+}
+
+.column .lower {
+  width: 100%;
+  height: 30%;
+  background: #bdc3c7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  font-style: oblique;
+}
+
+.column .lower p {
+  width: 90%;
+  height: auto;
+  text-align: center;
+}
+
+footer {
+  background: #fff;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.background2 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)),
+    url(background2.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content2 {
+  width: 60%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.content2 .upper {
+  height: 30%;
+  width: 100%;
+}
+
+.content2 .lower {
+  height: 100%;
+  width: 100%;
+}
+
+.content2 .upper h1 {
+  height: 50%;
+  width: 100%;
+  overflow: hidden;
+  color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "poppins-bold", sans-serif;
+}
+
+.content2 .lower ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content2 .lower h2 {
+  height: 70%;
+  width: 100%;
+  overflow: hidden;
+  color: #f0f0f0;
+  display: flex;
+  text-align: justify;
+  align-items: flex-start;
+  font-family: "poppins-bold", sans-serif;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  border-radius: 20px;
+}
+
+.center h1 {
+  text-align: center;
+  padding: 0 0 20px 0;
+  /* border-bottom: 1px solid silver; */
+  font-family: "poppins-bold", sans-serif;
+  color: yellowgreen;
+}
+
+.center form {
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+form .txt {
+  position: relative;
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0;
+}
+
+.txt input {
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.txt label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+textarea:focus,
+input:focus {
+  color: whitesmoke;
+}
+
+.txt span::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: turquoise;
+  transition: 0.5s;
+}
+
+.txt input:focus ~ label,
+.txt input:valid ~ label {
+  top: -5px;
+  color: turquoise;
+}
+
+.txt input:focus ~ span::before,
+.txt input:valid ~ span::before {
+  width: 100%;
+}
+
+.pw {
+  margin: -5px 0 20px 5px;
+  color: #a6a6a6;
+}
+
+.pw:hover {
+  text-decoration: underline;
+}
+
+input[type="submit"] {
+  width: 100%;
+  height: 50px;
+  background: #a6a6a6;
+  border: 4px solid;
+  border-color: turquoise;
+  border-radius: 25px;
+  font-size: 18px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+
+input[type="submit"]:hover {
+  border-color: #a6a6a6;
+  transition: 0.5s;
+}
+
+.bg0 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+  url(../static/images/story.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg1 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+  url(../static/images/Kepler-186f.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg2 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+    url(../static/images/Proxima-Centauri-b.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg3 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+  url(../static/images/TRAPPIST-1e.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg4 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+    url(../static/images/LHS-1140-b.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg5 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+  url(../static/images/55-Cancri-e.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg6 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+    url(../static/images/K2-18b.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg7 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+  url(../static/images/WASP-121b.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg8 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+    url(../static/images/HD-209458-b.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg9 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+  url(../static/images/KELT-9b.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg10 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+    url(../static/images/GJ-3470-b.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg11 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+    url(../static/images/WASP-76b.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg12 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+    url(../static/images/TRAPPIST-1d.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg13 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+    url(../static/images/HD-189733b.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg14 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+    url(../static/images/XO-3b.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg15 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+    url(../static/images/K2-106b.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg16 {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(35, 72, 124, 0.266), rgba(41, 41, 160, 0.255)),
+    url(../static/images/LHS-6343-b.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+input[type="button"] {
+  width: 40%;
+  height: 50px;
+  background: #a6a6a6;
+  border: 4px solid;
+  border-color: turquoise;
+  border-radius: 25px;
+  font-size: 18px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  opacity: 0.5;
+}
+
+input[type="button"]:hover {
+  border-color: #a6a6a6;
+  transition: 0.5s;
+  opacity: 1;
+}
+
+
+
+.planet-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .planet-list {
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 0;
+        }
+
+        .planet-list ul {
+            display: inline-flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .planet-list li {
+            list-style: none;
+            margin: 0 10px;
+        }
+
+        .planet-list a {
+            display: block;
+            text-decoration: none;
+        }
+
+        .planet-list img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .planet-list img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+        }
+
+        /* Scrollbar styles */
+        .planet-list::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .planet-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .planet-list::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 255, 0.5);
+            border-radius: 4px;
+        }
+
+        .planet-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 255, 0.7);
+        }
+        .mic-icon {
+        cursor: pointer;
+        margin-left: 10px;
+        vertical-align: middle;
+        color: #a6a6a6;
+        transition: color 0.3s ease;
+      }
+
+      .mic-icon:hover {
+        color: rgb(1, 15, 13);
+      }
+
+</style>  
+</head>
+  <body>
+    <div id="pageup"></div>
+    <nav>
+      <a href="/mainelementry"
+        ><img src="../static/images/logow.png" alt="logo" width="190" height="120"
+      /></a>
+      <ul>
+        <li><a href="/mainelementry">Home</a></li>
+        <li><a href="/exostory">Stories</a></li>
+        <li><a href="/kidgame">Games</a></li>
+        <li><a href="/kidvid">Videos</a></li>
+        <li><a href="/kidsim">Simulations</a></li>
+        <li><a href="/kidchat">Exotbot</a></li>
+      </ul>
+    </nav>
+
+    <header>
+      <div class="background">
+          <div class="list">
+              <center><h1>ExoPLANETS</h1></center>
+              <center><h2>Choose you exoplanet to know its story </h2></center>
+              <div class="planet-container">
+                  <div class="planet-list">
+                      <ul>
+                          <li><a href="#Kepler-186f"><img src="../static/images/1.png" alt="Kepler-186f" /></a></li>
+                          <li><a href="#Proxima-Centauri-b"><img src="../static/images/2.png" alt="Proxima Centauri b" /></a></li>
+                          <li><a href="#TRAPPIST-1e"><img src="../static/images/3.png" alt="TRAPPIST-1e" /></a></li>
+                          <li><a href="#LHS-1140-b"><img src="../static/images/4.png" alt="LHS 1140 b" /></a></li>
+                          <li><a href="#55-Cancri-e"><img src="../static/images/5.png" alt="55 Cancri e" /></a></li>
+                          <li><a href="#K2-18b"><img src="../static/images/6.png" alt="K2-18b" /></a></li>
+                          <li><a href="#WASP-121b"><img src="../static/images/7.png" alt="WASP-121b" /></a></li>
+                          <li><a href="#HD-209458-b"><img src="../static/images/8.png" alt="HD 209458 b" /></a></li>
+                          <li><a href="#KELT-9b"><img src="../static/images/9.png" alt="KELT-9b" /></a></li>
+                          <li><a href="#GJ-3470-b"><img src="../static/images/10.png" alt="GJ 3470 b" /></a></li>
+                          <li><a href="#WASP-76b"><img src="../static/images/11.png" alt="WASP-76b" /></a></li>
+                          <li><a href="#TRAPPIST-1d"><img src="../static/images/12.png" alt="TRAPPIST-1d" /></a></li>
+                          <li><a href="#HD-189733b"><img src="../static/images/13.png" alt="HD 189733b" /></a></li>
+                          <li><a href="#XO-3b"><img src="../static/images/14.png" alt="XO-3b" /></a></li>
+                          <li><a href="#K2-106b"><img src="../static/images/15.png" alt="K2-106b" /></a></li>
+                          <li><a href="#LHS-6343-b"><img src="../static/images/16.png" alt="LHS 6343 b" /></a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </header>
+
+    
+  <div id="start"></div>
+  <footer>
+    <div class="bg0">
+      <div class="content2">
+        <div class="upper">
+          <h1>The Quest for the Exoplanets story <i class="fas fa-microphone mic-icon" onclick="readText('start')"></i></h1>
+        </div>
+        <div class="lower">
+          <h2 id="start-text">
+            "Hello, my little friends! I'm Exobot, your cheerful space explorer! Are you ready to join me on an amazing journey to discover 20 incredible exoplanets? Buckle up, because we're about to blast off into the stars!"
+          </h2>
+          <center>
+            <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+          </center>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="Kepler-186f"></div>
+  <footer>
+    <div class="bg1">
+      <div class="content2">
+        <div class="upper">
+          <h1>Kepler-186f <i class="fas fa-microphone mic-icon" onclick="readText('Kepler-186f')"></i></h1>
+        </div>
+        <div class="lower">
+          <h2 id="Kepler-186f-text">
+            "First stop, Kepler-186f! This planet is the first Earth-sized wonder I found in the habitable zone—that's the sweet spot around a star where life could exist! Imagine lush green forests and rivers perfect for splashing around. Isn't it beautiful?"
+          </h2>
+          <center>
+            <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+          </center>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="Proxima-Centauri-b"></div>
+  <footer>
+    <div class="bg2">
+      <div class="content2">
+        <div class="upper">
+          <h1>Proxima Centauri b <i class="fas fa-microphone mic-icon" onclick="readText('Proxima-Centauri-b')"></i></h1>
+        </div>
+        <div class="lower">
+          <h2 id="Proxima-Centauri-b-text">
+            "Next up, Proxima Centauri b, the closest planet to our solar system! It orbits a tiny star named Proxima Centauri. This one was found using special instruments that watch for tiny movements in stars caused by planets. Here, you can explore chilly ice caves that sparkle like diamonds! Isn't that magical?"
+          </h2>
+          <center>
+            <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+          </center>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="TRAPPIST-1e"></div>
+  <footer>
+    <div class="bg3">
+      <div class="content2">
+        <div class="upper">
+          <h1>TRAPPIST-1e <i class="fas fa-microphone mic-icon" onclick="readText('TRAPPIST-1e')"></i></h1>
+        </div>
+        <div class="lower">
+          <h2 id="TRAPPIST-1e-text">
+            "Now, let's visit TRAPPIST-1e! This rocky planet has stunning mountains and oceans of liquid water. Just like Earth, it's in the right spot to have water. Scientists discovered it using the transit method, which means they watched how the light from the star changed when planets moved in front of it. Kids, picture swimming in its warm waters and searching for playful sea creatures! What fun!"
+          </h2>
+          <center>
+            <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+          </center>
+        </div>
+      </div>
+    </div>
+  </footer>
+    
+    <div id="LHS-1140-b"></div>
+    <footer>
+      <div class="bg4">
+        <div class="content2">
+          <div class="upper">
+            <h1>LHS 1140 b<i class="fas fa-microphone mic-icon" onclick="readText('LHS-6343-b')"></i></h1>
+          </div>
+          <div class="lower">
+            <h2>
+              “Off we go to LHS 1140 b! 
+              This giant planet is covered in mysterious fog, making it an adventure waiting to happen. 
+              Scientists found it by measuring how much the star wobbles when the planet pulls on it. 
+              Look at those giant flowers that glow in the dark! 
+              Can you imagine running through a garden of twinkling lights?”
+            </h2>
+            <center>
+              <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div id="55-Cancri-e"></div>
+    <footer>
+      <div class="bg5">
+        <div class="content2">
+          <div class="upper">
+            <h1>55 Cancri e<i class="fas fa-microphone mic-icon" onclick="readText('LHS-6343-b')"></i></h1>
+          </div>
+          <div class="lower">
+            <h2>
+              “Hold on tight as we zoom to 55 Cancri e, also known as the diamond planet! 
+              Its surface is mostly made of carbon, so it’s like finding sparkling gems everywhere! 
+              This planet was discovered using both the transit method and by studying how the star’s light shifts. 
+              You could wear a crown of diamonds!”
+            </h2>
+            <center>
+              <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div id="K2-18b"></div>
+    <footer>
+      <div class="bg6">
+        <div class="content2">
+          <div class="upper">
+            <h1>K2-18b<i class="fas fa-microphone mic-icon" onclick="readText('LHS-6343-b')"></i></h1>
+          </div>
+          <div class="lower">
+            <h2>
+              “Now, let’s float over to K2-18b! 
+              This planet has an atmosphere filled with water vapor—tiny droplets of water in the air. 
+              Scientists found it by analyzing the light that passes through its atmosphere, looking for signs of water. 
+              Look at those fluffy clouds shaped like animals! 
+              What do you see in the clouds?”
+            </h2>
+            <center>
+              <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div id="WASP-121b"></div>
+    <footer>
+      <div class="bg7">
+        <div class="content2">
+          <div class="upper">
+            <h1>WASP-121b<i class="fas fa-microphone mic-icon" onclick="readText('LHS-6343-b')"></i></h1>
+          </div>
+          <div class="lower">
+            <h2>
+              “Next, we’re heading to WASP-121b, a gas giant! 
+              It’s mostly made of gases, so there’s no solid ground to walk on. 
+              Scientists discovered it by watching how the planet changes the star's light. 
+              Instead, you can ride on fluffy clouds! 
+              What a fun ride!”
+            </h2>
+            <center>
+              <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div id="HD-209458-b"></div>
+    <footer>
+      <div class="bg8">
+        <div class="content2">
+          <div class="upper">
+            <h1>HD 209458 b<i class="fas fa-microphone mic-icon" onclick="readText('LHS-6343-b')"></i></h1>
+          </div>
+          <div class="lower">
+            <h2>
+              “Here comes HD 209458 b! 
+              It was the first planet I found that passes in front of its star, creating a shadow. 
+              It’s a bright blue world, perfect for beach days! 
+              Scientists discovered it using the same method as TRAPPIST-1e. 
+              Who’s ready to build sandcastles?”
+            </h2>
+            <center>
+              <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div id="KELT-9b"></div>
+    <footer>
+      <div class="bg9">
+        <div class="content2">
+          <div class="upper">
+            <h1>KELT-9b<i class="fas fa-microphone mic-icon" onclick="readText('LHS-6343-b')"></i></h1>
+          </div>
+          <div class="lower">
+            <h2>
+              “Now, let’s travel to KELT-9b, one of the hottest exoplanets! 
+              The temperatures here are incredibly high, so kids, you could toast marshmallows on its warm sands! 
+              Scientists found it by studying the light from the star, just like with WASP-121b. 
+              Yummy!”
+            </h2>
+            <center>
+              <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div id="GJ-3470-b"></div>
+    <footer>
+      <div class="bg10">
+        <div class="content2">
+          <div class="upper">
+            <h1>GJ 3470 b<i class="fas fa-microphone mic-icon" onclick="readText('LHS-6343-b')"></i></h1>
+          </div>
+          <div class="lower">
+            <h2>
+              “Next, we visit GJ 3470 b! 
+              This planet enjoys long, sunny days. 
+              Kids, can you picture having a picnic in its beautiful gardens and tasting sweet fruits grown from the trees? 
+              Scientists discovered it by observing how the star wobbled and changed brightness. 
+              What a feast!”
+            </h2>
+            <center>
+              <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div id="WASP-76b"></div>
+    <footer>
+      <div class="bg11">
+        <div class="content2">
+          <div class="upper">
+            <h1>WASP-76b<i class="fas fa-microphone mic-icon" onclick="readText('LHS-6343-b')"></i></h1>
+          </div>
+          <div class="lower">
+            <h2>
+              “Now,let’s explore WASP-76b, a planet where it rains iron! 
+              Imagine stormy skies with raindrops of shiny metal! 
+              This planet is detected using the same methods as the other amazing planets. 
+              Kids, how do you think that feels?”
+            </h2>
+            <center>
+              <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div id="TRAPPIST-1d"></div>
+    <footer>
+      <div class="bg12">
+        <div class="content2">
+          <div class="upper">
+            <h1>TRAPPIST-1d<i class="fas fa-microphone mic-icon" onclick="readText('LHS-6343-b')"></i></h1>
+          </div>
+          <div class="lower">
+            <h2>
+              “Onward to TRAPPIST-1d! 
+              Here, you can find rolling hills and flowing rivers. 
+              Just like Earth, it has beautiful landscapes. 
+              Scientists found this planet using the same methods as its siblings in the TRAPPIST system. 
+              Kids, get ready for a treasure hunt to find shiny pebbles and ancient artifacts hidden in the caves!”
+            </h2>
+            <center>
+              <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div id="HD-189733b"></div>
+    <footer>
+      <div class="bg13">
+        <div class="content2">
+          <div class="upper">
+            <h1>HD 189733b<i class="fas fa-microphone mic-icon" onclick="readText('LHS-6343-b')"></i></h1>
+          </div>
+          <div class="lower">
+            <h2>
+              “Next stop, HD 189733b! 
+              This planet is stormy and has fierce winds. 
+              Scientists discovered it by watching how the light changed during storms. 
+              Imagine riding hoverboards to zoom around and feel the thrill of the winds! 
+              What a wild ride!”
+            </h2>
+            <center>
+              <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div id="XO-3b"></div>
+    <footer>
+      <div class="bg14">
+        <div class="content2">
+          <div class="upper">
+            <h1>XO-3b<i class="fas fa-microphone mic-icon" onclick="readText('LHS-6343-b')"></i></h1>
+          </div>
+          <div class="lower">
+            <h2>
+              “Now let’s explore XO-3b! 
+              This planet has incredible rock formations and canyons. 
+              Scientists found it by observing the star's light and how it changed over time. 
+              Kids, get ready for a treasure hunt to find shiny pebbles and ancient artifacts hidden in the caves!”
+            </h2>
+            <center>
+              <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div id="K2-106b"></div>
+    <footer>
+      <div class="bg15">
+        <div class="content2">
+          <div class="upper">
+            <h1>K2-106b<i class="fas fa-microphone mic-icon" onclick="readText('LHS-6343-b')"></i></h1>
+          </div>
+          <div class="lower">
+            <h2>
+              “Next, we’re off to K2-106b! 
+              Its skies are filled with swirling colors, perfect for painting the sunsets with your imaginations. 
+              Scientists discovered it by studying the light from the star. 
+              What colors do you see in your mind?”
+            </h2>
+            <center>
+              <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div id="LHS-6343-b"></div>
+    <footer>
+      <div class="bg16">
+        <div class="content2">
+          <div class="upper">
+            <h1>LHS 6343 b<i class="fas fa-microphone mic-icon" onclick="readText('LHS-6343-b')"></i></h1>
+          </div>
+          <div class="lower">
+            <h2>
+              “Onwards to LHS 6343 b! 
+              Here, the sky lights up with beautiful auroras. 
+              Kids, imagine dancing under those colorful lights and feeling like you’re in a dream! 
+              This planet was found using the wobbling method. 
+              Isn’t that exciting?”
+            </h2>
+            <center>
+              <input type="button" onclick="window.location.href = '/exostory'" value="PAGE UP" />
+
+            </center>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function readText(id) {
+        const text = document.getElementById(id + '-text').innerText;
+        const utterance = new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(utterance);
+      }
+    </script>
+  </body>
+</html>
+
+

@@ -1,0 +1,894 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Exoplanets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Space Grotesk", sans-serif;
+        }
+        
+        /* Variables */
+        :root {
+            --o1: #f29544;
+            --o2: #f24e29;
+            --y1: #f2df80;
+            --p1: #664a8c;
+            --p2: #590c13;
+            --b1: #061126;
+        }
+        
+        /* Header */
+        header {
+            padding: 2rem;
+            background: radial-gradient(ellipse at 33% 50%, var(--y1), var(--o1) 133%);
+            display: flex;
+            position: sticky;
+            perspective: 10px;
+            perspective-origin: 2% 100%;
+        }
+        
+        @media (min-width: 769px) {
+            header {
+                height: 28rem;
+                justify-content: space-between;
+                top: -25rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+                height: 32rem;
+                top: -29rem;
+            }
+        }
+        
+        /* Stars */
+        .stars {
+            width: 45%;
+            position: relative;
+            perspective: 1000px;
+            z-index: 9;
+            transform: translateZ(0);
+            transition: transform 350ms ease-out;
+        }
+        
+        @media (min-width: 769px) {
+            .stars {
+                height: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .stars {
+                height: 50%;
+            }
+        }
+        
+        .minimised .stars {
+            cursor: pointer;
+            transition: transform 500ms ease-in-out;
+        }
+        
+        @media (min-width: 769px) {
+            .minimised .stars {
+                transform: translateZ(-5.5rem);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .minimised .stars {
+                transform: translateZ(-9.5rem);
+            }
+        }
+        
+        .star {
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .star.b {
+            background: linear-gradient(150deg, #f46e4f, var(--o2));
+            transform: translateY(0) translateZ(0);
+            box-shadow: 0 0 16px 2px var(--o1);
+            animation: inflate 3s ease-in-out alternate infinite;
+        }
+        
+        @media (min-width: 769px) {
+            .star.b {
+                width: 8rem;
+                height: 8rem;
+                top: calc(50% - 3rem);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .star.b {
+                width: 6rem;
+                height: 6rem;
+                top: calc(50% - 2rem);
+            }
+        }
+        
+        .star.a {
+            background: linear-gradient(-15deg, #cfcfcf -66%, #fff);
+            right: 0;
+            transform: translateY(0) translateZ(0);
+            box-shadow: 0 0 16px 2px var(--o1);
+            animation: deflate 3s ease-in-out alternate infinite;
+        }
+        
+        @media (min-width: 769px) {
+            .star.a {
+                width: 16rem;
+                height: 16rem;
+                top: calc(50% - 9rem);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .star.a {
+                width: 12rem;
+                height: 12rem;
+                top: calc(50% - 7rem);
+            }
+        }
+        
+        /* Title */
+        .title {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        @media (min-width: 769px) {
+            .title {
+                width: 50%;
+                height: 100%;
+                align-items: flex-start;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .title {
+                width: 100%;
+                height: 40%;
+                text-align: center;
+                align-items: center;
+            }
+        }
+        
+        .title h1 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            font-variation-settings: "wght" 700;
+            color: var(--p1);
+            text-shadow: 0.2rem 0.2rem 0 var(--o1);
+        }
+        
+        .title h1 span {
+            font-size: 0.33em;
+            display: block;
+            letter-spacing: 0.1em;
+            text-shadow: 0.1rem 0.1rem 0 var(--o1);
+        }
+        
+        .title h2 {
+            font-size: 1rem;
+            font-variation-settings: "wght" 500;
+            color: var(--p2);
+        }
+        
+        @media (min-width: 769px) {
+            .title h2 {
+                border-top: 2px solid;
+                padding-top: 0.66rem;
+                margin-top: 1rem;
+            }
+        }
+        
+        /* Nav */
+        nav {
+            height: 3rem;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            background: none;
+            transition: background 500ms ease;
+        }
+        
+        .docked nav {
+            background: var(--b1);
+        }
+        
+        nav menu {
+            width: 100%;
+            list-style: none;
+            display: flex;
+        }
+        
+        @media (min-width: 769px) {
+            nav menu {
+                justify-content: flex-end;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav menu {
+                justify-content: center;
+            }
+        }
+        
+        nav menu li {
+            color: var(--p2);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            position: relative;
+            transition: color 500ms ease, margin-left 250ms ease-in-out;
+        }
+        
+        @media (max-width: 768px) {
+            nav menu li {
+                font-size: 0.8rem;
+            }
+        }
+        
+        .docked nav menu li {
+            color: var(--y1);
+        }
+        
+        nav menu li::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            max-width: 0;
+            height: 2px;
+            background: var(--p2);
+            transition: max-width 250ms ease-in-out;
+        }
+        
+        .docked nav menu li::after {
+            background: var(--y1);
+        }
+        
+        nav menu li:hover::after {
+            max-width: 100%;
+        }
+        
+        nav menu li + li {
+            margin-left: 2rem;
+        }
+        
+        .minimised nav menu li + li {
+            @media (max-width: 768px) {
+                margin-left: 1rem;
+            }
+        }
+        
+        /* Body */
+        main {
+            line-height: 1.5;
+        }
+        
+        @media (min-width: 769px) {
+            main {
+                padding: 5rem 7rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            main {
+                padding: 2rem;
+            }
+        }
+        
+        main h1 {
+            margin-bottom: 2rem;
+        }
+        
+        .factsheet {
+            margin-top: 4rem;
+        }
+        
+        .factsheet h2 {
+            border-bottom: 1px dashed;
+        }
+        
+        .factsheet ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .factsheet li {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--o2);
+            font-variation-settings: "wght" 600;
+        }
+        
+        .factsheet li span {
+            font-size: 2rem;
+            color: var(--p2);
+            text-transform: none;
+            font-variation-settings: "wght" 300;
+            display: block;
+        }
+        
+        /* Footer */
+        footer {
+            height: calc(100vh - 3rem);
+            background: var(--b1);
+            position: relative;
+            display: flex;
+        }
+        
+        @media (max-width: 768px) {
+            footer {
+                flex-direction: column;
+            }
+        }
+        
+        footer menu {
+            list-style: none;
+            padding: 2rem;
+            display: grid;
+            gap: 1rem;
+        }
+        
+        @media (min-width: 769px) {
+            footer menu {
+                width: 50%;
+                height: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            footer menu {
+                width: 100%;
+                height: 50%;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (min-aspect-ratio: 9/4) {
+            footer menu {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        footer menu li {
+            background: var(--y1);
+            border-radius: 0.25rem;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            font-variation-settings: "wght" 600;
+            color: var(--p2);
+            cursor: pointer;
+        }
+        
+        @media (min-width: 769px) {
+            footer menu li {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            footer menu li {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (min-aspect-ratio: 9/4) {
+            footer menu li {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+        }
+        
+        footer menu li:hover {
+            box-shadow: 0.25rem 0.25rem 0 var(--o1), 0.5rem 0.5rem 0 var(--o2);
+            transform: translate(-0.5rem, -0.5rem);
+        }
+        
+        footer aside {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        @media (min-width: 769px) {
+            footer aside {
+                width: 50%;
+                height: 100%;
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            footer aside {
+                width: 100%;
+                height: 50%;
+            }
+        }
+        
+        footer aside svg {
+            width: 100%;
+            height: 75%;
+        }
+        
+        @media (min-width: 769px) {
+            footer aside svg {
+                width: 100%;
+                height: 75%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            footer aside svg {
+                width: 40%;
+                height: 100%;
+            }
+        }
+        
+        @media (min-aspect-ratio: 9/4) {
+            footer aside svg {
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 50%;
+                height: 100%;
+                opacity: 0.5;
+            }
+        }
+        
+        footer aside svg path {
+            fill: var(--y1);
+        }
+        
+        .credits {
+            color: var(--y1);
+        }
+        
+        @media (max-width: 768px) {
+            .credits {
+                width: 50%;
+            }
+        }
+        
+        .credits h3 {
+            margin-bottom: 1rem;
+        }
+        
+        @media (min-aspect-ratio: 9/4) {
+            .credits p {
+                font-size: 0.8rem;
+            }
+        }
+        
+        .credits p a {
+            color: var(--o1);
+        }
+        
+        .credits p a:hover {
+            color: var(--o2);
+        }
+        
+        /* Animations */
+        @keyframes inflate {
+            from {
+                transform: translateY(0) translateZ(0);
+            }
+            to {
+                transform: translateY(-2vw) translateZ(100px);
+            }
+        }
+        
+        @keyframes deflate {
+            from {
+                transform: translateY(0) translateZ(0);
+            }
+            to {
+                transform: translateY(2vw) translateZ(-100px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!--Header-->
+        <header>
+            <!--Stars-->
+            <div class="stars">
+                <div class="star b"></div>
+                <div class="star a"></div>
+            </div>
+
+            <!--Title-->
+            <div class="title">
+                <h1>
+                    <span>explore</span>
+                    <span id="exoplanetName"></span>
+                </h1>
+                <h2 id="tourismOffice"></h2>
+            </div>
+
+            <!--Nav-->
+            <nav>
+                <menu>
+
+                </menu>
+            </nav>
+        </header>
+
+        <!--Body-->
+        <main>
+            <h1 id="welcomeHeading"></h1>
+            <p id="exoplanetDescription"></p>
+            <section class="factsheet">
+                <h2>Factsheet</h2>
+                <ul>
+                    <li>
+                        Planet type
+                        <span id="planetType"></span>
+                    </li>
+                    <li>
+                        Discovered in
+                        <span id="discoveryYear"></span>
+                    </li>
+                    <li>
+                        Mass
+                        <span id="mass"></span>
+                    </li>
+                    <li>
+                        Planet radius
+                        <span id="radius"></span>
+                    </li>
+                    <li>
+                        Orbital radius
+                        <span id="orbitalRadius"></span>
+                    </li>
+                    <li>
+                        Orbital period
+                        <span id="orbitalPeriod"></span>
+                    </li>
+                </ul>
+            </section>
+        </main>
+
+        <!--Footer-->
+        <footer>
+            <!--Menu-->
+            <menu>
+                <li> Back To Exoplanets Page</li>
+                <li id="historyMenuItem1"></li>
+                <li id="historyMenuItem2"></li>
+                <li id="historyMenuItem3"></li>
+            </menu>
+            
+            <!--Extra-->
+            <aside>
+                <svg viewBox="0 0 512 512">
+                  <path d="M410.341,143.16c-7.234,0-14.505,2.773-20.023,8.259    c-5.517,5.552-8.293,12.82-8.293,20.091c0,7.234,2.776,14.504,8.293,20.021c5.519,5.519,12.789,8.295,20.023,8.295    c7.27,0,14.538-2.776,20.057-8.295c5.551-5.484,8.293-12.754,8.293-20.021c0-7.271-2.774-14.508-8.293-20.058    C424.879,145.934,417.61,143.16,410.341,143.16 M346.273,457.319c-3.668,0-7.369,1.388-10.145,4.195    c-2.808,2.776-4.195,6.477-4.195,10.145c0,3.667,1.388,7.335,4.195,10.144c2.775,2.774,6.477,4.196,10.145,4.196    c3.667,0,7.334-1.422,10.11-4.196c2.81-2.809,4.229-6.477,4.229-10.144c0-3.602-1.355-7.17-3.998-9.946l-0.231-0.198    C353.607,458.707,349.94,457.319,346.273,457.319z M108.531,261.91c-5.684,0-11.4,2.182-15.728,6.51    c-4.329,4.328-6.51,10.045-6.51,15.728c0,5.684,2.181,11.399,6.51,15.728c4.328,4.328,10.011,6.51,15.728,6.51    c5.682,0,11.399-2.182,15.728-6.51c4.36-4.361,6.508-10.044,6.508-15.728c0-5.683-2.148-11.399-6.508-15.728    C119.93,264.092,114.213,261.91,108.531,261.91z M343.234,61.811l-19.99-10.244l10.044,19.627c1.653,2.843,1.257,6.609-1.19,9.055    l-15.893,15.859l21.842-3.502c3.237-0.662,6.641,0.859,8.193,3.932l10.144,20.057l3.437-21.973    c0.396-3.205,2.875-5.915,6.244-6.443l22.205-3.469l-20.023-10.178c-2.841-1.422-4.527-4.527-4.031-7.83l3.568-22.171    l-15.859,15.893C349.711,62.636,346.208,63.297,343.234,61.811z M161.43,177.423c-1.751-1.718-1.751-4.56,0-6.31    c1.718-1.719,4.561-1.719,6.312,0l216.497,216.488c1.719,1.75,1.719,4.592,0,6.31c-1.75,1.751-4.561,1.751-6.311,0L161.43,177.423    z M221.574,163.348c-1.751-1.751-1.751-4.561,0-6.312c1.72-1.751,4.561-1.751,6.312,0l123.873,123.873    c1.752,1.751,1.752,4.56,0,6.312c-1.717,1.75-4.561,1.75-6.311,0L221.574,163.348z M166.055,33.626    c-1.75-1.751-1.75-4.592,0-6.312c1.72-1.752,4.561-1.752,6.312,0l150.448,150.439c1.75,1.75,1.75,4.559,0,6.311    c-1.719,1.751-4.561,1.751-6.311,0L166.055,33.626z M187.433,116.594c1.72,1.719,1.72,4.56,0,6.311    c-1.751,1.718-4.592,1.718-6.31,0L155.318,97.1c-1.751-1.752-1.751-4.561,0-6.313c1.751-1.751,4.559-1.751,6.31,0L187.433,116.594    z M440.112,443.508c1.718,1.718,1.718,4.559,0,6.278c-1.752,1.751-4.561,1.751-6.313,0l-25.805-25.774    c-1.718-1.751-1.718-4.559,0-6.31c1.751-1.718,4.594-1.718,6.312,0L440.112,443.508z M321.725,399.299    c1.717,1.751,1.717,4.592,0,6.31c-1.752,1.751-4.594,1.751-6.313,0l-25.806-25.772c-1.751-1.752-1.751-4.592,0-6.311    c1.752-1.752,4.561-1.752,6.313,0L321.725,399.299z M457.261,312.199c1.752,1.752,1.752,4.561,0,6.312    c-1.718,1.751-4.561,1.751-6.312,0l-68.396-68.396c-1.718-1.752-1.718-4.561,0-6.311c1.751-1.719,4.594-1.719,6.312,0    L457.261,312.199z M54.739,144.943c-1.751-1.719-1.751-4.561,0-6.311c1.718-1.719,4.559-1.719,6.277,0l216.53,216.521    c1.719,1.718,1.719,4.56,0,6.277c-1.751,1.752-4.592,1.752-6.31,0L54.739,144.943z M200.989,367.445l-20.031-10.242l10.044,19.626    c1.685,2.842,1.288,6.608-1.157,9.087l-15.926,15.826l21.882-3.502c3.206-0.66,6.608,0.859,8.161,3.966l10.144,20.023l3.469-21.94    c0.396-3.238,2.875-5.948,6.245-6.477l22.203-3.469l-20.055-10.145c-2.81-1.453-4.527-4.559-3.999-7.863l3.569-22.172    l-15.859,15.894C207.465,368.305,203.93,368.965,200.989,367.445z M76.38,50.84c-2.808,2.776-4.229,6.477-4.229,10.145    c0,3.635,1.421,7.335,4.195,10.111c2.81,2.807,6.477,4.229,10.145,4.229c3.569,0,7.17-1.354,9.946-3.997l0.198-0.231    c2.81-2.776,4.196-6.443,4.196-10.111s-1.386-7.368-4.196-10.145c-2.776-2.807-6.443-4.195-10.144-4.195    C82.824,46.645,79.156,48.033,76.38,50.84z" />
+                </svg>
+           
+                <div class="credits">
+                    <p>Information courtesy of <a href="https://exoplanets.nasa.gov/">NASA Exoplanet Exploration</a></p>
+                </div>
+            </aside>
+        </footer>
+    </div>
+
+    <script>
+
+const exoplanetsData = {
+    "kepler-186f": {
+        name: "Kepler-186f",
+        systemName: "Kepler-186",
+        description: `Kepler-186f is the first Earth-sized planet discovered in the potentially 'habitable zone' around another star, where liquid water could exist on the planet's surface. 
+                      The planet was discovered using the **transit method**, where astronomers observe the slight dimming of a star’s light as a planet crosses in front of it. 
+                      Kepler-186f orbits a red dwarf star about 500 light-years from Earth in the constellation Cygnus. 
+                      Although little is known about the planet’s atmosphere or surface, its location in the habitable zone makes it a prime candidate for further research.`,
+        planetType: "Rocky",
+        discoveryYear: "2014",
+        mass: "1.17 x Earth",
+        radius: "1.11 x Earth",
+        orbitalRadius: "0.432 AU",
+        orbitalPeriod: "129.9 days"
+    },
+    "proxima-centauri-b": {
+        name: "Proxima Centauri b",
+        systemName: "Proxima Centauri",
+        description: `Proxima Centauri b is a super-Earth orbiting the nearest star to the Sun, Proxima Centauri. 
+                      It was discovered using the **radial velocity method**, where astronomers measure the star’s wobble caused by the planet's gravitational pull. 
+                      Proxima Centauri b is located in the habitable zone of its star, but stellar flares from its host could strip away the atmosphere.`,
+        planetType: "Super Earth",
+        discoveryYear: "2016",
+        mass: "1.27 x Earth",
+        radius: "Unknown",
+        orbitalRadius: "0.0485 AU",
+        orbitalPeriod: "11.2 days"
+    },
+    "trappist-1e": {
+        name: "TRAPPIST-1e",
+        systemName: "TRAPPIST-1",
+        description: `TRAPPIST-1e is one of seven Earth-sized planets discovered around the ultra-cool dwarf star TRAPPIST-1. 
+                      The planet was discovered using the **transit method**. It orbits in the habitable zone, making it a candidate for the presence of liquid water. 
+                      Located 39 light-years away, this system is one of the most studied for habitability.`,
+        planetType: "Rocky",
+        discoveryYear: "2017",
+        mass: "0.62 x Earth",
+        radius: "0.91 x Earth",
+        orbitalRadius: "0.029 AU",
+        orbitalPeriod: "6.1 days"
+    },
+    "lhs-1140-b": {
+        name: "LHS 1140 b",
+        systemName: "LHS 1140",
+        description: `LHS 1140 b is a super-Earth discovered orbiting in the habitable zone of a red dwarf star located 41 light-years away. 
+                      It was discovered using the **transit method**. The planet's size and mass suggest it is rocky, and its dense atmosphere could be a good candidate for habitability studies.`,
+        planetType: "Super Earth",
+        discoveryYear: "2017",
+        mass: "6.98 x Earth",
+        radius: "1.43 x Earth",
+        orbitalRadius: "0.09 AU",
+        orbitalPeriod: "24.7 days"
+    },
+    "55-cancri-e": {
+        name: "55 Cancri e",
+        systemName: "55 Cancri",
+        description: `55 Cancri e is a super-Earth exoplanet with an extremely short orbital period, discovered using the **radial velocity method**. 
+                      This planet is so close to its star that it completes an orbit in less than a day, leading to surface conditions hot enough to melt metal.`,
+        planetType: "Super Earth",
+        discoveryYear: "2004",
+        mass: "8.08 x Earth",
+        radius: "1.99 x Earth",
+        orbitalRadius: "0.015 AU",
+        orbitalPeriod: "0.74 days"
+    },
+    "k2-18b": {
+        name: "K2-18b",
+        systemName: "K2-18",
+        description: `K2-18b is a super-Earth discovered in the habitable zone of its star using the **transit method**. 
+                      This planet has drawn attention due to the detection of water vapor in its atmosphere. 
+                      Its size and conditions make it a prime candidate for future habitability studies.`,
+        planetType: "Super Earth",
+        discoveryYear: "2015",
+        mass: "8.63 x Earth",
+        radius: "2.61 x Earth",
+        orbitalRadius: "0.14 AU",
+        orbitalPeriod: "33 days"
+    },
+    "wasp-121b": {
+        name: "WASP-121b",
+        systemName: "WASP-121",
+        description: `WASP-121b is a hot Jupiter exoplanet discovered using the **transit method**. 
+                      The planet's proximity to its star heats its atmosphere to extreme temperatures, causing metals like iron and magnesium to vaporize and escape into space.`,
+        planetType: "Hot Jupiter",
+        discoveryYear: "2015",
+        mass: "1.18 x Jupiter",
+        radius: "1.81 x Jupiter",
+        orbitalRadius: "0.025 AU",
+        orbitalPeriod: "1.27 days"
+    },
+    "hd-209458-b": {
+        name: "HD 209458 b",
+        systemName: "HD 209458",
+        description: `Also known as Osiris, HD 209458 b was the first exoplanet discovered via **transit method**. 
+                      It is a gas giant with a slowly evaporating atmosphere, caused by the intense radiation from its star.`,
+        planetType: "Hot Jupiter",
+        discoveryYear: "1999",
+        mass: "0.69 x Jupiter",
+        radius: "1.36 x Jupiter",
+        orbitalRadius: "0.047 AU",
+        orbitalPeriod: "3.5 days"
+    },
+    "kelt-9b": {
+        name: "KELT-9b",
+        systemName: "KELT-9",
+        description: `KELT-9b is one of the hottest exoplanets ever discovered, with a temperature hotter than most stars. 
+                      It was discovered using the **transit method** and is a gas giant that orbits extremely close to its star.`,
+        planetType: "Hot Jupiter",
+        discoveryYear: "2017",
+        mass: "2.88 x Jupiter",
+        radius: "1.78 x Jupiter",
+        orbitalRadius: "0.035 AU",
+        orbitalPeriod: "1.48 days"
+    },
+    "gj-3470-b": {
+        name: "GJ 3470 b",
+        systemName: "GJ 3470",
+        description: `GJ 3470 b is a Neptune-sized planet discovered using the **transit method**. 
+                      It is rapidly losing its atmosphere due to the intense radiation from its host star, and it is a prime candidate for atmospheric evaporation studies.`,
+        planetType: "Neptune-like",
+        discoveryYear: "2012",
+        mass: "0.036 x Jupiter",
+        radius: "0.37 x Jupiter",
+        orbitalRadius: "0.036 AU",
+        orbitalPeriod: "3.34 days"
+    },
+    "wasp-76b": {
+        name: "WASP-76b",
+        systemName: "WASP-76",
+        description: `WASP-76b is an ultra-hot Jupiter, discovered using the **transit method**, where temperatures on its day side are high enough to vaporize iron. 
+                      The planet is known for having iron rain on its night side, due to extreme temperature differences between day and night.`,
+        planetType: "Hot Jupiter",
+        discoveryYear: "2016",
+        mass: "0.92 x Jupiter",
+        radius: "1.83 x Jupiter",
+        orbitalRadius: "0.033 AU",
+        orbitalPeriod: "1.81 days"
+    },
+    "trappist-1d": {
+        name: "TRAPPIST-1d",
+        systemName: "TRAPPIST-1",
+        description: `TRAPPIST-1d is one of the seven planets in the TRAPPIST-1 system. 
+                      It was discovered using the **transit method** and is located in the habitable zone, with a mass similar to Earth, making it a candidate for further habitability studies.`,
+        planetType: "Rocky",
+        discoveryYear: "2017",
+        mass: "0.39 x Earth",
+        radius: "0.78 x Earth",
+        orbitalRadius: "0.021 AU",
+        orbitalPeriod: "4.05 days"
+    },
+    "hd-189733b": {
+        name: "HD 189733b",
+        systemName: "HD 189733",
+        description: `HD 189733b is a hot Jupiter with a striking deep blue color, likely caused by silicate particles in its atmosphere. 
+                      Discovered using the **transit method**, this planet experiences extreme weather patterns, including fierce winds and violent storms. 
+                      Located approximately 64 light-years away in the constellation Vulpecula, it orbits its star in just 2.22 days, resulting in high surface temperatures.`,
+        planetType: "Hot Jupiter",
+        discoveryYear: "2005",
+        mass: "1.14 x Jupiter",
+        radius: "1.14 x Jupiter",
+        orbitalRadius: "0.031 AU",
+        orbitalPeriod: "2.22 days"
+    },
+    "xo-3b": {
+        name: "XO-3b",
+        systemName: "XO-3",
+        description: `XO-3b is a massive hot Jupiter exoplanet discovered using the **transit method**. 
+                      It has a highly eccentric orbit, causing significant variations in temperature and atmospheric conditions. 
+                      Located about 8.5 light-years away, XO-3b has a mass more than 10 times that of Jupiter, making it one of the heaviest exoplanets discovered.`,
+        planetType: "Hot Jupiter",
+        discoveryYear: "2007",
+        mass: "11.79 x Jupiter",
+        radius: "1.22 x Jupiter",
+        orbitalRadius: "0.047 AU",
+        orbitalPeriod: "3.19 days"
+    },
+    "k2-106b": {
+        name: "K2-106b",
+        systemName: "K2-106",
+        description: `K2-106b is an ultra-short period super-Earth discovered using the **transit method**. 
+                      It orbits its star in less than a day and is likely covered by molten rock due to its close proximity to its host star. 
+                      This planet, located about 150 light-years from Earth, provides valuable insights into the atmospheres and geologies of super-Earths.`,
+        planetType: "Super Earth",
+        discoveryYear: "2017",
+        mass: "8.36 x Earth",
+        radius: "1.52 x Earth",
+        orbitalRadius: "0.011 AU",
+        orbitalPeriod: "0.57 days"
+    },
+    "lhs-6343-b": {
+        name: "LHS 6343 b",
+        systemName: "LHS 6343",
+        description: `LHS 6343 b is a brown dwarf initially mistaken for a massive exoplanet. 
+                      Discovered using the **radial velocity method**, it orbits one star in a binary system about 50 light-years away. 
+                      Although not a planet in the traditional sense, its characteristics are similar to those of large exoplanets, making it an interesting subject for study.`,
+        planetType: "Brown Dwarf",
+        discoveryYear: "2011",
+        mass: "62.6 x Jupiter",
+        radius: "0.83 x Jupiter",
+        orbitalRadius: "0.079 AU",
+        orbitalPeriod: "12.71 days"
+    }
+};
+  
+
+
+
+
+
+// Variables
+const header = document.querySelector('header');
+const nav = document.querySelector('nav');
+const footer = document.querySelector('footer');
+
+// Fold
+const fold = () => {
+  const { y } = nav.getBoundingClientRect();
+  
+  if (y <= 0) {
+    header.classList.add('minimised');
+  } else {
+    header.classList.remove('minimised')
+  }
+};
+
+// Dock
+const dock = () => {
+  const { y, height } = footer.getBoundingClientRect();
+  const point = window.innerHeight - height + 2;
+  
+  if (y <= point) {
+    header.classList.add('docked');
+    footer.classList.add('docked');
+  } else {
+    header.classList.remove('docked');
+    footer.classList.remove('docked');
+  }
+}
+
+// Events
+window.addEventListener('wheel', () => {
+  fold();
+  dock();
+});
+
+// Function to populate the page with exoplanet data
+function populateExoplanetData(exoplanetId) {
+    const exoplanet = exoplanetsData[exoplanetId];
+    if (!exoplanet) {
+        console.error('Exoplanet not found');
+        return;
+    }
+
+    document.getElementById('exoplanetName').textContent = exoplanet.name;
+    document.getElementById('tourismOffice').textContent = `Courtesy of the ${exoplanet.systemName} Tourism Office`;
+    document.getElementById('welcomeHeading').textContent = `Welcome to ${exoplanet.name}!`;
+    document.getElementById('exoplanetDescription').textContent = exoplanet.description;
+    document.getElementById('planetType').textContent = exoplanet.planetType;
+    document.getElementById('discoveryYear').textContent = exoplanet.discoveryYear;
+    document.getElementById('mass').textContent = exoplanet.mass;
+    document.getElementById('radius').textContent = exoplanet.radius;
+    document.getElementById('orbitalRadius').textContent = exoplanet.orbitalRadius;
+    document.getElementById('orbitalPeriod').textContent = exoplanet.orbitalPeriod;
+    document.getElementById('historyMenuItem1').textContent = `Watch ${exoplanet.name} Videos!`;
+    document.getElementById('historyMenuItem2').textContent = `Explore ${exoplanet.name} Exoplantry System!`;
+    document.getElementById('historyMenuItem3').textContent = `Take Quize about ${exoplanet.name} and other!`;
+
+    document.title = `Explore ${exoplanet.name}`;
+}
+
+// Get the exoplanet ID from the URL parameter
+const urlParams = new URLSearchParams(window.location.search);
+const exoplanetId = urlParams.get('id');
+
+// Populate the page with the exoplanet data
+if (exoplanetId) {
+    populateExoplanetData(exoplanetId);
+} else {
+    console.error('No exoplanet ID provided');
+}
+
+
+
+    </script>
+
+</body>
+</html>
+

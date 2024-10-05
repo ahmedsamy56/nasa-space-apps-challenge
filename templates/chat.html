@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ExoBot Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap and FontAwesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <style>
+        /* Existing styles */
+        body, html {
+            height: 100%;
+            margin: 0;
+            background: url('/static/bg.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .chat {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .card {
+            height: 500px;
+            border-radius: 15px !important;
+            background-color: rgba(0, 0, 0, 0.4) !important;
+        }
+        .msg_card_body {
+            overflow-y: auto;
+        }
+        .card-header {
+            border-radius: 15px 15px 0 0 !important;
+            border-bottom: 0 !important;
+        }
+        .card-footer {
+            border-radius: 0 0 15px 15px !important;
+            border-top: 0 !important;
+        }
+        .type_msg {
+            background-color: rgba(0, 0, 0, 0.3) !important;
+            border: 0 !important;
+            color: white !important;
+            height: 60px !important;
+            overflow-y: auto;
+        }
+        .user_img, .user_img_msg {
+            border: 1.5px solid #f5f6fa;
+            border-radius: 50%;
+        }
+        .user_img {
+            height: 70px;
+            width: 70px;
+        }
+        .user_img_msg {
+            height: 40px;
+            width: 40px;
+        }
+        .img_cont, .img_cont_msg {
+            position: relative;
+        }
+        .img_cont {
+            height: 70px;
+            width: 70px;
+        }
+        .img_cont_msg {
+            height: 40px;
+            width: 40px;
+        }
+        .online_icon {
+            position: absolute;
+            height: 15px;
+            width: 15px;
+            background-color: #4cd137;
+            border-radius: 50%;
+            bottom: 13px;
+            right: 13px;
+            border: 1.5px solid white;
+        }
+        .user_info {
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: 15px;
+        }
+        .user_info span {
+            font-size: 20px;
+            color: white;
+        }
+        .user_info p {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .msg_container, .msg_container_send {
+            margin-top: auto;
+            margin-bottom: auto;
+            padding: 10px;
+            position: relative;
+            border-radius: 25px;
+        }
+        .msg_container {
+            margin-left: 10px;
+            background-color: #82ccdd;
+        }
+        .msg_container_send {
+            margin-right: 10px;
+            background-color: #78e08f;
+        }
+        .msg_time, .msg_time_send {
+            position: absolute;
+            bottom: -15px;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .msg_time {
+            left: 0;
+        }
+        .msg_time_send {
+            right: 0;
+        }
+        .exoplanet-suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .suggestion-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .suggestion-btn:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        #chat-message-input {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 25px;
+        }
+        #chat-message-submit {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #chat-message-submit:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .gif-container {
+            position: absolute;
+            top: 50%;
+            right: 97%;
+            width: 100px;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+        .gif-container img {
+            width: 450px;
+            height: auto;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid h-100">
+        <div class="row justify-content-center h-100">
+            <div class="col-md-8 col-xl-6 chat">
+                <div class="card">
+                    <div class="card-header msg_head">
+                        <div class="d-flex bd-highlight">
+                            <div class="img_cont">
+                                <img src="{{ url_for('static', filename='exobot.png') }}" class="rounded-circle user_img">
+                                <span class="online_icon"></span>
+                            </div>
+                            <div class="user_info">
+                                <span>EXOBOT</span>
+                                <p>Ask me anything about space and exoplanets!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="chat-messages" class="card-body msg_card_body">
+                        <!-- Messages will be dynamically added here -->
+                    </div>
+                    <div class="card-footer">
+                        <div class="input-group">
+                            <input id="chat-message-input" type="text" class="form-control type_msg" placeholder="Type your message...">
+                            <div class="input-group-append">
+                                <button id="chat-message-submit" class="btn btn-primary" type="button">Send</button>
+                            </div>
+                        </div>
+                        <div class="exoplanet-suggestions">
+                            <span class="suggestion-btn" onclick="sendSuggestion('Kepler-22b')">Kepler-22b</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('TRAPPIST-1e')">TRAPPIST-1e</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('HD 189733b')">HD 189733b</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('Proxima Centauri b')">Proxima Centauri b</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('WASP-12b')">WASP-12b</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('GJ 1214b')">GJ 1214b</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('Kepler-10c')">Kepler-10c</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('HD 209458b')">HD 209458b</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('55 Cancri e')">55 Cancri e</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('LHS 1140b')">LHS 1140b</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('Kepler-452b')">Kepler-452b</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('K2-18b')">K2-18b</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('Gliese 667 Cc')">Gliese 667 Cc</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('Kepler-186f')">Kepler-186f</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('HD 40307g')">HD 40307g</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('Kepler-1649c')">Kepler-1649c</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('Wolf 1061c')">Wolf 1061c</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('Ross 128b')">Ross 128b</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('Kepler-62e')">Kepler-62e</span>
+                            <span class="suggestion-btn" onclick="sendSuggestion('Tau Ceti e')">Tau Ceti e</span>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GIF Container -->
+    <div class="gif-container">
+        <img src="{{ url_for('static', filename='exobot.gif') }}" id="botGif" alt="Exobot GIF">
+    </div>
+
+    <!-- jQuery and JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let isTyping = false;
+
+            function speakText(text) {
+                var synth = window.speechSynthesis;
+                var utterance = new SpeechSynthesisUtterance(text);
+                var voices = synth.getVoices();
+
+                for (var i = 0; i < voices.length; i++) {
+                    if (voices[i].name.includes('Google UK English Female')) {
+                        utterance.voice = voices[i];
+                        break;
+                    }
+                }
+
+                utterance.pitch = 1;
+                utterance.rate = 1;
+
+                // Display gif when bot is speaking
+                $("#botGif").fadeIn();
+                window.speechSynthesis.speak(utterance);
+
+                // Hide gif when speech ends
+                utterance.onend = function () {
+                    $("#botGif").fadeOut();
+                };
+
+                return utterance;
+            }
+
+            function addMessage(message, isUser = false) {
+                var date = new Date();
+                var hours = date.getHours().toString().padStart(2, '0');
+                var minutes = date.getMinutes().toString().padStart(2, '0');
+                var time = hours + ":" + minutes;
+
+                const messageHtml = isUser ? `
+                    <div class="d-flex justify-content-end mb-4">
+                        <div class="msg_container_send">
+                            ${message}
+                            <span class="msg_time_send">${time}</span>
+                        </div>
+                        <div class="img_cont_msg">
+                            <img src="{{ url_for('static', filename='user.png') }}" class="rounded-circle user_img_msg">
+                        </div>
+                    </div>
+                ` : `
+                    <div class="d-flex justify-content-start mb-4">
+                        <div class="img_cont_msg">
+                            <img src="{{ url_for('static', filename='exobot.png') }}" class="rounded-circle user_img_msg">
+                        </div>
+                        <div class="msg_container">
+                            <span class="message-content"></span>
+                            <span class="msg_time">${time}</span>
+                        </div>
+                    </div>
+                `;
+                $("#chat-messages").append(messageHtml);
+                $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+
+                if (!isUser) {
+                    var utterance = speakText(message);
+                    typeMessage(message, utterance);
+                }
+            }
+
+            function typeMessage(message, utterance) {
+                isTyping = true;
+                const $lastMessage = $(".message-content").last();
+                let i = 0;
+                const intervalId = setInterval(() => {
+                    if (i < message.length) {
+                        $lastMessage.append(message.charAt(i));
+                        $("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+                        i++;
+                    } else {
+                        clearInterval(intervalId);
+                        isTyping = false;
+                    }
+                }, 50);
+            }
+
+            // Add initial bot message
+            var initialDate = new Date();
+            var initialTime = initialDate.getHours().toString().padStart(2, '0') + ":" + initialDate.getMinutes().toString().padStart(2, '0');
+            addMessage("Hi! I'm ExoBot. How can I help you!", false);
+
+            // Send a suggestion and trigger the bot response
+            window.sendSuggestion = function (exoplanet) {
+                $("#chat-message-input").val("Tell me about " + exoplanet);
+                $("#chat-message-submit").click();
+            };
+
+            $("#chat-message-submit").click(function () {
+                if (isTyping) return;
+                const message = $("#chat-message-input").val().trim();
+                if (message) {
+                    addMessage(message, true);
+                    $.ajax({
+                        url: "/get",
+                        type: "POST",
+                        data: { msg: message },
+                        success: function (response) {
+                            addMessage(response.response);
+                        }
+                    });
+                    $("#chat-message-input").val('');
+                }
+            });
+
+            $("#chat-message-input").keypress(function (e) {
+                if (e.which == 13 && !isTyping) {
+                    $("#chat-message-submit").click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

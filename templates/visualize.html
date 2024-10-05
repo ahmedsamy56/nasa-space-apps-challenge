@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exoplanetary Systems</title>
+    <style>
+        body {
+            background: black;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url("../static/images/full-bg.jpg");
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .container {
+            width: 300px;
+            height: 500px;
+            color: white;
+            transition: 0.5s;
+            border-radius: 20px;
+            cursor: pointer;
+            padding: 15px;
+            box-sizing: border-box;
+            text-align: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .container:hover {
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            transition: 0.5s;
+        }
+
+        .image-container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            width: 300px;
+            border-radius: 20px;
+            transition: 0.5s;
+        }
+
+        .container:hover .image-container {
+            width: 270px;
+            top: 15px;
+            transition: 0.5s;
+        }
+
+        .image-container img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        .text-container {
+            width: 300px;
+            padding: 15px;
+            position: absolute;
+            left: 50%;
+            top: 210px;
+            transform: translateX(-50%) scale(1);
+            text-align: left;
+            transition: transform 0.5s;
+        }
+
+        .headline {
+            padding: 10px 0;
+            transition: 0.5s;
+            font-family: sans-serif;
+            font-size: 24px;
+        }
+
+        .text {
+            padding: 0;
+            transition: 0.5s;
+            text-align: justify;
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+
+        .container:hover .text-container {
+            transform: translateX(-50%) scale(0.9);
+            transition: transform 0.5s;
+        }
+
+        .main-header {
+            text-align: center;
+            color: white;
+            font-family: sans-serif;
+            margin-bottom: 50px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .main-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .main-header p {
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        @media only screen and (max-width: 720px) {
+            .cards {
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+            }
+
+            .container {
+                scroll-snap-align: start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-header">
+        <h1>Exoplanetary Systems</h1>
+        <p>Explore the wonders of distant worlds through our interactive visualizations</p>
+    </div>
+
+
+
+
+    <div class="cards">
+       
+        <div class="container" onclick="window.location.href='/view_planet_plot'">
+            <div class="image-container">
+                <img src="../static/images/plot.png" alt="Exoplanet Comparison">
+            </div>
+            <div class="text-container">
+                <div class="headline">Exoplanet ploting</div>
+                <div class="text">See the dictance between our earth and other exoplanets in the outer space.</div>
+            </div>
+        </div>
+
+        <div class="container" onclick="window.location.href='/compare'">
+            <div class="image-container">
+                <img src="../static/images/compare.png" alt="Exoplanet Comparison">
+            </div>
+            <div class="text-container">
+                <div class="headline">Exoplanet Comparison</div>
+                <div class="text">Compare exoplanets side by side and explore their mass distribution. Uncover the diversity of worlds beyond our solar system.</div>
+            </div>
+        </div>
+       
+        <div class="container" onclick="window.location.href='/dash'">
+            <div class="image-container">
+                <img src="../static/images/dash.png" alt="Interactive Dashboard">
+            </div>
+            <div class="text-container">
+                <div class="headline">Interactive Dashboard</div>
+                <div class="text">Dive deep into exoplanet data with our advanced interactive dashboard. Explore multiple parameters and visualizations in one place.</div>
+            </div>
+        </div>  
+       
+       
+        <div class="container" onclick="window.location.href='/chart'">
+            <div class="image-container">
+                <img src="../static/images/chart.png" alt="Exoplanet Charts">
+            </div>
+            <div class="text-container">
+                <div class="headline">Exoplanet discoveryYear $ temperature</div>
+                <div class="text">Discover trends in exoplanet discoveries and compare their characteristics to Earth through interactive charts and graphs.</div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</body>
+</html>

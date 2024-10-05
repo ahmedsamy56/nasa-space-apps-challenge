@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Plot of Planets</title>
+    <!-- Link to Plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Font for Space Vibe (Google Fonts) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Styling for the space theme -->
+    <style>
+        body {
+            font-family: 'Orbitron', sans-serif;
+            color: #fbfcfc;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: url('/static/bg.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            margin-top: 20px;
+            font-size: 2.5em;
+            text-shadow: 0 0 15px rgba(31, 26, 131, 0.9);
+        }
+        #plot {
+            width: 90%;
+            height: 80vh;
+            background-color: rgba(0, 0, 0, 0.6); /* Transparent background for the plot area */
+            border-radius: 15px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>3D Plot of Planets and Exoplanets</h1>
+    <div id="plot"></div>
+    <script type="text/javascript">
+        var graphJSON = {{ graphJSON | safe }};
+        var graphDiv = document.getElementById('plot');
+        Plotly.react(graphDiv, graphJSON.data, graphJSON.layout);
+    </script>
+</body>
+</html>

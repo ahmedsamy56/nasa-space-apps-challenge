@@ -1,0 +1,63 @@
+C:\Users\ahmed\Desktop\blog project\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.deps.json
+C:\Users\ahmed\Desktop\blog project\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.dll
+C:\Users\ahmed\Desktop\blog project\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.pdb
+C:\Users\ahmed\Desktop\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.csproj.AssemblyReference.cache
+C:\Users\ahmed\Desktop\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ahmed\Desktop\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.AssemblyInfoInputs.cache
+C:\Users\ahmed\Desktop\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.AssemblyInfo.cs
+C:\Users\ahmed\Desktop\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.csproj.CoreCompileInputs.cache
+C:\Users\ahmed\Desktop\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.dll
+C:\Users\ahmed\Desktop\blog project\Blog\Blog.Entities\obj\Debug\net8.0\refint\Blog.Entities.dll
+C:\Users\ahmed\Desktop\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.pdb
+C:\Users\ahmed\Desktop\blog project\Blog\Blog.Entities\obj\Debug\net8.0\ref\Blog.Entities.dll
+C:\Users\ahmed\Desktop\bin Recycile for blog project\cheak point\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.deps.json
+C:\Users\ahmed\Desktop\bin Recycile for blog project\cheak point\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.dll
+C:\Users\ahmed\Desktop\bin Recycile for blog project\cheak point\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.pdb
+C:\Users\ahmed\Desktop\bin Recycile for blog project\cheak point\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.csproj.AssemblyReference.cache
+C:\Users\ahmed\Desktop\bin Recycile for blog project\cheak point\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ahmed\Desktop\bin Recycile for blog project\cheak point\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.AssemblyInfoInputs.cache
+C:\Users\ahmed\Desktop\bin Recycile for blog project\cheak point\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.AssemblyInfo.cs
+C:\Users\ahmed\Desktop\bin Recycile for blog project\cheak point\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.csproj.CoreCompileInputs.cache
+C:\Users\ahmed\Desktop\bin Recycile for blog project\cheak point\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.dll
+C:\Users\ahmed\Desktop\bin Recycile for blog project\cheak point\Blog\Blog.Entities\obj\Debug\net8.0\refint\Blog.Entities.dll
+C:\Users\ahmed\Desktop\bin Recycile for blog project\cheak point\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.pdb
+C:\Users\ahmed\Desktop\bin Recycile for blog project\cheak point\Blog\Blog.Entities\obj\Debug\net8.0\ref\Blog.Entities.dll
+D:\مشاريع قديمة\blog project\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.deps.json
+D:\مشاريع قديمة\blog project\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.dll
+D:\مشاريع قديمة\blog project\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.pdb
+D:\مشاريع قديمة\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.csproj.AssemblyReference.cache
+D:\مشاريع قديمة\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.GeneratedMSBuildEditorConfig.editorconfig
+D:\مشاريع قديمة\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.AssemblyInfoInputs.cache
+D:\مشاريع قديمة\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.AssemblyInfo.cs
+D:\مشاريع قديمة\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.csproj.CoreCompileInputs.cache
+D:\مشاريع قديمة\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.sourcelink.json
+D:\مشاريع قديمة\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.dll
+D:\مشاريع قديمة\blog project\Blog\Blog.Entities\obj\Debug\net8.0\refint\Blog.Entities.dll
+D:\مشاريع قديمة\blog project\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.pdb
+D:\مشاريع قديمة\blog project\Blog\Blog.Entities\obj\Debug\net8.0\ref\Blog.Entities.dll
+C:\Users\ahmed\Desktop\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.deps.json
+C:\Users\ahmed\Desktop\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.dll
+C:\Users\ahmed\Desktop\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.pdb
+C:\Users\ahmed\Desktop\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.csproj.AssemblyReference.cache
+C:\Users\ahmed\Desktop\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ahmed\Desktop\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.AssemblyInfoInputs.cache
+C:\Users\ahmed\Desktop\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.AssemblyInfo.cs
+C:\Users\ahmed\Desktop\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.csproj.CoreCompileInputs.cache
+C:\Users\ahmed\Desktop\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.sourcelink.json
+C:\Users\ahmed\Desktop\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.dll
+C:\Users\ahmed\Desktop\Blog\Blog.Entities\obj\Debug\net8.0\refint\Blog.Entities.dll
+C:\Users\ahmed\Desktop\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.pdb
+C:\Users\ahmed\Desktop\Blog\Blog.Entities\obj\Debug\net8.0\ref\Blog.Entities.dll
+C:\Users\ahmed\Desktop\شغل\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.deps.json
+C:\Users\ahmed\Desktop\شغل\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.dll
+C:\Users\ahmed\Desktop\شغل\Blog\Blog.Entities\bin\Debug\net8.0\Blog.Entities.pdb
+C:\Users\ahmed\Desktop\شغل\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.csproj.AssemblyReference.cache
+C:\Users\ahmed\Desktop\شغل\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ahmed\Desktop\شغل\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.AssemblyInfoInputs.cache
+C:\Users\ahmed\Desktop\شغل\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.AssemblyInfo.cs
+C:\Users\ahmed\Desktop\شغل\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.csproj.CoreCompileInputs.cache
+C:\Users\ahmed\Desktop\شغل\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.sourcelink.json
+C:\Users\ahmed\Desktop\شغل\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.dll
+C:\Users\ahmed\Desktop\شغل\Blog\Blog.Entities\obj\Debug\net8.0\refint\Blog.Entities.dll
+C:\Users\ahmed\Desktop\شغل\Blog\Blog.Entities\obj\Debug\net8.0\Blog.Entities.pdb
+C:\Users\ahmed\Desktop\شغل\Blog\Blog.Entities\obj\Debug\net8.0\ref\Blog.Entities.dll

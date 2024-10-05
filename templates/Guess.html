@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Exoplanet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #game-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+        #clues {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        #guess-input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        #submit-guess, #next-planet {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #submit-guess:hover, #next-planet:hover {
+            background-color: #1976d2;
+        }
+        #feedback {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #score {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guess the Exoplanet</h1>
+    <div id="game-container">
+        <div id="clues"></div>
+        <input type="text" id="guess-input" placeholder="Enter your guess...">
+        <button id="submit-guess">Submit Guess</button>
+        <button id="next-planet" class="hidden">Next Planet</button>
+        <div id="feedback"></div>
+        <div id="score">Score: 0</div>
+    </div>
+
+    <script>
+        const exoplanets = [
+            {
+                name: "TRAPPIST-1e",
+                clues: [
+                    "I'm in a system with seven Earth-sized planets.",
+                    "My star is an ultra-cool dwarf.",
+                    "I'm potentially habitable.",
+                    "I'm about the same size as Earth.",
+                    "My year is only about 6 Earth days long."
+                ]
+            },
+            {
+                name: "HD 189733 b",
+                clues: [
+                    "I'm known for my striking blue color.",
+                    "I'm a 'hot Jupiter' - a gas giant close to my star.",
+                    "My atmosphere contains silicate particles.",
+                    "I orbit my star in just 2.2 Earth days.",
+                    "I'm 63 light-years away from Earth."
+                ]
+            },
+            {
+                name: "Kepler-16b",
+                clues: [
+                    "I orbit two stars, like Tatooine from Star Wars.",
+                    "I'm about the size of Saturn.",
+                    "My atmosphere is likely too cold for life as we know it.",
+                    "I was discovered by NASA's Kepler space telescope.",
+                    "I'm often called a 'circumbinary planet'."
+                ]
+            },
+            {
+                name: "CoRoT-7b",
+                clues: [
+                    "I'm one of the first rocky exoplanets ever found.",
+                    "I'm so close to my star that my year is only 20 hours long.",
+                    "My surface is probably covered in lava.",
+                    "I'm about 1.5 times the size of Earth.",
+                    "I was discovered by the CoRoT space telescope."
+                ]
+            },
+            {
+                name: "WASP-12b",
+                clues: [
+                    "I'm one of the hottest known exoplanets.",
+                    "My star's gravity is pulling me apart.",
+                    "I'm so close to my star that my year is just over one Earth day.",
+                    "I'm almost twice the size of Jupiter.",
+                    "My atmosphere might contain clouds of ruby and sapphire."
+                ]
+            }
+        ];
+
+        let currentPlanet;
+        let currentClueIndex;
+        let score = 0;
+
+        function startGame() {
+            currentPlanet = getRandomPlanet();
+            currentClueIndex = 0;
+            updateClue();
+            document.getElementById('guess-input').value = '';
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('submit-guess').classList.remove('hidden');
+            document.getElementById('next-planet').classList.add('hidden');
+        }
+
+        function getRandomPlanet() {
+            return exoplanets[Math.floor(Math.random() * exoplanets.length)];
+        }
+
+        function updateClue() {
+            const cluesElement = document.getElementById('clues');
+            cluesElement.textContent = currentPlanet.clues[currentClueIndex];
+        }
+
+        function submitGuess() {
+            const guess = document.getElementById('guess-input').value.trim().toLowerCase();
+            const correctName = currentPlanet.name.toLowerCase();
+            const feedbackElement = document.getElementById('feedback');
+
+            if (guess === correctName) {
+                feedbackElement.textContent = `Correct! It's ${currentPlanet.name}.`;
+                score += 5 - currentClueIndex;
+                document.getElementById('submit-guess').classList.add('hidden');
+                document.getElementById('next-planet').classList.remove('hidden');
+            } else {
+                currentClueIndex++;
+                if (currentClueIndex < currentPlanet.clues.length) {
+                    feedbackElement.textContent = "Not quite. Here's another clue:";
+                    updateClue();
+                } else {
+                    feedbackElement.textContent = `Sorry, it was ${currentPlanet.name}. Let's try another!`;
+                    document.getElementById('submit-guess').classList.add('hidden');
+                    document.getElementById('next-planet').classList.remove('hidden');
+                }
+            }
+            updateScore();
+        }
+
+        function updateScore() {
+            document.getElementById('score').textContent = `Score: ${score}`;
+        }
+
+        document.getElementById('submit-guess').addEventListener('click', submitGuess);
+        document.getElementById('next-planet').addEventListener('click', startGame);
+
+        startGame();
+    </script>
+</body>
+</html>

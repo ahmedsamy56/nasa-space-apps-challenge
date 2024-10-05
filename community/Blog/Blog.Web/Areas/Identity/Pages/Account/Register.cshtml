@@ -1,0 +1,111 @@
+﻿
+@page
+@using Blog.Utilities;
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="title" content="Ask online Form">
+    <meta name="description" content="The Ask is a bootstrap design help desk, support forum website template coded and designed with bootstrap Design, Bootstrap, HTML5 and CSS. Ask ideal for wiki sites, knowledge base sites, support forum sites">
+    <meta name="keywords" content="HTML, CSS, JavaScript,Bootstrap,js,Forum,webstagram ,webdesign ,website ,web ,webdesigner ,webdevelopment">
+    <meta name="robots" content="index, nofollow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link href="~/visitor/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/visitor/css/loginstyle.css">
+</head>
+<body>
+
+    <div class="modal-wrap">
+        <div class="modal-bodies">
+            <div class="modal-body modal-body-step-1 is-showing">
+                <div class="title">Sign Up</div>
+                <div class="description">Hello there, Register Form</div>
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <h2 class="mb-3" style="color: white;">Create a new account</h2>
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+                    <div class="form-floating mb-3">
+                        <label asp-for="Input.Name" style="color: white;">Name</label>
+                        <input asp-for="Input.Name"  autocomplete="Name" aria-required="true" placeholder="Name" />
+                        <span asp-validation-for="Input.Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <label asp-for="Input.Address" style="color: white;">Address</label>
+                        <input asp-for="Input.Address" class="form-control" autocomplete="Address" aria-required="true" placeholder="Address" />
+                        <span asp-validation-for="Input.Address" class="text-danger"></span>
+                    </div>
+                    
+
+                    <div class="form-floating mb-3">
+                        <label asp-for="Input.Email" style="color: white;">Email</label>
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <label asp-for="Input.Password" style="color: white;">Password</label>
+                        <input asp-for="Input.Password" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <label asp-for="Input.ConfirmPassword" style="color: white;">Confirm Password</label>
+                        <input asp-for="Input.ConfirmPassword" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Confirm password" />
+
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+
+
+                    @if (User.IsInRole(SD.AdminRole))
+                    {
+                        <div class="mb-3">
+                            <label class="form-label">Select Role:</label>
+                            <div class="form-check">
+                                <input type="radio" id="roleAdmin" value="@SD.AdminRole" name="RoleRadio" class="form-check-input">
+                                <label for="roleAdmin" class="form-check-label">@SD.AdminRole</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="roleEditor" value="@SD.EditorRole" name="RoleRadio" class="form-check-input">
+                                <label for="roleEditor" class="form-check-label">@SD.EditorRole</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="roleVisitor" value="@SD.VisitorRole" name="RoleRadio" class="form-check-input">
+                                <label for="roleVisitor" class="form-check-label">@SD.VisitorRole</label>
+                            </div>
+                        </div>
+
+                    }
+
+                    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">
+                        @(User.IsInRole(SD.AdminRole) ? "Create new User" : "Register")
+                    </button>
+                     @if (User.IsInRole(SD.AdminRole))
+                    {
+                        <div style="font-size:20px; margin-top:10px;">
+                            <a href="/Admin/Users/Index">Back to List</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="font-size:20px; margin-top:10px;">
+                            <a href="/Identity/Account/Login">I already have an account</a>
+                        </div>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+    <partial name="_ValidationScriptsPartial" />
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA Exoplanet Match Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .game-container {
+            background-color: rgba(30, 30, 30, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 100%;
+        }
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            grid-gap: 10px;
+            margin: 20px auto;
+            justify-content: center;
+        }
+        .card {
+            width: 100px;
+            height: 150px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .card img {
+            display: none;
+            width: 90%;
+            height: 90%;
+            border-radius: 10px;
+        }
+        .card.flipped img {
+            display: block;
+        }
+        .card.matched {
+            background-color: #4caf50;
+        }
+        #fact-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #fact-image {
+            max-width: 200px;
+            max-height: 200px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+        #fact-text {
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>NASA Exoplanet Match Game</h1>
+        <p>Match the exoplanets and learn fun facts!</p>
+        <div class="game-board">
+            <!-- Cards will go here -->
+        </div>
+        <div id="fact-container">
+            <img id="fact-image" src="" alt="Exoplanet" style="display: none;">
+            <div id="fact-text"></div>
+        </div>
+    </div>
+
+    <script>
+        const allImages = [
+            { src: '../static/images/1.png', name: 'Kepler-186f', fact: 'Kepler-186f is the first Earth-size planet found in the habitable zone of its star.' },
+            { src: '../static/images/2.png', name: 'Proxima Centauri b', fact: 'Proxima Centauri b orbits the closest star to our Sun, only 4.24 light-years away.' },
+            { src: '../static/images/3.png', name: 'TRAPPIST-1e', fact: 'TRAPPIST-1e is one of the seven Earth-size planets orbiting the ultra-cool dwarf star TRAPPIST-1.' },
+            { src: '../static/images/4.png', name: 'LHS 1140 b', fact: 'LHS 1140 b is a super-Earth exoplanet in the habitable zone of a red dwarf star.' },
+            { src: '../static/images/5.png', name: '55 Cancri e', fact: '55 Cancri e is a super-Earth exoplanet that may have a molten surface with lava flows.' },
+            { src: '../static/images/6.png', name: 'K2-18b', fact: 'K2-18b is an exoplanet in the habitable zone with potential water vapor in its atmosphere.' },
+            { src: '../static/images/7.png', name: 'WASP-121b', fact: 'WASP-121b is a "hot Jupiter" with a temperature so high, metal clouds may form.' },
+            { src: '../static/images/8.png', name: 'HD 209458 b', fact: 'HD 209458 b was the first exoplanet to have its atmosphere detected.' },
+            { src: '../static/images/9.png', name: 'KELT-9b', fact: 'KELT-9b is the hottest exoplanet known, with surface temperatures over 4,000°C.' },
+            { src: '../static/images/10.png', name: 'GJ 3470 b', fact: 'GJ 3470 b is a Neptune-like exoplanet located 96 light-years from Earth.' },
+            { src: '../static/images/11.png', name: 'WASP-76b', fact: 'On WASP-76b, it is so hot that iron vapor condenses into rain.' },
+            { src: '../static/images/12.png', name: 'TRAPPIST-1d', fact: 'TRAPPIST-1d is one of seven planets in the TRAPPIST-1 system and may have liquid water.' },
+            { src: '../static/images/13.png', name: 'HD 189733b', fact: 'HD 189733b is a hot Jupiter that experiences extreme weather, with winds over 5,000 mph.' },
+            { src: '../static/images/14.png', name: 'XO-3b', fact: 'XO-3b is a gas giant with an eccentric orbit, meaning its distance from its star varies widely.' },
+            { src: '../static/images/15.png', name: 'K2-106b', fact: 'K2-106b is a rocky exoplanet with an atmosphere that may be stripped away by its host star.' },
+            { src: '../static/images/16.png', name: 'LHS 6343 b', fact: 'LHS 6343 b is a brown dwarf, a celestial object between a giant planet and a small star.' }
+        ];
+        function getRandomExoplanets(count) {
+            const shuffled = [...allImages].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
+        const selectedImages = getRandomExoplanets(8);
+        const cards = [...selectedImages, ...selectedImages]; // Duplicate images for pairs
+        shuffle(cards);
+
+        const gameBoard = document.querySelector('.game-board');
+        const factImage = document.getElementById('fact-image');
+        const factText = document.getElementById('fact-text');
+        let firstCard, secondCard;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+
+        cards.forEach((card, index) => {
+            const cardElement = document.createElement('div');
+            cardElement.classList.add('card');
+            cardElement.innerHTML = `<img src="${card.src}" alt="${card.name}">`;
+            cardElement.dataset.fact = card.fact;
+            cardElement.dataset.src = card.src;
+
+            cardElement.addEventListener('click', () => {
+                if (lockBoard || cardElement === firstCard) return;
+
+                cardElement.classList.add('flipped');
+                
+                if (!hasFlippedCard) {
+                    // First card flip
+                    hasFlippedCard = true;
+                    firstCard = cardElement;
+                    return;
+                }
+
+                // Second card flip
+                secondCard = cardElement;
+                checkForMatch();
+            });
+
+            gameBoard.appendChild(cardElement);
+        });
+
+        function checkForMatch() {
+            const isMatch = firstCard.innerHTML === secondCard.innerHTML;
+
+            if (isMatch) {
+                disableCards();
+                showFact(firstCard.dataset.fact, firstCard.dataset.src);
+            } else {
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.classList.add('matched');
+            secondCard.classList.add('matched');
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flipped');
+                secondCard.classList.remove('flipped');
+                resetBoard();
+            }, 1500);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+
+        function showFact(fact, imageSrc) {
+            factText.textContent = fact;
+            factImage.src = imageSrc;
+            factImage.style.display = 'block';
+            setTimeout(() => {
+                factText.textContent = '';
+                factImage.style.display = 'none';
+            }, 4000);
+        }
+
+        function shuffle(array) {
+            array.sort(() => Math.random() - 0.5);
+        }
+    </script>
+</body>
+</html>

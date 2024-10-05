@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 800px;
+        }
+        .card-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .card {
+            width: 150px;
+            height: 100px;
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card.selected {
+            background-color: #ffeb3b;
+        }
+        .card.correct {
+            background-color: #4caf50;
+            color: white;
+        }
+        .card.incorrect {
+            background-color: #f44336;
+            color: white;
+        }
+        #score, #hint {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #hint {
+            color: #2196f3;
+            cursor: pointer;
+        }
+        #reset-button, #hint-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #reset-button:hover, #hint-button:hover {
+            background-color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Match facts</h1>
+    <div id="game-container">
+        <div id="planets-row" class="card-row"></div>
+        <div id="facts-row" class="card-row"></div>
+    </div>
+    <div id="score">Matches: 0</div>
+    <div id="hint"></div>
+    <button id="hint-button">Get Hint</button>
+    <button id="reset-button">Reset Game</button>
+
+    <script>
+        const exoplanets = [
+            { name: "TRAPPIST-1e", feature: "Potentially habitable", hint: "This planet might support liquid water on its surface." },
+            { name: "HD 189733 b", feature: "Blue color", hint: "Its atmosphere contains silicate particles that scatter blue light." },
+            { name: "Kepler-16b", feature: "Orbits two suns", hint: "This planet is in a binary star system, like Tatooine from Star Wars." },
+            { name: "CoRoT-7b", feature: "Rocky super-Earth", hint: "It's a bit larger than Earth and has a similar composition." },
+            { name: "WASP-12b", feature: "Extremely hot", hint: "This planet is so close to its star that it's being torn apart by gravity." },
+            { name: "TrES-2b", feature: "Darkest known planet", hint: "This planet reflects less than 1% of the light that hits it." },
+
+        ];
+
+        let cards = [];
+        let selectedCards = [];
+        let matches = 0;
+
+        function createCard(content, isFeature) {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.textContent = content;
+            card.addEventListener("click", () => selectCard(card, isFeature));
+            return card;
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function initializeGame() {
+            const planetsRow = document.getElementById("planets-row");
+            const factsRow = document.getElementById("facts-row");
+            planetsRow.innerHTML = "";
+            factsRow.innerHTML = "";
+            cards = [];
+            selectedCards = [];
+            matches = 0;
+            updateScore();
+            updateHint("");
+
+            const planetNames = exoplanets.map(planet => planet.name);
+            const planetFeatures = exoplanets.map(planet => planet.feature);
+            shuffleArray(planetNames);
+            shuffleArray(planetFeatures);
+
+            planetNames.forEach(name => {
+                const card = createCard(name, false);
+                cards.push(card);
+                planetsRow.appendChild(card);
+            });
+
+            planetFeatures.forEach(feature => {
+                const card = createCard(feature, true);
+                cards.push(card);
+                factsRow.appendChild(card);
+            });
+        }
+
+        function selectCard(card, isFeature) {
+            if (card.classList.contains("correct") || selectedCards.length === 2) return;
+
+            card.classList.add("selected");
+            selectedCards.push({ card, isFeature });
+
+            if (selectedCards.length === 2) {
+                setTimeout(checkMatch, 500);
+            }
+        }
+
+        function checkMatch() {
+            const [selection1, selection2] = selectedCards;
+            const isMatch = exoplanets.some(planet => 
+                (selection1.card.textContent === planet.name && selection2.card.textContent === planet.feature) ||
+                (selection2.card.textContent === planet.name && selection1.card.textContent === planet.feature)
+            );
+
+            if (isMatch) {
+                selection1.card.classList.add("correct");
+                selection2.card.classList.add("correct");
+                matches++;
+                updateScore();
+
+                if (matches === exoplanets.length) {
+                    setTimeout(() => alert("Congratulations! You've matched all the exoplanets!"), 500);
+                }
+            } else {
+                selection1.card.classList.add("incorrect");
+                selection2.card.classList.add("incorrect");
+                setTimeout(() => {
+                    selection1.card.classList.remove("incorrect");
+                    selection2.card.classList.remove("incorrect");
+                }, 1000);
+            }
+
+            selection1.card.classList.remove("selected");
+            selection2.card.classList.remove("selected");
+            selectedCards = [];
+        }
+
+        function updateScore() {
+            document.getElementById("score").textContent = `Matches: ${matches}`;
+        }
+
+        function updateHint(hint) {
+            document.getElementById("hint").textContent = hint;
+        }
+
+        function getHint() {
+            const unmatched = exoplanets.filter(planet => 
+                !cards.find(card => card.textContent === planet.name && card.classList.contains("correct"))
+            );
+            if (unmatched.length > 0) {
+                const randomPlanet = unmatched[Math.floor(Math.random() * unmatched.length)];
+                updateHint(`Hint for ${randomPlanet.name}: ${randomPlanet.hint}`);
+            } else {
+                updateHint("All planets have been matched!");
+            }
+        }
+
+        document.getElementById("reset-button").addEventListener("click", initializeGame);
+        document.getElementById("hint-button").addEventListener("click", getHint);
+
+        initializeGame();
+    </script>
+</body>
+</html>

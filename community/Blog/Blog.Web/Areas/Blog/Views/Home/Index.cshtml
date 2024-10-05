@@ -1,0 +1,73 @@
+﻿@using Blog.Entities.Models
+@model IEnumerable<Post>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Web.Common;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+<!--===breadcrumb=====-->
+<section class="header-descriptin329" style="background-color: #1e1e1e; color: #ddd;">
+    <div class="container">
+        <h3>Blog</h3>
+        <ol class="breadcrumb breadcrumb839" style="background-color: transparent; color: #ddd;">
+            <li><a href="/Forum/home/index" style="color: #ddd;">Home</a></li>
+            <li class="active">Blog</li>
+        </ol>
+    </div>
+</section>
+
+<!--====body content ===-->
+<section class="main-content920" style="background-color: #222629; color: #ddd;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 blog--top-part2892">
+                @foreach (var item in Model)
+                {
+                    <div class="blog-part3903" style="background-color: #2b2b2b; color: #ddd; margin-bottom: 20px; padding: 15px; border-radius: 5px;">
+                        <a asp-action="GetPost" asp-route-id="@item.Id">
+                            <img src="~/@item.Img" alt="@item.Title" class="img-responsive">
+                        </a>
+                        <div class="blog-details3902">
+                            <h3>
+                                <span><i class="fa fa-picture-o" aria-hidden="true"></i></span>
+                                <a asp-action="GetPost" asp-route-id="@item.Id" class="link-light text-decoration-none">@item.Title</a>
+                            </h3>
+                            <hr style="border-color: #444;">
+                            <div class="ques-icon-info2933">
+                                <a href="#" aria-label="Author: Ahmed Hasan" style="color: #ddd;"><i class="fa fa-user" aria-hidden="true"></i>@item.ApplicationUser.Name</a>
+                                <a href="#" aria-label="Published on: July 21, 2017" style="color: #ddd;"><i class="fa fa-calendar" aria-hidden="true"></i> @item.CreatedAt</a>
+                                <a href="#" aria-label="Category: Work" style="color: #ddd;"><i class="fa fa-briefcase" aria-hidden="true"></i> @item.Category.Name</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
+                                 new PagedListRenderOptions
+                        {
+                            LiElementClasses = new string[] { "page-item" },
+                            PageClasses = new string[] { "page-link" }
+                        })
+                    </div>
+                </div>
+
+            </div>
+            <aside class="col-md-3 sidebar97239">
+                <div class="categori-part329" style="background-color: #2b2b2b; color: #ddd; padding: 15px; border-radius: 5px;">
+                    <h4>Categories</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                            <li><a style="color: #ddd;">@category.Name</a></li>
+                        }
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>

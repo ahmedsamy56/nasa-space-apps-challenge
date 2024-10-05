@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Odyssey</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+        .space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            z-index: -1;
+        }
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: twinkle 5s infinite;
+        }
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .video-section {
+            width: 80vw;
+            max-width: 1200px;
+            margin-bottom: 40px;
+        }
+        .video-frame {
+            border: 4px solid #4a5568;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        h1 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin: 0 0 20px 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="space-background"></div>
+    <div class="stars"></div>
+
+
+    <div class="content">
+
+
+        <div class="video-section">
+            <h1>Welcome, explorer! Prepare for 360° virtual reality tour of six real exoplanets. Immerse yourself in the beauty and mystery of distant worlds beyond our solar system. Whether you're using a VR headset or watching on your screen, experience breathtaking visuals and fascinating facts about these unique planets. The wonders of the universe await—are you ready to explore?</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/qhLExhpXX0E?mute=1&loop=1&playlist=qhLExhpXX0E"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        
+
+        
+        <div class="video-section">
+            <h1>Hey, space explorers! 🌌 Today, we’re zooming straight into the heart of the Andromeda Galaxy, 2.5 million light-years away. Get ready to witness stunning stars and uncover the mysteries of a supermassive black hole at the core.</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/I6jcLXLBy2o?mute=1&loop=1&playlist=I6jcLXLBy2o"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="video-section">
+            <h1>Today, we’re taking a thrilling 360° VR journey through the discovery of over 4,000 exoplanets from 1992 to 2019. Watch as new worlds emerge in this stunning timelapse. Whether you’re in a VR headset or just using your screen, let’s explore the galaxy together and celebrate nearly three decades of cosmic discovery!</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/0WPOd83TOoU?mute=1&loop=1&playlist=0WPOd83TOoU"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="video-section">
+            <h1>We are going to fly through nebulas, planets, and black holes. The Space Journey in 360 contains various locations in our Universe. Whether landing on alien planets or flying through stunning galaxies, the Space Flight through the Universe in 360 gives you an incredible impression of the magnificence of our Universe.</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/Gf0Wlo6hJMg?mute=1&loop=1&playlist=Gf0Wlo6hJMg"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        
+        
+
+
+        <div class="video-section">
+            <h1>This video is about Mars. It discusses how Mars once had an ocean 4 billion years ago. The video mentions that there is evidence of this ocean in the form of dried-up riverbeds and minerals that are only found in water. The video also talks about the possibility of life on Mars in the past and the future.</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/GCsEqVr5dpM?mute=1&loop=1&playlist=GCsEqVr5dpM" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <div class="video-section">
+            <h1>This video is a 360-degree virtual reality experience of the universe. It allows viewers to explore the vastness of space and see planets, stars, galaxies, and other celestial bodies in stunning detail. The video also features a narration that provides information about the different objects that viewers encounter.</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/YWlW1xR0ReA?mute=1&loop=1&playlist=YWlW1xR0ReA" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="video-section">
+            <h1>The video begins with a spacecraft approaching the mysterious Pluto, building suspense as it reveals the icy surface adorned with mountains. It zooms in on Pluto's moon, Charon, highlighting its cold, reflective terrain, and then transitions to the captivating blue atmosphere of Pluto, hinting at unknown secrets. As the spacecraft departs, viewers are left wondering what discoveries lie ahead in this enigmatic realm.</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/jIxQXGTl_mo?mute=1&loop=1&playlist=jIxQXGTl_mo" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="video-section">
+            <h1>Embark on an exhilarating virtual reality adventure that takes you beyond our solar system! This immersive 360-degree journey propels you at faster-than-light speeds through breathtaking cosmic landscapes, revealing distant galaxies and celestial bodies. As you explore the vastness of space, a sense of wonder and suspense builds, inviting you to uncover hidden secrets and face the unknown. This thrilling experience promises to educate and ignite the explorer within, leaving you captivated by the mysteries of the universe.</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/gT946e-hZoY?mute=1&loop=1&playlist=gT946e-hZoY" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="video-section">
+            <h1>Embark viewers on a serene journey across the enigmatic landscapes of Mars, accompanied by soothing music that enhances relaxation. As you glide over the planet’s stunning terrain, hidden secrets and untold mysteries beckon from the dust below. What wonders—and perhaps dangers—lie in wait beneath the calm surface?</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/q3GY93w8kGg?mute=1&loop=1&playlist=q3GY93w8kGg" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="video-section">
+            <h1>Viewers embark on an exhilarating journey through the galaxy, navigating vibrant star fields and cosmic scenery. Suspense builds as they approach a mesmerizing globular star cluster, each dazzling star holding its own secrets. The adventure invites exploration of the vast mysteries beyond, leaving viewers eager to uncover the unknown in the depths of space.</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/zBpLGfeSHAE?mute=1&loop=1&playlist=zBpLGfeSHAE" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="video-section">
+            <h1>Viewers are transported to the breathtaking realm of Saturn, showcasing the planet's stunning rings and vibrant atmosphere in vivid 4K detail. As you explore its mesmerizing landscapes, the intricate details of Saturn's rings and moons come to life, inviting appreciation for their beauty and complexity. Captivating visuals create a sense of wonder, making you feel as though you're truly floating among the celestial marvels of this iconic planet. This journey deepens your appreciation for the mysteries of the solar system.</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/u1Qs_Br6pag?mute=1&loop=1&playlist=u1Qs_Br6pag" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="video-section">
+            <h1>Viewers embark on a thrilling expedition into the depths of a black hole, where stunning visuals and 3D effects create a sense of wonder and suspense. As you approach, gravitational forces warp space and time, drawing you closer to the unknown. The journey explores the mesmerizing phenomena surrounding the black hole, inviting contemplation of its mysteries and the nature of the universe. This captivating adventure promises to leave you in awe of the cosmic wonders beyond our understanding.</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/EUV5D5YZAO0?mute=1&loop=1&playlist=EUV5D5YZAO0" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        
+
+
+        <div class="video-section">
+            <h1>Viewers embark on a mesmerizing journey through the vibrant colors and intricate formations of a nebula. This immersive experience showcases stunning visuals as you glide through swirling clouds of gas and dust, creating a breathtaking tapestry of cosmic beauty. Accompanied by a captivating soundtrack, the journey invites you to lose yourself in the wonders of space. This video offers a unique blend of relaxation and exploration, allowing you to appreciate the awe-inspiring sights of the universe in an engaging way.</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/BurebOcG0tg?mute=1&loop=1&playlist=BurebOcG0tg" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        
+
+
+        
+        <div class="video-section">
+            <h1>Viewers embark on an intriguing exploration of a mysterious signal detected from the star Ross 128. This captivating experience combines stunning visuals with suspense as you trace the signal's origins through breathtaking celestial landscapes. The video invites contemplation of the implications of discovering alien signals, sparking curiosity about life beyond our planet. This immersive adventure promises to engage anyone interested in the universe's mysteries.</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/phEsmJz1mEk?mute=1&loop=1&playlist=phEsmJz1mEk" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        
+
+
+        <div class="video-section">
+            <h1>Viewers are plunged into an intense and immersive experience simulating the descent into a black hole. As you approach the event horizon, stunning visuals capture the dramatic warping of space and time, creating awe and suspense. The journey showcases fascinating phenomena like gravitational lensing and the eerie darkness beyond. With captivating soundscapes and realistic effects, this video invites contemplation of the universe's mysteries while experiencing the thrill of falling into one of its most enigmatic features. It’s a breathtaking exploration that leaves you pondering the unknowns of cosmic existence.</h1>
+            <div class="video-frame">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/4wE8luRw1pc?mute=1&loop=1&playlist=4wE8luRw1pc" 
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+        
+
+    </div>
+</body>
+</html>

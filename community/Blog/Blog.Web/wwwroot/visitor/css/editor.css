@@ -1,0 +1,300 @@
+@charset "utf-8";
+
+/* Base styles */
+.jumbotron {
+    background-color: #222; /* Dark background */
+    background-image: url(images/radial_bg.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.5) inset, 0 -3px 7px rgba(0, 0, 0, 0.5) inset; /* Adjust shadow */
+    color: #FFFFFF; /* Light text color */
+    padding: 40px 0;
+    position: relative;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 0, 0, 0.075);
+}
+
+    .jumbotron h1 {
+        font-family: 'Roboto', sans-serif !important;
+        font-size: 45px;
+        font-weight: 300;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+        padding-bottom: 20px;
+    }
+
+    .jumbotron p {
+        font-family: 'Roboto', sans-serif !important;
+        font-size: 30px;
+        font-weight: 300;
+        line-height: 1.25;
+        color: #ccc; /* Light grey text */
+    }
+
+    .jumbotron .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .jumbotron:after {
+        background: url("../images/pattern.png") repeat scroll center center transparent;
+        bottom: 0;
+        content: "";
+        display: block;
+        left: 0;
+        opacity: 0.4;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .jumbotron:after {
+        background-size: 400px 400px;
+    }
+
+.masthead {
+    color: #FFFFFF;
+    margin-bottom: 0;
+    padding: 30px 0 10px;
+}
+
+h2.demo-text {
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 45px;
+    font-weight: 300;
+    color: #51D2FF;
+    text-align: center;
+    margin: 20px 0;
+    line-height: 40px;
+}
+
+.features {
+    padding: 20px 0 10px 0;
+    background: #333; /* Dark background */
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 25px;
+    line-height: 35px;
+    text-align: center;
+    font-weight: 300;
+    color: #ddd; /* Light text color */
+}
+
+.footer {
+    border-top: 1px solid #444; /* Darker border */
+    margin: 20px 0 10px 0;
+    padding-top: 10px;
+    font-size: 12px;
+    color: #ccc; /* Light grey text */
+}
+
+/* Editor Styles */
+.Editor-container {
+    margin-top: 10px;
+    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #222; /* Dark background for editor */
+    color: #ddd; /* Light text color */
+}
+
+#menuBarDiv,
+#statusbar {
+    background-color: #333; /* Dark background */
+    border: 1px solid #444; /* Darker border */
+    color: #ddd; /* Light text color */
+}
+
+#menuBarDiv {
+    border-radius: 3px 3px 0 0;
+    border-bottom: none;
+    min-height: 25px;
+    padding: 5px 0;
+}
+
+#statusbar {
+    min-height: 30px;
+    border-radius: 0 0 3px 3px;
+    border-top: none;
+    line-height: 30px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.75);
+}
+
+    #statusbar .label {
+        float: right;
+        margin: 6px 10px 0 0;
+        background: #444; /* Darker background for labels */
+        color: #fff; /* Light text color */
+        text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+        padding: 2px 4px;
+        font-size: 11.844px;
+        line-height: 14px;
+    }
+
+.Editor-editor {
+    height: 300px;
+    padding: 1%;
+    border: 1px solid #444; /* Darker border */
+    border-radius: 0;
+    word-wrap: break-word;
+    background-color: #333; /* Dark background for the editor */
+    color: #ddd; /* Light text color */
+}
+
+#paletteCntr ul {
+    width: 145px;
+    float: left;
+    z-index: 999;
+    margin: 0 10px;
+}
+
+#paletteCntr li {
+    cursor: pointer;
+    display: block;
+    height: 16px;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 16px;
+    margin: 1px;
+}
+
+    #paletteCntr li div {
+        text-align: left;
+        margin: 0;
+        font-size: 12px;
+    }
+
+.specialCntr {
+    background-color: #444 !important; /* Dark background */
+    display: inline;
+    position: absolute;
+    width: 176px;
+    top: 30px;
+    left: 0;
+}
+
+    .specialCntr ul {
+        float: left;
+        margin: 10px;
+        white-space: normal;
+        -webkit-padding-start: 0px;
+        -moz-padding-start: 0px;
+    }
+
+        .specialCntr ul li {
+            list-style: none;
+            float: left;
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+            background: #555; /* Slightly lighter dark background */
+            margin: 3px;
+            color: #ddd; /* Light text color */
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .specialCntr ul li:hover {
+                background: #666; /* Darker on hover */
+                color: #FFF; /* White text on hover */
+            }
+
+pre {
+    white-space: pre-wrap; /* CSS-3 */
+    white-space: -moz-pre-wrap; /* Mozilla */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* IE 5.5+ */
+    color: #ddd; /* Light text color */
+    background-color: #333; /* Dark background */
+    padding: 10px; /* Padding for preformatted text */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.fullscreen {
+    position: fixed;
+    background: #222; /* Dark background */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    margin: 0;
+    color: #ddd; /* Light text color */
+}
+
+    .fullscreen #statusbar {
+        position: fixed;
+        bottom: 0;
+        border-top: 1px solid #444; /* Darker border */
+    }
+
+/*** Custom Added CSS for Left Tabs ***/
+.tabs-below > .nav-tabs,
+.tabs-right > .nav-tabs,
+.tabs-left > .nav-tabs {
+    border-bottom: 0;
+}
+
+.tabs-left > .nav-tabs {
+    float: left;
+    margin-right: 19px;
+    border-right: 1px solid #444; /* Darker border */
+}
+
+    .tabs-left > .nav-tabs > li > a {
+        margin-right: -1px;
+        -webkit-border-radius: 4px 0 0 4px;
+        -moz-border-radius: 4px 0 0 4px;
+        border-radius: 4px 0 0 4px;
+        background-color: #333; /* Dark background */
+        color: #ddd; /* Light text color */
+    }
+
+        .tabs-left > .nav-tabs > li > a:hover,
+        .tabs-left > .nav-tabs > li > a:focus {
+            border-color: #444 transparent #444 #444; /* Darker border */
+            outline: none;
+        }
+
+    .tabs-left > .nav-tabs .active > a,
+    .tabs-left > .nav-tabs .active > a:hover,
+    .tabs-left > .nav-tabs .active > a:focus {
+        border-color: #444 transparent #444 #444; /* Darker border */
+        color: #ff7361 !important; /* Highlight color for active tab */
+    }
+
+.dropdown-menu > li > a {
+    color: #ddd; /* Light text color for dropdown items */
+}
+
+    .dropdown-menu > li > a:hover,
+    .dropdown-menu > li > a:focus {
+        background-color: #FF7361; /* Highlight color for dropdown item hover */
+        color: #fff; /* White text on hover */
+    }
+
+
+/* Dark Theme for btn-group */
+.btn-group .btn {
+    background-color: #333; /* Dark background for buttons */
+    color: #ddd; /* Light text color */
+    border: 1px solid #444; /* Dark border */
+    text-shadow: none; /* Remove text shadow */
+}
+
+    .btn-group .btn:hover {
+        background-color: #444; /* Slightly lighter background on hover */
+        color: #fff; /* White text on hover */
+    }
+
+    .btn-group .btn:active,
+    .btn-group .btn:focus {
+        background-color: #555; /* Even lighter background when active or focused */
+        color: #fff;
+        outline: none; /* Remove outline */
+    }
+
+    .btn-group .btn.disabled,
+    .btn-group .btn[disabled] {
+        background-color: #222; /* Dark background for disabled buttons */
+        color: #666; /* Lighter text color for disabled state */
+        border-color: #444;
+    }

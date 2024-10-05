@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exoplanet Quiz Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #game-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Exoplanet Quiz Game</h1>
+        <p id="question"></p>
+        <div id="choices"></div>
+        <p id="result"></p>
+        <button id="next-btn" style="display: none;">Next Question</button>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is an exoplanet?",
+                choices: ["A planet outside our solar system", "A moon of Jupiter", "An asteroid", "A type of star"],
+                correct: 0
+            },
+            {
+                question: "Which of these is NOT a method for detecting exoplanets?",
+                choices: ["Transit method", "Radial velocity method", "Direct imaging", "Lunar eclipse method"],
+                correct: 3
+            },
+            {
+                question: "What type of exoplanet is similar in size to Earth but much hotter?",
+                choices: ["Gas giant", "Ice giant", "Super-Earth", "Hot Jupiter"],
+                correct: 2
+            },
+            {
+                question: "In which zone should an exoplanet be to potentially support life as we know it?",
+                choices: ["Frozen zone", "Habitable zone", "Lava zone", "Gas zone"],
+                correct: 1
+            },
+            {
+                question: "What is the name of the NASA mission that has discovered thousands of exoplanets?",
+                choices: ["Hubble", "Kepler", "Voyager", "Cassini"],
+                correct: 1
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionEl = document.getElementById("question");
+        const choicesEl = document.getElementById("choices");
+        const resultEl = document.getElementById("result");
+        const nextBtn = document.getElementById("next-btn");
+
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            questionEl.textContent = question.question;
+            choicesEl.innerHTML = "";
+            question.choices.forEach((choice, index) => {
+                const button = document.createElement("button");
+                button.textContent = choice;
+                button.onclick = () => selectAnswer(index);
+                choicesEl.appendChild(button);
+            });
+            resultEl.textContent = "";
+            nextBtn.style.display = "none";
+        }
+
+        function selectAnswer(choiceIndex) {
+            const question = questions[currentQuestion];
+            const correct = choiceIndex === question.correct;
+            if (correct) {
+                score++;
+                resultEl.textContent = "Correct!";
+                resultEl.style.color = "green";
+            } else {
+                resultEl.textContent = "Incorrect. The correct answer is: " + question.choices[question.correct];
+                resultEl.style.color = "red";
+            }
+            choicesEl.querySelectorAll("button").forEach(btn => btn.disabled = true);
+            nextBtn.style.display = "inline-block";
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                questionEl.textContent = `Game Over! Your score: ${score}/${questions.length}`;
+                choicesEl.innerHTML = "";
+                resultEl.textContent = "";
+                nextBtn.style.display = "none";
+            }
+        }
+
+        nextBtn.onclick = nextQuestion;
+        loadQuestion();
+    </script>
+</body>
+</html>
